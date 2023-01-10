@@ -5,9 +5,34 @@
     <title>Title</title>
 </head>
 <body>
-
-사장님 회원가입
-
-
+<form action="/basic/signup/seller" method="post">
+    <table>
+        <tr>
+            이메일:
+            <input id="email" placeholder="email" type="text" name="email" >
+        </tr>
+        <tr>
+            성명:
+            <input id="name" placeholder="성명" type="text" name="name">
+        </tr>
+        <tr>
+            나이:
+            <input id="age" placeholder="age" type="text" name="age">
+        </tr>
+        <tr>
+            비밀번호:
+            <input id="password" placeholder="password" type="text" name="password">
+        </tr>
+        <tr>
+            사업등록번호:
+            <input id="businessNum" placeholder="business number" type="text" name="businessNum">
+        </tr>
+        <tr>
+            사업체이름:
+            <input id="businessName" placeholder="business name" type="text" name="businessName">
+        </tr>
+    </table>
+    <button type="submit">회원가입</button>
+</form>
 </body>
 </html>
