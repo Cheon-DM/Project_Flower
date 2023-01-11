@@ -1,4 +1,4 @@
-package project.flower.domain;
+package project.flower.domain.admin;
 
 import jakarta.persistence.*;
 import lombok.*;
