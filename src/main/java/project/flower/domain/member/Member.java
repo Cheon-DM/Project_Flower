@@ -3,6 +3,9 @@ package project.flower.domain.member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import project.flower.domain.favorite.Favorite;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -38,4 +41,8 @@ public class Member {
     @Column
     @ColumnDefault("N")
     private String coupon;
+
+    // FK
+    @OneToMany(mappedBy = "member_id")
+    private List<Favorite> favorites;
 }
