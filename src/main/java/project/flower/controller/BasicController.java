@@ -3,7 +3,6 @@ package project.flower.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import project.flower.domain.Admin;
 import project.flower.domain.AdminForm;
 import project.flower.service.JoinAdmin;
 
@@ -27,4 +26,5 @@ public class BasicController {
         joinAdmin.join(form);
         return "basic/cart";
     }
+
 }
