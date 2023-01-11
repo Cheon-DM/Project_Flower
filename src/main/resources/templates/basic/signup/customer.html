@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
-구매자 회원가입
+<form action="/basic/signup/customer" method="post">
+    <table>
+        <tr>
+            이메일:
+            <input id="email" placeholder="email" type="text" name="email" >
+        </tr>
+        <tr>
+            성명:
+            <input id="name" placeholder="성명" type="text" name="name">
+        </tr>
+        <tr>
+            나이:
+            <input id="age" placeholder="age" type="text" name="age">
+        </tr>
+        <tr>
+            비밀번호:
+            <input id="password" placeholder="password" type="text" name="password">
+        </tr>
+        <tr>
+            성별:
+            <input id="sex" placeholder="성별" type="text" name="sex">
+        </tr>
+    </table>
+    <button type="submit">회원가입</button>
+</form>
 </body>
 </html>
