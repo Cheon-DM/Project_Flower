@@ -1,11 +1,10 @@
-package project.flower.domain;
+package project.flower.domain.admin;
 
-import jakarta.persistence.Column;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdminForm {
 
     private String name;

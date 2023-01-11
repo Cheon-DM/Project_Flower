@@ -1,11 +1,13 @@
 package project.flower.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.flower.domain.Admin;
+import org.springframework.stereotype.Repository;
+import project.flower.domain.admin.Admin;
 
 import java.util.Optional;
 
+@Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> { //JpaRepository=> findById, findAll사용가능
-    //Admin save(Admin admin);
-    Optional<Admin> findById(Long id);
+
+    Optional<Admin> findByEmail(String email);
 }
