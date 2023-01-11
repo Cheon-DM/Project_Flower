@@ -16,7 +16,7 @@ public class JoinAdmin {
 
 
 
-    public String  join(AdminForm form){
+    public String join(AdminForm form){
         adminRepository.save(Admin.builder()
                 .name(form.getName())
                 .age(form.getAge())
