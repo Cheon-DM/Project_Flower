@@ -2,6 +2,7 @@ package project.flower.domain.member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @NoArgsConstructor
@@ -12,7 +13,7 @@ import lombok.*;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(unique = true)
@@ -31,8 +32,10 @@ public class Member {
     private String sex;
 
     @Column
+    @ColumnDefault("0")
     private Long saving;
 
     @Column
+    @ColumnDefault("N")
     private String coupon;
 }
