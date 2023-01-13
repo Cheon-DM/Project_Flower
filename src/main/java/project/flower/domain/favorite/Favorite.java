@@ -17,14 +17,14 @@ import java.util.List;
 public class Favorite {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long favoriteId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member_id")
     private Member memberId;
 
     // FK
-    @OneToMany (mappedBy = "favorite_id")
+    @OneToMany (mappedBy = "favoriteId")
     private List<FavoriteStore> favorites;
 }

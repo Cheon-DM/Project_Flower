@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class FavoriteStore {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long favoriteStoreId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "favorite_id")
