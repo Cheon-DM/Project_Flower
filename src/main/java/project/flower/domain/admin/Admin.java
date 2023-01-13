@@ -2,6 +2,11 @@ package project.flower.domain.admin;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.flower.bouquet.FlowerBouquet;
+import project.flower.domain.flower.selfmade.FlowerSingle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -28,9 +33,15 @@ public class Admin {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "business_num",nullable = false)
     private int businessNum;
 
-    @Column(nullable = false)
+    @Column(name="business_name",nullable = false)
     private String businessName;
+
+    @OneToMany(mappedBy = "admin")
+    List<FlowerBouquet> bouquetList = new ArrayList<FlowerBouquet>();
+
+    @OneToMany(mappedBy = "admin")
+    List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
 }
