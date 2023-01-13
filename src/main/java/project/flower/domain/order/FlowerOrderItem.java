@@ -1,4 +1,4 @@
-package project.flower.domain.favorite;
+package project.flower.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,15 +11,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class FavoriteStore {
+public class FlowerOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "favorite_id")
-    private Favorite favoriteId;
+    @Column(nullable = false)
+    private int count;
 
-    private int businessNumber;
+    @Column(nullable = false)
+    private Long price;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private FlowerOrder flowerOrderId;
 }

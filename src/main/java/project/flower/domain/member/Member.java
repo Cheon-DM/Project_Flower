@@ -3,9 +3,9 @@ package project.flower.domain.member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import project.flower.domain.cart.Cart;
 import project.flower.domain.favorite.Favorite;
-
-import java.util.List;
+import project.flower.domain.order.FlowerOrder;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +16,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -39,10 +39,15 @@ public class Member {
     private Long saving;
 
     @Column
-    @ColumnDefault("N")
     private String coupon;
 
     // FK
-    @OneToMany(mappedBy = "member_id")
-    private List<Favorite> favorites;
+    @OneToOne(mappedBy = "memberId")
+    private Favorite favoriteId;
+
+    @OneToOne(mappedBy = "memberId")
+    private Cart cartId;
+
+    @OneToOne(mappedBy = "memberId")
+    private FlowerOrder flowerOrderId;
 }
