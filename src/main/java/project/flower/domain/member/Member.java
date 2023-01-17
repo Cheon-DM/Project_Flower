@@ -19,13 +19,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false)
@@ -33,13 +33,6 @@ public class Member {
 
     @Column(nullable = false)
     private String sex;
-
-    @Column
-    @ColumnDefault("0")
-    private Long saving;
-
-    @Column
-    private String coupon;
 
     // FK
     @OneToOne(mappedBy = "memberId")

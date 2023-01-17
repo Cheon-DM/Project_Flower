@@ -24,7 +24,7 @@ public class MemberController {
     public String signUpCustomer(@ModelAttribute("memberForm") MemberForm form){
         log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
                 form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
-        memberService.createMember(form);
+        memberService.join(form);
         return "redirect:/";
     }
 }
