@@ -16,15 +16,26 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/signup/customer")
-    public String signUpCustomerForm() {
+    public String signUpCustomerForm(@ModelAttribute("form") MemberForm form) {
         return "basic/signup/customer";
     }
 
-    @PostMapping("/signup/customer")
-    public String signUpCustomer(@ModelAttribute("memberForm") MemberForm form){
+    @PostMapping("/signupProc")
+    public String signUpProc(MemberForm form) {
         log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
                 form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
         memberService.join(form);
-        return "redirect:/";
+
+        return "basic/login/customer";
     }
+
+    @GetMapping("/login/customer")
+    public String customerLogin() {
+        return "basic/login/customer";
+    }
+
+//    @PostMapping("/loginProc")
+//    public String customerLoginProc() {
+//        return "basic/cart";
+//    }
 }
