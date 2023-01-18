@@ -9,7 +9,7 @@ import project.flower.service.AdminService;
 
 @Slf4j
 @Controller
-@RequestMapping("/basic")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -18,7 +18,7 @@ public class AdminController {
     @GetMapping("/signup/seller")
     public String signUpSellerForm(){
 
-        return "basic/signup/seller";
+        return "signup/seller";
     }
 
     @PostMapping("/signup/seller")
@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping("/signin/seller")
     public String signInSellerForm(@ModelAttribute AdminForm form){
 
-        return "basic/signin/seller";
+        return "signin/seller";
     }
 
     @PostMapping("/signin/seller")
