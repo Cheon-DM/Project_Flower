@@ -2,6 +2,7 @@ package project.flower;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 public class FlowerApplication {
@@ -10,4 +11,8 @@ public class FlowerApplication {
 		SpringApplication.run(FlowerApplication.class, args);
 	}
 
+	@RequestMapping("/")
+	public String homePage() {
+		return "index.html";
+	}
 }
