@@ -28,14 +28,14 @@ public class SecurityConfig{
         http.csrf().disable();
 
         // 해당 경로 접근 허용
-        http.authorizeHttpRequests().requestMatchers("/", "/basic/cart", "/index.html", "/basic/loginProc", "/basic/signupProc", "/basic/signup/**", "/basic/login/**", "/css/**", "/favicon.ico", "/**/favicon.ico").permitAll()
+        http.authorizeHttpRequests().requestMatchers("/", "/cart", "/index.html", "/loginProc", "/signupProc", "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
 
         // 로그인 페이지 지정
-        http.formLogin().loginPage("/basic/login/customer")
+        http.formLogin().loginPage("/login/customer")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .loginProcessingUrl("/basic/loginProc")
+                .loginProcessingUrl("/loginProc")
                 .defaultSuccessUrl("/").permitAll();
 
         // 로그아웃 페이지

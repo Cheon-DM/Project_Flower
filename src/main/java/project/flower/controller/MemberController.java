@@ -9,7 +9,7 @@ import project.flower.service.MemberService;
 
 @Slf4j
 @Controller
-@RequestMapping("/basic")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -17,7 +17,7 @@ public class MemberController {
 
     @GetMapping("/signup/customer")
     public String signUpCustomerForm(@ModelAttribute("form") MemberForm form) {
-        return "basic/signup/customer";
+        return "signup/customer";
     }
 
     @PostMapping("/signupProc")
@@ -26,12 +26,12 @@ public class MemberController {
                 form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
         memberService.join(form);
 
-        return "basic/login/customer";
+        return "login/customer";
     }
 
     @GetMapping("/login/customer")
     public String customerLogin() {
-        return "basic/login/customer";
+        return "login/customer";
     }
 
 //    @PostMapping("/loginProc")
