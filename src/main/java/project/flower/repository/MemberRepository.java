@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     // 회원 가입 후 로그인시 사용
-    Optional<Member> findByMemberEmail (String memberId);
+    Optional<Member> findByEmail (String memberEmail);
 }
