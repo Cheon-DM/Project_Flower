@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>customer signUp</title>
+    <title>signUp - customer</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -37,27 +37,26 @@
     </style>
 </head>
 <body>
-<form action="/basic/signup/customer" method="post">
+<form action="/basic/signupProc" method="post">
     <div class="container">
         <div class="input-form-backgroud row">
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-3">회원가입</h4>
-
-                <form class="validation-form" novalidate>
+                <form class="validation-form" th:object="${form}" novalidate>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="sex">성별</label>
-                            <select class="custom-select d-block w-100" id="sex">
-                                <option value=""></option>
-                                <option>남</option>
-                                <option>여</option>
+                            <select class="custom-select d-block w-100" id="sex" th:field="*{sex}">
+                                <option value="">성별</option>
+                                <option th:value="'M'">남</option>
+                                <option th:value="'F'">여</option>
                             </select>
                             <div class="invalid-feedback">
                                 성별을 선택해주세요.
@@ -65,7 +64,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="age">나이</label>
-                            <input type="text" class="form-control" id="age" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="age" th:field="*{age}" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 나이를 입력해주세요.
                             </div>
@@ -74,25 +73,25 @@
 
                     <div class="mb-3">
                         <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="you@example.com" required>
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="password">비밀번호</label>
-                        <input type="email" class="form-control" id="password" placeholder="" required>
+                        <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="" required>
                         <div class="invalid-feedback">
                             비밀번호를 입력해주세요.
                         </div>
                     </div>
 
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="aggrement" required>
-                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-                    </div>
+<!--                    <hr class="mb-4">-->
+<!--                    <div class="custom-control custom-checkbox">-->
+<!--                        <input type="checkbox" class="custom-control-input" id="aggrement" required>-->
+<!--                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>-->
+<!--                    </div>-->
                     <div class="mb-4"></div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">회원 가입</button>
                 </form>
