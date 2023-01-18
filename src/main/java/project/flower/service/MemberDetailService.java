@@ -23,9 +23,9 @@ public class MemberDetailService implements UserDetailsService {
     // email이 DB에 있는지 확인
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        Member member = memberRepository.findByMemberEmail(userEmail)
+        Member member = memberRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다. :" + userEmail));
-
+        log.info("작동중입니다.");
         session.setAttribute("member", new MemberSessionDto(member));
 
         // security session에 member 정보 저장
