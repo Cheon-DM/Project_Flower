@@ -11,8 +11,5 @@ public class FlowerApplication {
 		SpringApplication.run(FlowerApplication.class, args);
 	}
 
-	@RequestMapping("/")
-	public String homePage() {
-		return "index.html";
-	}
+
 }

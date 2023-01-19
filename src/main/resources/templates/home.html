@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8" />
     <meta
@@ -61,17 +62,26 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <a href="/cart" class="btn btn-outline-dark">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </a>
-
-                <a href="/login/customer" class="btn btn-outline-dark">login-고객</a>
-                <a href="/login/seller" class="btn btn-outline-dark">login-사장</a>
-                <a href="/signup" class="btn btn-outline-dark">sign up</a>
-
+            <form class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a href="/cart" class="nav-link">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/login/customer" class="nav-link">login-고객</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/login/seller" class="nav-link">login-사장</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/signup" class="nav-link">sign up</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/logout" class="nav-link">logout</a>
+                </li>
             </form>
         </div>
     </div>
@@ -79,7 +89,7 @@
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
+        <div class="text-center text-white" sec:authorize="isAuthenticated()">
             <h1 class="display-4 fw-bolder">Shop in style</h1>
             <p class="lead fw-normal text-white-50 mb-0">
                 With this shop hompeage template

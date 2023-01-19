@@ -22,13 +22,4 @@ public class MemberService {
         form.setPassword(encoder.encode(form.getPassword()));
         return memberRepository.save(form.toEntity()).getId();
     }
-//
-//    public String createMember(MemberForm form) {
-//        Member member = new Member();
-//        BeanUtils.copyProperties(form, member);
-//        memberRepository.save(member);
-//        return "Success";
-//    }
-
-
 }

@@ -28,8 +28,9 @@ public class SecurityConfig{
         http.csrf().disable();
 
         // 해당 경로 접근 허용
-        http.authorizeHttpRequests().requestMatchers("/", "/cart", "/index.html", "/loginProc", "/signupProc", "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**").permitAll()
-                .anyRequest().authenticated();
+        http.authorizeHttpRequests().requestMatchers("/", "/signup", "/cart", "/index.html", "/loginProc",
+                        "/signupProc", "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
+                .permitAll().anyRequest().authenticated();
 
         // 로그인 페이지 지정
         http.formLogin().loginPage("/login/customer")
@@ -39,7 +40,10 @@ public class SecurityConfig{
                 .defaultSuccessUrl("/").permitAll();
 
         // 로그아웃 페이지
-        http.logout().logoutSuccessUrl("/").invalidateHttpSession(true);
+        http.logout().logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
 
         return http.build();
     }
