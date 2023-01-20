@@ -2,7 +2,6 @@ package project.flower.domain.member;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import project.flower.domain.cart.Cart;
 import project.flower.domain.favorite.Favorite;
 import project.flower.domain.order.FlowerOrder;
@@ -35,11 +34,11 @@ public class Member {
     private String sex;
 
     // FK
-    @OneToOne(mappedBy = "memberId")
-    private Favorite favoriteId;
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Cart cart;
 
     @OneToOne(mappedBy = "memberId")
-    private Cart cartId;
+    private Favorite favoriteId;
 
     @OneToOne(mappedBy = "memberId")
     private FlowerOrder flowerOrderId;
