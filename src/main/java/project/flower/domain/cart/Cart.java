@@ -20,12 +20,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "member_id")
-    private Member memberId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     // FK
-    @OneToMany (mappedBy = "cartId")
-    private List<CartItem> cartIdList;
+    @OneToMany (mappedBy = "cart")
+    private List<CartItem> cartItemList;
 
 }
