@@ -24,4 +24,9 @@ public class HomepageController {
     public String loginPage() {
         return "login";
     }
+
+    @GetMapping("/cart")
+    public String CartPage() {
+        return "cart";
+    }
 }
