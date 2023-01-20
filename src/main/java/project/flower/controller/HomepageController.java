@@ -19,4 +19,9 @@ public class HomepageController {
     public String signUpPage() {
         return "signup";
     }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
 }
