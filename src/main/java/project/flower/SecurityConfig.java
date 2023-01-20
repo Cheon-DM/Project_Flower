@@ -28,8 +28,8 @@ public class SecurityConfig{
         http.csrf().disable();
 
         // 해당 경로 접근 허용
-        http.authorizeHttpRequests().requestMatchers("/", "/signup", "/cart", "/index.html", "/loginProc",
-                        "/signupProc", "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
+        http.authorizeHttpRequests().requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
+                        "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
                 .permitAll().anyRequest().authenticated();
 
         // 로그인 페이지 지정
