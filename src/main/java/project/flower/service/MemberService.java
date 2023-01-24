@@ -14,7 +14,7 @@ import project.flower.repository.MemberRepository;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService{
 
     private final MemberRepository memberRepository;
     private final CartRepository cartRepository;
@@ -27,6 +27,17 @@ public class MemberService {
         member.setPassword(encoder.encode(form.getPassword()));
         cart.setMember(member);
         member.setCart(cart);
+
         memberRepository.save(member).getId();
+    }
+
+    // email 중복 검사
+    public void validateDuplicateMember(Member member) {
+        log.info("중복 체크 로직 시작");
+
+        boolean check = memberRepository.existsByEmail(member.getEmail());
+        if (check) {
+            throw new IllegalArgumentException("이미 존재하는 이메일 입니다.");
+        }
     }
 }
