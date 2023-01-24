@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import project.flower.domain.member.MemberForm;
 import project.flower.service.MemberService;
@@ -34,6 +35,14 @@ public class MemberController {
             return "signup/customer";
         }
 
+        // 중복 체크
+        try {
+            memberService.validateDuplicateMember(form.toEntity());
+        } catch (Exception e) {
+            bindingResult.addError(new FieldError("form", "email", e.getMessage()));
+            return "signup/customer";
+        }
+
         // 성공로직
         memberService.join(form);
         return "redirect:/login/customer";
@@ -43,5 +52,4 @@ public class MemberController {
     public String customerLogin() {
         return "login/customer";
     }
-
 }
