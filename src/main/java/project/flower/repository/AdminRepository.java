@@ -7,7 +7,7 @@ import project.flower.domain.admin.Admin;
 import java.util.Optional;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> { //JpaRepository=> findById, findAll사용가능
+public interface AdminRepository extends JpaRepository<Admin, Long> { //JpaRepository=> save, findById, findAll사용가능
 
     Optional<Admin> findByEmail(String email);
 }
