@@ -2,8 +2,11 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import project.flower.domain.member.MemberDetails;
 
 @Slf4j
 @Controller
@@ -26,7 +29,13 @@ public class HomepageController {
     }
 
     @GetMapping("/cart")
-    public String CartPage() {
+    public String cartPage() {
         return "cart";
+    }
+
+    @GetMapping("/mypage")
+    public String myPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        model.addAttribute("member", memberDetails.getMember());
+        return "mypage";
     }
 }

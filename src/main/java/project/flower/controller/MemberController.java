@@ -3,10 +3,13 @@ package project.flower.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import project.flower.domain.member.MemberDetails;
 import project.flower.domain.member.MemberForm;
 import project.flower.service.MemberService;
 
@@ -51,5 +54,21 @@ public class MemberController {
     @GetMapping("/login/customer")
     public String customerLogin() {
         return "login/customer";
+    }
+
+    @GetMapping("/member/edit")
+    public String updateForm(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        log.info("회원 정보={}", memberDetails.getMember());
+        model.addAttribute("member", memberDetails.getMember());
+        return "member/edit";
+    }
+
+    @PostMapping("/member/edit")
+    public String update(@ModelAttribute MemberForm form) {
+        log.info("회원 정보 수정");
+        log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
+                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
+        memberService.userPasswordUpdate(form);
+        return "redirect:/mypage";
     }
 }
