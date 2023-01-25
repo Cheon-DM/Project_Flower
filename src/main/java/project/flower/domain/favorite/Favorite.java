@@ -20,9 +20,9 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "member_id")
-    private Member memberId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     // FK
     @OneToMany (mappedBy = "favoriteId")
