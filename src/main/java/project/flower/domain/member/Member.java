@@ -37,8 +37,8 @@ public class Member {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Cart cart;
 
-    @OneToOne(mappedBy = "memberId")
-    private Favorite favoriteId;
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Favorite favorite;
 
     @OneToOne(mappedBy = "memberId")
     private FlowerOrder flowerOrderId;
