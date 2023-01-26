@@ -1,5 +1,6 @@
 package project.flower.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,11 +65,11 @@ public class MemberController {
     }
 
     @PostMapping("/member/edit")
-    public String update(@ModelAttribute MemberForm form) {
+    public String update(@ModelAttribute MemberForm form, HttpServletRequest request) {
         log.info("회원 정보 수정");
         log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
                 form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
-        memberService.userPasswordUpdate(form);
+        memberService.userPasswordUpdate(form, request);
         return "redirect:/mypage";
     }
 }
