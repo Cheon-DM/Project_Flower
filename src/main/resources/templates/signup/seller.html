@@ -1,38 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>signUp - customer</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+            background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+        }
+
+        .input-form {
+            max-width: 680px;
+            margin-top: 80px;
+            padding: 32px;
+            background: #fff;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+        }
+        .fieldError {
+            border-color: red;
+            color : red;
+        }
+    </style>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
 <form action="/signup/seller" method="post">
-    <table>
-        <tr>
-            이메일:
-            <input id="email" placeholder="email" type="text" name="email" >
-        </tr>
-        <tr>
-            성명:
-            <input id="name" placeholder="성명" type="text" name="name">
-        </tr>
-        <tr>
-            나이:
-            <input id="age" placeholder="age" type="text" name="age">
-        </tr>
-        <tr>
-            비밀번호:
-            <input id="password" placeholder="password" type="text" name="password">
-        </tr>
-        <tr>
-            사업등록번호:
-            <input id="businessNum" placeholder="business number" type="text" name="businessNum">
-        </tr>
-        <tr>
-            사업체이름:
-            <input id="businessName" placeholder="business name" type="text" name="businessName">
-        </tr>
-    </table>
-    <button type="submit">회원가입</button>
+    <div class="container">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <h4 class="mb-3">회원가입-사장</h4>
+                <form class="validation-form" th:object="${form}" novalidate>
+                    <div class="row">
+                        <!-- 이름 -->
+                        <div class="col-md-6 mb-3">
+                            <label for="name">이름</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="이름을 입력해주세요."
+                                   th:class="${#fields.hasErrors('name')} ? 'form-control fieldError' : 'form-control'">
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="'fieldError'">
+                                Incorrect data
+                            </p>
+                        </div>
+                        <!-- 성별 -->
+                        <div class="col-md-6 mb-3">
+                            <label for="sex">성별</label>
+                            <select class="custom-select d-block w-100" id="sex" th:field="*{sex}">
+                                <option selected disabled value="">성별</option>
+                                <option th:value="'M'">남</option>
+                                <option th:value="'F'">여</option>
+                            </select>
+                        </div>
+                        <!-- 나이 -->
+                        <div class="col-md-6 mb-3">
+                            <label for="age">나이</label>
+                            <input type="text" class="form-control" id="age" th:field="*{age}" placeholder="나이를 입력해주세요."
+                                   th:class="${#fields.hasErrors('age')} ? 'form-control fieldError' : 'form-control'">
+                            <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="'fieldError'">
+                                Incorrect data
+                            </p>
+                        </div>
+                    </div>
+                    <!-- 이메일 -->
+                    <div class="mb-3">
+                        <label for="email">이메일</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="you@example.com">
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="'fieldError'">
+                            Incorrect data
+                        </p>
+                    </div>
+                    <!-- 비밀번호 -->
+                    <div class="mb-3">
+                        <label for="password">비밀번호</label>
+                        <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요.">
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="'fieldError'">
+                            Incorrect data
+                        </p>
+                    </div>
+                    <div class="mb-4"></div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">회원 가입</button>
+                </form>
+            </div>
+        </div>
+
+        <footer class="my-3 text-center text-small">
+            <p class="mb-1">&copy; 2021 YD</p>
+        </footer>
+    </div>
 </form>
 </body>
 </html>
