@@ -3,9 +3,13 @@ package project.flower.domain.member;
 import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.Role;
+import project.flower.domain.admin.Business;
 import project.flower.domain.cart.Cart;
 import project.flower.domain.favorite.Favorite;
 import project.flower.domain.order.FlowerOrder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -46,4 +50,7 @@ public class Member {
 
     @OneToOne(mappedBy = "memberId")
     private FlowerOrder flowerOrderId;
+
+    @OneToMany(mappedBy = "admin")
+    List<Business> businessList= new ArrayList<Business>();
 }

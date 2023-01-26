@@ -2,6 +2,7 @@ package project.flower.domain.flower.selfmade;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.admin.Business;
 import project.flower.domain.member.Member;
 
 @Entity
@@ -13,11 +14,12 @@ import project.flower.domain.member.Member;
 public class SelfFlowerBouquet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int selfBouquetId;
+    @Column(name = "self_bouquet_id")
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Member admin;
+    @JoinColumn(name = "business_id")
+    private Business business;
 
    @ManyToOne
    @JoinColumn(name = "member_id")
