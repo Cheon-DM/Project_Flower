@@ -25,6 +25,6 @@ public class Favorite {
     private Member member;
 
     // FK
-    @OneToMany (mappedBy = "favoriteId")
-    private List<FavoriteStore> favorites;
+    @OneToMany (mappedBy = "favorite")
+    private List<FavoriteStore> storeList;
 }
