@@ -22,8 +22,8 @@ public class Business {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="business_name",nullable = false)
-    private String businessName;
+    @Column(name="name",nullable = false)
+    private String name;
 
     @Column(name = "business_num",nullable = false)
     private int businessNum;
