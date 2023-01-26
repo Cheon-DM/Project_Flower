@@ -19,7 +19,11 @@ public class FavoriteStore {
 
     @ManyToOne
     @JoinColumn(name = "favorite_id")
-    private Favorite favoriteId;
+    private Favorite favorite;
 
-    private int businessNumber;
+    @Column(name = "business_num")
+    private int businessNum;
+
+    @Column(name = "business_name")
+    private String businessName;
 }
