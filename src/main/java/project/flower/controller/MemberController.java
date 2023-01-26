@@ -40,14 +40,14 @@ public class MemberController {
 
         // 중복 체크
         try {
-            memberService.validateDuplicateMember(form.toEntity());
+            memberService.validateDuplicateMember(form.toUserEntity());
         } catch (Exception e) {
             bindingResult.addError(new FieldError("form", "email", e.getMessage()));
             return "signup/customer";
         }
 
         // 성공로직
-        memberService.join(form);
+        memberService.joinUser(form);
         return "redirect:/login/customer";
     }
 

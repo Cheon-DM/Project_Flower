@@ -1,6 +1,7 @@
 package project.flower.domain.member;
 
 import lombok.Getter;
+import project.flower.domain.Role;
 
 import java.io.Serializable;
 
@@ -13,6 +14,8 @@ public class MemberSessionDto implements Serializable {
     private int age;
     private String sex;
 
+    private Role role;
+
     // Entity -> Dto
     public MemberSessionDto(Member member) {
         this.email = member.getEmail();
@@ -20,5 +23,6 @@ public class MemberSessionDto implements Serializable {
         this.password = member.getPassword();
         this.age = member.getAge();
         this.sex = member.getSex();
+        this.role = member.getRole();
     }
 }
