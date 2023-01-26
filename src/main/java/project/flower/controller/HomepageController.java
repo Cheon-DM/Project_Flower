@@ -6,15 +6,23 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import project.flower.domain.admin.Business;
 import project.flower.domain.member.MemberDetails;
+import project.flower.repository.BusinessRepository;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomepageController {
 
+    private final BusinessRepository businessRepository;
+
     @GetMapping ("/")
-    public String homePage() {
+    public String homePage(Model model) {
+        List<Business> businessList = businessRepository.findAll();
+        model.addAttribute("businessList", businessList);
         return "home";
     }
 
