@@ -19,6 +19,9 @@ public class FlowerSingle {
     @JoinColumn(name = "admin_id")
     private Member admin;
 
+    @Column(name = "flower_name")
+    private String flowerName;
+
     private String color;
 
     @Lob
