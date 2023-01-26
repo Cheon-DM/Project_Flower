@@ -2,7 +2,6 @@ package project.flower.domain.flower.selfmade;
 
 import jakarta.persistence.*;
 import lombok.*;
-import project.flower.domain.admin.Admin;
 import project.flower.domain.member.Member;
 
 @Entity
@@ -18,7 +17,7 @@ public class SelfFlowerBouquet {
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin admin;
+    private Member admin;
 
    @ManyToOne
    @JoinColumn(name = "member_id")

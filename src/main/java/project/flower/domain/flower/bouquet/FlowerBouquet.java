@@ -2,7 +2,7 @@ package project.flower.domain.flower.bouquet;
 
 import jakarta.persistence.*;
 import lombok.*;
-import project.flower.domain.admin.Admin;
+import project.flower.domain.member.Member;
 
 @Entity
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class FlowerBouquet {
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin admin;
+    private Member admin;
 
     private String color;
     private int price;

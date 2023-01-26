@@ -33,7 +33,7 @@ public class SecurityConfig{
                 .permitAll().anyRequest().authenticated();
 
         // 로그인 페이지 지정
-        http.formLogin().loginPage("/login/customer")
+        http.formLogin().loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .loginProcessingUrl("/loginProc")
