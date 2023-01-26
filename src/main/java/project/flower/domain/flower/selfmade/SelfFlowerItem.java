@@ -15,7 +15,7 @@ public class SelfFlowerItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "self_item_id")
-    private int selfItemId;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "self_bouquet_id")

@@ -2,6 +2,7 @@ package project.flower.domain.flower.bouquet;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.admin.Business;
 import project.flower.domain.member.Member;
 
 @Entity
@@ -21,8 +22,8 @@ public class FlowerBouquet {
     private String bouquetDetail;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Member admin;
+    @JoinColumn(name = "business_id")
+    private Business business;
 
     private String color;
     private int price;
