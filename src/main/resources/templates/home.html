@@ -63,10 +63,13 @@
                 </li>
             </ul>
             <form class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
                     <a href="/mypage" class="nav-link">mypage</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/#" class="nav-link">관리자페이지</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
                     <a href="/cart" class="nav-link" >
                         <i class="bi-cart-fill me-1"></i>
                         Cart
