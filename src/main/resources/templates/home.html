@@ -106,12 +106,52 @@
     </div>
 </header>
 
+<form class="py-4">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-3" th:each="business : ${businessList}" >
+                <div class="card h-25">
+                    <!-- Product image-->
+                    <img
+                            class="card-img-top"
+                            src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                            alt="..."
+                    />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder" th:text="${business.name}">가게 이름</h5>
+                            <!-- Product price-->
+                            가게 설명
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" th:href="@{/add/{businessId}(businessId=${business.id})}">가게 추가하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <div
-                class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-        >
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img
+                            class="card-img-top"
+                            src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                            alt="..."
+                    />
+                </div>
+            </div>
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
@@ -137,6 +177,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Sale badge-->
@@ -184,6 +225,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Sale badge-->
@@ -221,6 +263,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
@@ -258,6 +301,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Sale badge-->
@@ -295,6 +339,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
@@ -338,14 +383,13 @@
                             alt="..."
                     />
                     <!-- Product details-->
+                    <!-- cart 담기 -->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
                             <h5 class="fw-bolder">Special Item</h5>
                             <!-- Product reviews-->
-                            <div
-                                    class="d-flex justify-content-center small text-warning mb-2"
-                            >
+                            <div class="d-flex justify-content-center small text-warning mb-2">
                                 <div class="bi-star-fill"></div>
                                 <div class="bi-star-fill"></div>
                                 <div class="bi-star-fill"></div>
@@ -353,20 +397,17 @@
                                 <div class="bi-star-fill"></div>
                             </div>
                             <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through"
-                            >$20.00</span
-                            >
+                            <span class="text-muted text-decoration-line-through">$20.00</span>
                             $18.00
                         </div>
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" href="#"
-                            >Add to cart</a
-                            >
+                            <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
                         </div>
                     </div>
+                    <!-- cart 담기 -->
                 </div>
             </div>
             <div class="col mb-5">
