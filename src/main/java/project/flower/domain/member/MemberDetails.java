@@ -19,7 +19,7 @@ public class MemberDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collectors = new ArrayList<>();
 
-        collectors.add(() -> member.getName());
+        collectors.add(() -> String.valueOf(member.getRole()));
         return collectors;
     }
 

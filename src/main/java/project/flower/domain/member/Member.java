@@ -2,6 +2,7 @@ package project.flower.domain.member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.Role;
 import project.flower.domain.cart.Cart;
 import project.flower.domain.favorite.Favorite;
 import project.flower.domain.order.FlowerOrder;
@@ -32,6 +33,9 @@ public class Member {
 
     @Column(nullable = false)
     private String sex;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // FK
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)

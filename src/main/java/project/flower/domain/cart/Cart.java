@@ -25,7 +25,7 @@ public class Cart {
     private Member member;
 
     // FK
-    @OneToMany (mappedBy = "cartId")
+    @OneToMany (mappedBy = "cart")
     private List<CartItem> cartItemList;
 
 }

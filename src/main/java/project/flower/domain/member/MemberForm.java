@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
+import project.flower.domain.Role;
 
 @Data
 @NoArgsConstructor
@@ -27,14 +28,27 @@ public class MemberForm {
     @NotBlank(message = "성별은 필수 입력 값입니다.")
     private String sex;
 
-    // Form(DTO) -> Entity
-    public Member toEntity() {
+    // Form(DTO) -> Member Entity
+    public Member toUserEntity() {
         return Member.builder()
                 .name(name)
                 .email(email)
                 .password(password)
                 .age(age)
                 .sex(sex)
+                .role(Role.ROLE_USER)
+                .build();
+    }
+
+    // Form(DTO) -> Admin Entity
+    public Member toAdminEntity() {
+        return Member.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .age(age)
+                .sex(sex)
+                .role(Role.ROLE_ADMIN)
                 .build();
     }
 }

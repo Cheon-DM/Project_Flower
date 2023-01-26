@@ -4,11 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import project.flower.domain.admin.AdminForm;
-import project.flower.service.AdminService;
+import project.flower.domain.member.MemberForm;
+import project.flower.service.MemberService;
 
 @Slf4j
 @Controller
@@ -16,38 +16,36 @@ import project.flower.service.AdminService;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final AdminService adminService;
+    private final MemberService memberService;
 
     @GetMapping("/signup/seller")
-    public String signUpSellerForm(){
+    public String signUpSellerForm(@ModelAttribute("form") MemberForm form){
 
         return "signup/seller";
     }
 
     @PostMapping("/signup/seller")
-    public  String signUpSeller(@Valid @ModelAttribute("form") AdminForm form, BindingResult bindingResult, Model model){
-        log.info("email = {}, password = {}, name = {}, bus_num ={}, bus_name={}, age={}", form.getName(),
-                form.getPassword(), form.getName(), form.getBusinessNum(), form.getBusinessName(),form.getAge());
+    public  String signUpSeller(@Valid @ModelAttribute("form") MemberForm form, BindingResult bindingResult){
+        log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
+                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
 
-        if(bindingResult.hasErrors()){
-            //회원가입 실패 시 데이터 값 유지
-            //하는거는 일단 나중에
-            log.info("회원가입 실패");
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
 
-            return "signup/seller";
+            // 회원가입 페이지로 다시 이동
+            return "signup/customer";
         }
 
-        adminService.join(form);
-        log.info("회원가입 성공");
-        return "redirect:/login/seller";
+        // 중복 체크
+        try {
+            memberService.validateDuplicateMember(form.toUserEntity());
+        } catch (Exception e) {
+            bindingResult.addError(new FieldError("form", "email", e.getMessage()));
+            return "signup/customer";
+        }
+
+        // 성공로직
+        memberService.joinAdmin(form);
+        return "redirect:/login";
     }
-
-    @GetMapping("/login/seller")
-    public String signInSellerForm(@ModelAttribute AdminForm form){
-
-        return "login/seller";
-    }
-
-
-
 }
