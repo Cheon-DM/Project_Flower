@@ -15,29 +15,34 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 public class Business {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name",nullable = false)
-    private String name;
+    @Column(name="business_name",nullable = false)
+    private String businessName;
 
     @Column(name = "business_num",nullable = false)
     private int businessNum;
 
     //FK
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Member admin;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @OneToMany(mappedBy = "business")
     List<FlowerBouquet> bouquetList = new ArrayList<FlowerBouquet>();
 
     @OneToMany(mappedBy = "business")
     List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
+
+    //==연관관계 메서드==//
+    public void setMember(Member member){
+        this.member=member;
+        member.getBusinessList().add(this);
+    }
 
 }
 
