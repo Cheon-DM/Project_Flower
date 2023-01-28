@@ -67,7 +67,7 @@
                     <a href="/mypage" class="nav-link">mypage</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="/#" class="nav-link">관리자페이지</a>
+                    <a href="/adminpage" class="nav-link">관리자페이지</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
                     <a href="/cart" class="nav-link" >
@@ -121,7 +121,7 @@
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder" th:text="${business.name}">가게 이름</h5>
+                            <h5 class="fw-bolder" th:text="${business.businessName}">가게 이름</h5>
                             <!-- Product price-->
                             가게 설명
                         </div>

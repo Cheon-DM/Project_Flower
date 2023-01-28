@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
@@ -19,6 +20,8 @@ import project.flower.domain.member.MemberForm;
 import project.flower.repository.BusinessRepository;
 import project.flower.service.BusinessService;
 import project.flower.service.MemberService;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -53,4 +56,14 @@ public class BusinessController {
 
         return "adminpage";
     }
+
+    @GetMapping("/admin/businesslist")
+    public String businessList(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
+
+        return "admin/businesslist";
+    }
+
 }

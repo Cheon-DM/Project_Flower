@@ -46,4 +46,10 @@ public class HomepageController {
         model.addAttribute("member", memberDetails.getMember());
         return "mypage";
     }
+
+    @GetMapping("/adminpage")
+    public String adminPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        model.addAttribute("member", memberDetails.getMember());
+        return "adminpage";
+    }
 }

@@ -51,6 +51,6 @@ public class Member {
     @OneToOne(mappedBy = "memberId")
     private FlowerOrder flowerOrderId;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
     List<Business> businessList= new ArrayList<Business>();
 }
