@@ -23,4 +23,12 @@ public class BusinessService {
         return businessRepository.save(business).getId();
     }
 
+    public Business findBusiness(Long id){
+
+        Business business = businessRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 꽃집이 존재하지 않습니다."));
+
+        return business;
+    }
+
 }

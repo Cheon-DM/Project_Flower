@@ -1,23 +1,16 @@
 package project.flower.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
-import project.flower.domain.member.MemberForm;
-import project.flower.repository.BusinessRepository;
 import project.flower.service.BusinessService;
 import project.flower.service.MemberService;
 
@@ -28,8 +21,6 @@ import java.util.List;
 @RequestMapping("")
 @RequiredArgsConstructor
 public class BusinessController {
-
-    private final MemberService memberService;
 
     private final BusinessService businessService;
 
@@ -57,13 +48,24 @@ public class BusinessController {
         return "adminpage";
     }
 
-    @GetMapping("/admin/businesslist")
+    @GetMapping("/admin/businesses")
     public String businessList(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
 
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
 
-        return "admin/businesslist";
+        return "admin/businesses";
     }
+
+    @GetMapping("/admin/businesses/{businessId}")
+    public String flowerList(@PathVariable long businessId, Model model){
+
+        Business business = businessService.findBusiness(businessId);
+        model.addAttribute("business", business);
+
+        return "admin/business";
+    }
+
+
 
 }
