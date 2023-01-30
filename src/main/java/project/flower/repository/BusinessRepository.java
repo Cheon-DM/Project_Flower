@@ -12,4 +12,6 @@ public interface BusinessRepository extends JpaRepository<Business, Long> {
 
     @Override
     Optional<Business> findById(Long id);
+
+
 }

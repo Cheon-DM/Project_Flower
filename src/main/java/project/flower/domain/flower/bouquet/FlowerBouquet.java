@@ -3,18 +3,17 @@ package project.flower.domain.flower.bouquet;
 import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.admin.Business;
-import project.flower.domain.member.Member;
+import project.flower.domain.flower.FlowerColor;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 public class FlowerBouquet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bouquetId;
+    private Long Id;
 
     @Column(name="bouquet_name")
     private String bouquetName;
@@ -25,8 +24,16 @@ public class FlowerBouquet {
     @JoinColumn(name = "business_id")
     private Business business;
 
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private FlowerColor color; // 꽃색깔 여러가지...
+
     private int price;
     private int stock;
     private String imageUrl;
+
+    //==연관관계 메서드==//
+    public void setBusiness(Business business){
+        this.business= business;
+        business.getBouquetList().add(this);
+    }
 }
