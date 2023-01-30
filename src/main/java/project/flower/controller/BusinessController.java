@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
+import project.flower.domain.flower.selfmade.FlowerSingle;
+import project.flower.domain.flower.selfmade.FlowerSingleForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.BusinessService;
-import project.flower.service.MemberService;
 
 import java.util.List;
 
@@ -62,6 +64,10 @@ public class BusinessController {
     public String flowerList(@PathVariable long businessId, Model model){
 
         Business business = businessService.findBusiness(businessId);
+        List<FlowerBouquet> bouquetList = business.getBouquetList();
+        List<FlowerSingle> singleList = business.getSingleList();
+        model.addAttribute("bouquetList", bouquetList);
+        model.addAttribute("singleList", singleList);
         model.addAttribute("business", business);
 
         return "admin/business";
@@ -85,7 +91,7 @@ public class BusinessController {
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
 
-            return "redirect:/admin/businesses/{businessId}/bouquet"; //여기 이상할수도
+            return "redirect:/admin/businesses/{businessId}/bouquet";
         }
 
         Business bus = businessService.findBusiness(businessId);
@@ -94,4 +100,31 @@ public class BusinessController {
         return "redirect:/admin/businesses/{businessId}";
     }
 
+
+    @GetMapping("/admin/businesses/{businessId}/single")
+    public String registerSingleForm(@PathVariable long businessId, @ModelAttribute("form") FlowerSingleForm form, Model model){
+        Business business = businessService.findBusiness(businessId);
+        model.addAttribute("business", business);
+        model.addAttribute("flowercolor", FlowerColor.values());
+        return "admin/flower/single";
+    }
+
+    @PostMapping("/admin/businesses/{businessId}/single")
+    public String registerSingle(@PathVariable long businessId, @ModelAttribute("business") Business business,
+                                  @ModelAttribute("form") FlowerSingleForm form, BindingResult bindingResult){
+
+        log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
+                form.getFlowerName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+
+            return "redirect:/admin/businesses/{businessId}/single";
+        }
+
+        Business bus = businessService.findBusiness(businessId);
+        businessService.registerSingle(form ,bus);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
 }
