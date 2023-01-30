@@ -14,6 +14,8 @@ import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
 import project.flower.repository.FlowerSingleRepositoy;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,10 @@ public class BusinessService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 꽃집이 존재하지 않습니다."));
 
         return business;
+    }
+
+    public List<Business> findAllBusiness(){
+        return businessRepository.findAll();
     }
 
     public Long registerBouquet(FlowerBouquetForm form, Business business){

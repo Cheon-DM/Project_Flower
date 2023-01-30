@@ -106,6 +106,55 @@
     </div>
 </header>
 
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="card-group my-3" th:each="business : ${businessList}">
+        <div class="card h-100">
+            <div class="row">
+                <div class="card-header col">
+                    <h6 class="fw-bolder text-center" th:text="${business.businessName}">
+                        타이틀
+                    </h6>
+                </div>
+                <div class="card-header col">
+                    <a class="btn btn-outline-dark"
+                       th:href="@{/add/{businessId}(businessId=${business.id})}">가게 추가하기</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <form class="card-body col px-3 px-lg-3 mt-3" th:each="entry : ${bouquetMap}" >
+                    <div class="row" th:if="${entry.key} == ${business.id}">
+                        <div class="h-50 w-auto" th:each="bouquet:${entry.value}">
+                            <!-- Product image-->
+                            <img
+                                    class="card-img-top"
+                                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                    alt="..."
+                            />
+                            <!-- Product details-->
+                            <div class="card-text p-4">
+                                <div class="text-center" >
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder" th:text="${bouquet.bouquetName}">꽃 이름</h5>
+                                    <!-- Product detail-->
+                                    <div th:text="${bouquet.bouquetDetail}">꽃 설명</div>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center" th:object="${member}">
+                                    <a class="btn btn-outline-dark mt-auto" th:href="@{/add/{itemId}(itemId=${bouquet.id})}">장바구니 담기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
 <form class="py-4">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
