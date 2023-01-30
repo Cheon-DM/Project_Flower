@@ -3,19 +3,18 @@ package project.flower.domain.flower.selfmade;
 import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.admin.Business;
-import project.flower.domain.member.Member;
+import project.flower.domain.flower.FlowerColor;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 public class FlowerSingle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "single_flower_id")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "business_id")
@@ -24,7 +23,8 @@ public class FlowerSingle {
     @Column(name = "flower_name")
     private String flowerName;
 
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private FlowerColor color;
 
     @Lob
     @Column(name = "flower_lang")
@@ -32,4 +32,10 @@ public class FlowerSingle {
     private int price;
     private int stock;
     private String imageUrl;
+
+    //==연관관계 메서드==//
+    public void setBusiness(Business business){
+        this.business= business;
+        business.getSingleList().add(this);
+    }
 }
