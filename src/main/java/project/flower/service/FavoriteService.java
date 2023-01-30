@@ -11,6 +11,8 @@ import project.flower.repository.BusinessRepository;
 import project.flower.repository.FavoriteRepository;
 import project.flower.repository.FavoriteStoreRepository;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -38,5 +40,14 @@ public class FavoriteService {
                 .build();
 
         favoriteStoreRepository.save(store);
+    }
+
+    public List<FavoriteStore> findFavoriteStoreAll(Member member){
+        // memberId로 favoriteId 찾기
+        Favorite favorite = favoriteRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+
+        // favoriteId로 favortieStore(즐겨찾기 목록) 찾기
+        return favoriteStoreRepository.findAllByFavorite(favorite);
     }
 }
