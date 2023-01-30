@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
+import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.flower.selfmade.FlowerSingleForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
@@ -62,6 +64,10 @@ public class BusinessController {
     public String flowerList(@PathVariable long businessId, Model model){
 
         Business business = businessService.findBusiness(businessId);
+        List<FlowerBouquet> bouquetList = business.getBouquetList();
+        List<FlowerSingle> singleList = business.getSingleList();
+        model.addAttribute("bouquetList", bouquetList);
+        model.addAttribute("singleList", singleList);
         model.addAttribute("business", business);
 
         return "admin/business";
