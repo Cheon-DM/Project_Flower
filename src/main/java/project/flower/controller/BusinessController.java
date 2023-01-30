@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
+import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.BusinessService;
@@ -39,7 +41,6 @@ public class BusinessController {
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
 
-            // 회원가입 페이지로 다시 이동
             return "/admin/registerbusiness";
         }
         Member currentMember = memberDetails.getMember();
@@ -66,6 +67,31 @@ public class BusinessController {
         return "admin/business";
     }
 
+    @GetMapping("/admin/businesses/{businessId}/bouquet")
+    public String registerBouquetForm(@PathVariable long businessId, @ModelAttribute("form") FlowerBouquetForm form, Model model){
+        Business business = businessService.findBusiness(businessId);
+        model.addAttribute("business", business);
+        model.addAttribute("flowercolor", FlowerColor.values());
+        return "admin/flower/bouquet";
+    }
 
+    @PostMapping("/admin/businesses/{businessId}/bouquet")
+    public String registerBouquet(@PathVariable long businessId, @ModelAttribute("business") Business business,
+                                  @ModelAttribute("form") FlowerBouquetForm form, BindingResult bindingResult){
+
+        log.info("name = {}, detail = {}, price = {}, stock = {}, color = {}",
+                form.getBouquetName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+
+            return "redirect:/admin/businesses/{businessId}/bouquet"; //여기 이상할수도
+        }
+
+        Business bus = businessService.findBusiness(businessId);
+        businessService.registerBouquet(form ,bus);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
 
 }

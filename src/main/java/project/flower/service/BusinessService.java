@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
+import project.flower.domain.flower.bouquet.FlowerBouquet;
+import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.member.Member;
 import project.flower.repository.BusinessRepository;
+import project.flower.repository.FlowerBouquetRepository;
 
 @Slf4j
 @Service
@@ -14,6 +17,8 @@ import project.flower.repository.BusinessRepository;
 public class BusinessService {
 
     private final BusinessRepository businessRepository;
+
+    private final FlowerBouquetRepository flowerBouquetRepository;
 
     public Long registerBusiness(BusinessForm form, Member member){
 
@@ -29,6 +34,14 @@ public class BusinessService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 꽃집이 존재하지 않습니다."));
 
         return business;
+    }
+
+    public Long registerBouquet(FlowerBouquetForm form, Business business){
+
+        FlowerBouquet bouquet = form.toEntity(business);
+        bouquet.setBusiness(business);
+
+        return flowerBouquetRepository.save(bouquet).getId();
     }
 
 }
