@@ -5,10 +5,56 @@
     <title>Title</title>
 </head>
 <body>
-꽃집 관리
-<li>꽃 목록
+<li>부케 목록
+
+    <table>
+        부케 목록
+        <tr>
+            <th>부케 이름</th>
+            <th>상세</th>
+            <th>색</th>
+            <th>재고</th>
+            <th>가격</th>
+        </tr>
+        <tr th:each="list : ${bouquetList}">
+            <td th:text="${list.bouquetName}"></td>
+            <td th:text="${list.bouquetDetail}"></td>
+            <td th:text="${list.color}"></td>
+            <td th:text="${list.stock}"></td>
+            <td th:text="${list.price}"></td>
+
+        </tr>
+    </table>
+</li>
+
+<li>부케 목록
+
+    <table>
+        부케 목록
+        <tr>
+            <th>부케 이름</th>
+            <th>상세</th>
+            <th>색</th>
+            <th>재고</th>
+            <th>가격</th>
+        </tr>
+        <tr th:each="single : ${singleList}">
+            <td th:text="${single.flowerName}"></td>
+            <td th:text="${single.flowerLang}"></td>
+            <td th:text="${single.color}"></td>
+            <td th:text="${single.stock}"></td>
+            <td th:text="${single.price}"></td>
+
+        </tr>
+    </table>
+</li>
+
+<li>등록하기
     <ul>
         <li><a href="bouquet.html" th:href="@{/admin/businesses/{businessId}/bouquet(businessId=${business.id})}">꽃(부케) 등록하기</a></li>
+    </ul>
+    <ul>
+        <li><a href="single.html" th:href="@{/admin/businesses/{businessId}/single(businessId=${business.id})}">꽃(단품) 등록하기</a></li>
     </ul>
 </li>
 </body>
