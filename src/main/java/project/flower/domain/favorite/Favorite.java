@@ -25,6 +25,6 @@ public class Favorite {
     private Member member;
 
     // FK
-    @OneToMany (mappedBy = "favorite")
+    @OneToMany (mappedBy = "favorite", cascade = CascadeType.ALL)
     private List<FavoriteStore> storeList;
 }
