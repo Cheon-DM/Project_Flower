@@ -33,13 +33,21 @@ public class FavoriteService {
 
         log.info("member_id={}", f.getMember());
 
-        FavoriteStore store = FavoriteStore.builder()
-                .businessName(b.getBusinessName())
-                .businessNum(b.getBusinessNum())
-                .favorite(f)
-                .build();
+        if (favoriteStoreRepository.findByFavoriteAndBusiness(f, b).isEmpty()){ // 즐겨찾기 한 적 없음.
+            FavoriteStore store = FavoriteStore.builder()
+                    .business(b)
+                    .favorite(f)
+                    .build();
 
-        favoriteStoreRepository.save(store);
+            favoriteStoreRepository.save(store);
+        } else { // 이미 즐겨찾기 한 적 있음. 즐겨찾기 해제
+            FavoriteStore deleteStore = favoriteStoreRepository.findFavoriteStoreByFavoriteAndBusiness(f, b);
+            b.getFavoriteStoreList().remove(deleteStore);
+            businessRepository.save(b);
+            favoriteStoreRepository.delete(deleteStore);
+        }
+
+
     }
 
     public List<FavoriteStore> findFavoriteStoreAll(Member member){

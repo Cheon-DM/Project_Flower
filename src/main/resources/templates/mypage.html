@@ -85,7 +85,7 @@
                     <div class="mb-3">
                         <h4>즐겨찾기 목록</h4>
                         <table th:each="store: ${storeList}">
-                            <tr th:text="${store.businessName}"></tr>
+                            <tr th:text="${store.business.businessName}"></tr>
                         </table>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">비밀번호 변경하기</button>

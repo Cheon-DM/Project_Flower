@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.flower.domain.admin.Business;
 
 @Entity
 @NoArgsConstructor
@@ -17,13 +18,11 @@ public class FavoriteStore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "favorite_id")
     private Favorite favorite;
 
-    @Column(name = "business_num")
-    private int businessNum;
-
-    @Column(name = "business_name")
-    private String businessName;
+    @ManyToOne()
+    @JoinColumn(name = "business_id")
+    private Business business;
 }
