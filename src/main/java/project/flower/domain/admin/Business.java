@@ -2,6 +2,7 @@ package project.flower.domain.admin;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.Member;
@@ -32,10 +33,13 @@ public class Business {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "business")
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    List<FavoriteStore> favoriteStoreList;
+
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     List<FlowerBouquet> bouquetList = new ArrayList<FlowerBouquet>();
 
-    @OneToMany(mappedBy = "business")
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
 
     //==연관관계 메서드==//
