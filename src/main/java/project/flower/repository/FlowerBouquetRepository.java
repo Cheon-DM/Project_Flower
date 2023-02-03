@@ -5,8 +5,11 @@ import project.flower.domain.admin.Business;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FlowerBouquetRepository extends JpaRepository<FlowerBouquet, Long> {
 
     List<FlowerBouquet> findAllByBusiness(Business business);
+
+    Optional<FlowerBouquet> findById(Long id);
 }
