@@ -36,4 +36,12 @@ public class FlowerBouquet {
         this.business= business;
         business.getBouquetList().add(this);
     }
+
+    public void update(String bouquetName, String bouquetDetail, FlowerColor color, int price, int stock){
+        this.bouquetName=bouquetName;
+        this.bouquetDetail=bouquetDetail;
+        this.color=color;
+        this.price=price;
+        this.stock=stock;
+    }
 }
