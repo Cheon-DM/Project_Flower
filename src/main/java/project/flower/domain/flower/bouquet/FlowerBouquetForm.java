@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.FlowerType;
 
 
 @NoArgsConstructor
@@ -30,6 +31,7 @@ public class FlowerBouquetForm {
                 .color(color)
                 .price(price)
                 .stock(stock)
+                .type(FlowerType.FLOWER_BOUQUET)
                 .build();
     }
 }

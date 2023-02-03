@@ -14,6 +14,10 @@ public class MemberDetails implements UserDetails {
 
     private final Member member;
 
+    public String getMemberName(){
+        return member.getName();
+    }
+
     // 유저의 권한 목록
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

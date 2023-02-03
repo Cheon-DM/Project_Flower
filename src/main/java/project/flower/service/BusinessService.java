@@ -13,7 +13,7 @@ import project.flower.domain.flower.selfmade.FlowerSingleForm;
 import project.flower.domain.member.Member;
 import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
-import project.flower.repository.FlowerSingleRepositoy;
+import project.flower.repository.FlowerSingleRepository;
 
 import java.util.List;
 
@@ -25,8 +25,7 @@ public class BusinessService {
     private final BusinessRepository businessRepository;
 
     private final FlowerBouquetRepository flowerBouquetRepository;
-    private final FlowerSingleRepositoy flowerSingleRepositoy;
-    @Transactional
+    private final FlowerSingleRepository flowerSingleRepository;
     public Long registerBusiness(BusinessForm form, Member member){
 
         Business business = form.toEntity(member);
@@ -42,8 +41,8 @@ public class BusinessService {
 
         return business;
     }
-    @Transactional
 
+    @Transactional
     public List<Business> findAllBusiness(){
         return businessRepository.findAll();
     }
@@ -62,7 +61,7 @@ public class BusinessService {
         FlowerSingle single = form.toEntity(business);
         single.setBusiness(business);
 
-        return flowerSingleRepositoy.save(single).getId();
+        return flowerSingleRepository.save(single).getId();
     }
 
 }

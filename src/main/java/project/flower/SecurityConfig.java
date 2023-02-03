@@ -29,7 +29,7 @@ public class SecurityConfig{
 
         // 해당 경로 접근 허용
         http.authorizeHttpRequests().requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
-                        "/signup/**", "/login/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
+                        "/signup/**", "/login/**", "/error/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
                 .permitAll().anyRequest().authenticated();
 
         // 로그인 페이지 지정

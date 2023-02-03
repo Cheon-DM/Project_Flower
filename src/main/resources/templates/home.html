@@ -70,7 +70,7 @@
                     <a href="/adminpage" class="nav-link">관리자페이지</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                    <a href="/cart" class="nav-link" >
+                    <a href="/member/cart" class="nav-link" >
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -99,8 +99,9 @@
             <p class="lead fw-normal text-white-50 mb-0" sec:authorize="isAnonymous()">
                 Hello guest ! Welcome to shopping shop
             </p>
-            <p class="lead fw-normal text-white-50 mb-0" sec:authorize="isAuthenticated()">
-                Hello Member ! Welcome to shopping shop
+            <p class="lead fw-normal text-white-50 mb-0"
+               sec:authorize="isAuthenticated()">
+                hello [[${name}]]! Welcome to shopping shop
             </p>
         </div>
     </div>
@@ -122,9 +123,9 @@
             </div>
 
             <div class="row">
-                <form class="card-body col px-3 px-lg-3 mt-3" th:each="entry : ${bouquetMap}" >
-                    <div class="row" th:if="${entry.key} == ${business.id}">
-                        <div class="h-50 w-auto" th:each="bouquet:${entry.value}">
+                <form class="card-body col px-3 px-lg-3 mt-3" th:each="bouquetBusinessId : ${bouquetMap}" >
+                    <div class="row" th:if="${bouquetBusinessId.key} == ${business.id}">
+                        <div class="h-50 w-auto" th:each="bouquet:${bouquetBusinessId.value}">
                             <!-- Product image-->
                             <img
                                     class="card-img-top"
@@ -143,7 +144,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center" th:object="${member}">
-                                    <a class="btn btn-outline-dark mt-auto" th:href="@{/add/{itemId}(itemId=${bouquet.id})}">장바구니 담기</a>
+                                    <a class="btn btn-outline-dark mt-auto" th:href="@{/add/cart/{bouquetId}(bouquetId=${bouquet.id})}">장바구니 담기</a>
                                 </div>
                             </div>
                         </div>

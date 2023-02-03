@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.FlowerType;
 
 @Entity
 @NoArgsConstructor
@@ -25,6 +26,9 @@ public class FlowerSingle {
 
     @Enumerated(EnumType.STRING)
     private FlowerColor color;
+
+    @Enumerated(EnumType.STRING)
+    private FlowerType type;
 
     @Lob
     @Column(name = "flower_lang")

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.FlowerType;
 
 @Entity
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class FlowerBouquet {
 
     @Enumerated(EnumType.STRING)
     private FlowerColor color; // 꽃색깔 여러가지...
+
+    @Enumerated(EnumType.STRING)
+    private FlowerType type;
 
     private int price;
     private int stock;
