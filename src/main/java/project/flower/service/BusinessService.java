@@ -3,6 +3,7 @@ package project.flower.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
@@ -23,6 +24,7 @@ public class BusinessService {
 
     private final FlowerBouquetRepository flowerBouquetRepository;
     private final FlowerSingleRepositoy flowerSingleRepositoy;
+    @Transactional
     public Long registerBusiness(BusinessForm form, Member member){
 
         Business business = form.toEntity(member);
@@ -30,7 +32,7 @@ public class BusinessService {
 
         return businessRepository.save(business).getId();
     }
-
+    @Transactional
     public Business findBusiness(Long id){
 
         Business business = businessRepository.findById(id)
@@ -38,7 +40,7 @@ public class BusinessService {
 
         return business;
     }
-
+    @Transactional
     public Long registerBouquet(FlowerBouquetForm form, Business business){
 
         FlowerBouquet bouquet = form.toEntity(business);
@@ -47,6 +49,7 @@ public class BusinessService {
         return flowerBouquetRepository.save(bouquet).getId();
     }
 
+    @Transactional
     public Long registerSingle(FlowerSingleForm form, Business business){
 
         FlowerSingle single = form.toEntity(business);
