@@ -51,7 +51,7 @@ public class FavoriteService {
     }
 
     public List<FavoriteStore> findFavoriteStoreAll(Member member){
-        // memberId로 favoriteId 찾기
+        // member로 favoriteId 찾기
         Favorite favorite = favoriteRepository.findByMember(member)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
 
