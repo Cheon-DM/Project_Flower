@@ -42,4 +42,13 @@ public class FlowerSingle {
         this.business= business;
         business.getSingleList().add(this);
     }
+
+    //====//
+    public void update(String flowerName, String flowerLang, FlowerColor color, int price, int stock){
+        this.flowerName=flowerName;
+        this.flowerLang=flowerLang;
+        this.color=color;
+        this.price=price;
+        this.stock=stock;
+    }
 }
