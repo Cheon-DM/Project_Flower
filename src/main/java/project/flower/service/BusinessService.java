@@ -15,6 +15,8 @@ import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
 import project.flower.repository.FlowerSingleRepositoy;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -41,6 +43,11 @@ public class BusinessService {
         return business;
     }
     @Transactional
+
+    public List<Business> findAllBusiness(){
+        return businessRepository.findAll();
+    }
+
     public Long registerBouquet(FlowerBouquetForm form, Business business){
 
         FlowerBouquet bouquet = form.toEntity(business);

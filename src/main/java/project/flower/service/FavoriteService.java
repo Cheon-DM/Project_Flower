@@ -11,6 +11,8 @@ import project.flower.repository.BusinessRepository;
 import project.flower.repository.FavoriteRepository;
 import project.flower.repository.FavoriteStoreRepository;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -31,12 +33,29 @@ public class FavoriteService {
 
         log.info("member_id={}", f.getMember());
 
-        FavoriteStore store = FavoriteStore.builder()
-                .businessName(b.getBusinessName())
-                .businessNum(b.getBusinessNum())
-                .favorite(f)
-                .build();
+        if (favoriteStoreRepository.findByFavoriteAndBusiness(f, b).isEmpty()){ // 즐겨찾기 한 적 없음.
+            FavoriteStore store = FavoriteStore.builder()
+                    .business(b)
+                    .favorite(f)
+                    .build();
 
-        favoriteStoreRepository.save(store);
+            favoriteStoreRepository.save(store);
+        } else { // 이미 즐겨찾기 한 적 있음. 즐겨찾기 해제
+            FavoriteStore deleteStore = favoriteStoreRepository.findFavoriteStoreByFavoriteAndBusiness(f, b);
+            b.getFavoriteStoreList().remove(deleteStore);
+            businessRepository.save(b);
+            favoriteStoreRepository.delete(deleteStore);
+        }
+
+
+    }
+
+    public List<FavoriteStore> findFavoriteStoreAll(Member member){
+        // memberId로 favoriteId 찾기
+        Favorite favorite = favoriteRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+
+        // favoriteId로 favortieStore(즐겨찾기 목록) 찾기
+        return favoriteStoreRepository.findAllByFavorite(favorite);
     }
 }
