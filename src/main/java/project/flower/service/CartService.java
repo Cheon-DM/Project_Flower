@@ -100,6 +100,15 @@ public class CartService {
         cartItemRepository.delete(cartItem);
     }
 
+    // 카트 아이템 개수 띄우기
+    public int showItemCount(Member member){
+        Cart cart = cartRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException("해당 카트가 존재하지 않습니다."));
+        List<CartItem> cartItemList = cart.getCartItemList();
+        //log.info("cartItemList={}",cartItemList);
+        return cartItemList.size();
+    }
+
 
     private Cart getCart(Member member) {
         return cartRepository.findByMember(member)
