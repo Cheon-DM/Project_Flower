@@ -30,7 +30,7 @@ public class CartService {
         FlowerBouquet bouquet = bouquetRepository.findById(bouquetId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 부케는 존재하지 않습니다."));
 
-        Cart cart = getCart(member, "해당 유저의 카트가 존재하지 않습니다.");
+        Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
                 .itemName(bouquet.getBouquetName())
@@ -55,16 +55,11 @@ public class CartService {
         }
     }
 
-    private Cart getCart(Member member, String s) {
-        return cartRepository.findByMember(member)
-                .orElseThrow(() -> new IllegalArgumentException(s));
-    }
-
     public void saveSingle(Long singleId, Member member) {
         FlowerSingle single = singleRepository.findById(singleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 싱글 꽃은 존재하지 않습니다."));
 
-        Cart cart = getCart(member, "해당 유저의 카트가 존재하지 않습니다.");
+        Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
                 .itemName(single.getFlowerName())
@@ -91,11 +86,23 @@ public class CartService {
 
     public List<CartItem> findCartItems(Member member){
         // member로 cartId 찾기
-        Cart cart = getCart(member, "해당 카드 아이디가 존재하지 않습니다.");
+        Cart cart = getCart(member);
 
         log.info("cart id ={}",cart.getId());
 
         // cart로 cartItems(카드에 담긴 아이템들) 찾기
         return cartItemRepository.findAllByCart(cart);
+    }
+
+    public void deleteCartItem(Long cartItemId){
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 카트 아이템은 존재하지 않습니다."));
+        cartItemRepository.delete(cartItem);
+    }
+
+
+    private Cart getCart(Member member) {
+        return cartRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException("해당 카트는 존재하지 않습니다."));
     }
 }

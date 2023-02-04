@@ -18,6 +18,11 @@
             <td th:text="${item.itemName}"></td>
             <td th:text="${item.price}"></td>
             <td th:text="${item.count}"></td>
+            <td>
+                <button th:onclick="|location.href='@{/member/cart/{cartItemId}(cartItemId=${item.id})}'|">
+                    삭제
+                </button>
+            </td>
         </tr>
 
     </table>
