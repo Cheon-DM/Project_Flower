@@ -245,7 +245,7 @@
                 <div class="card-footer">
 <!--                    <small>Last updated 3 mins ago</small>-->
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/cart/{bouquetId}(bouquetId=${bouquet.key.id})}">Add</a>
+                       th:href="@{/add/bouquet/{bouquetId}(bouquetId=${bouquet.key.id})}">Add</a>
                     <a class="btn btn-info float-right btn-sm"
                        th:href="@{/add/{businessId}(businessId=${bouquet.value.id})}">Follow</a>
                 </div>
@@ -276,9 +276,9 @@
                 <div class="card-footer">
                     <!--                    <small>Last updated 3 mins ago</small>-->
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/cart/{singleId}(singleId=${single.key.id})}">Add</a>
+                       th:href="@{/add/single/{singleId}(singleId=${single.key.id})}">Add</a>
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/{singleId}(singleId=${single.value.id})}">Follow</a>
+                       th:href="@{/add/{businessId}(businessId=${single.value.id})}">Follow</a>
                 </div>
             </div>
         </div>

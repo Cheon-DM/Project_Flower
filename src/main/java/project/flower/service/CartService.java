@@ -7,6 +7,7 @@ import project.flower.domain.cart.Cart;
 import project.flower.domain.cart.CartItem;
 import project.flower.domain.flower.FlowerType;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
+import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.Member;
 import project.flower.repository.CartItemRepository;
 import project.flower.repository.CartRepository;
@@ -29,8 +30,7 @@ public class CartService {
         FlowerBouquet bouquet = bouquetRepository.findById(bouquetId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 부케는 존재하지 않습니다."));
 
-        Cart cart = cartRepository.findByMember(member)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저의 카트가 존재하지 않습니다."));
+        Cart cart = getCart(member, "해당 유저의 카트가 존재하지 않습니다.");
 
         CartItem item = CartItem.builder()
                 .itemName(bouquet.getBouquetName())
@@ -55,10 +55,43 @@ public class CartService {
         }
     }
 
+    private Cart getCart(Member member, String s) {
+        return cartRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException(s));
+    }
+
+    public void saveSingle(Long singleId, Member member) {
+        FlowerSingle single = singleRepository.findById(singleId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 싱글 꽃은 존재하지 않습니다."));
+
+        Cart cart = getCart(member, "해당 유저의 카트가 존재하지 않습니다.");
+
+        CartItem item = CartItem.builder()
+                .itemName(single.getFlowerName())
+                .price(single.getPrice())
+                .count(1)
+                .imgUrl(single.getImageUrl())
+                .cart(cart)
+                .type(FlowerType.FLOWER_SINGLE)
+                .itemId(singleId)
+                .build();
+
+        // 이미 카트에 담김
+        if (cartItemRepository.existsCartItemByTypeAndItemId(FlowerType.FLOWER_SINGLE, singleId)){
+            CartItem findItem = cartItemRepository.findCartItemByTypeAndItemId(single.getType(), singleId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 아이템이 카트에 없습니다."));
+
+            findItem.plusCount();
+            findItem.plusPrice(single.getPrice());
+            cartItemRepository.save(findItem);
+        } else { // 카트에 없음.
+            cartItemRepository.save(item);
+        }
+    }
+
     public List<CartItem> findCartItems(Member member){
         // member로 cartId 찾기
-        Cart cart = cartRepository.findByMember(member).orElseThrow(()
-                -> new IllegalArgumentException("해당 카드 아이디가 존재하지 않습니다."));
+        Cart cart = getCart(member, "해당 카드 아이디가 존재하지 않습니다.");
 
         log.info("cart id ={}",cart.getId());
 
