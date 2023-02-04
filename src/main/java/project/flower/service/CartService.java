@@ -34,8 +34,8 @@ public class CartService {
 
         CartItem item = CartItem.builder()
                 .itemName(bouquet.getBouquetName())
-                .price(bouquet.getPrice() * bouquet.getStock())
-                .count(bouquet.getStock())
+                .price(bouquet.getPrice())
+                .count(1)
                 .imgUrl(bouquet.getImageUrl())
                 .cart(cart)
                 .type(FlowerType.FLOWER_BOUQUET)
