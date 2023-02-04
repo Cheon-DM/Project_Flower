@@ -38,51 +38,67 @@
 
 <form action="/member/edit" method="post">
     <div class="container">
-        <div class="input-form-backgroud row">
-            <div class="input-form col-md-12 mx-auto">
-                <h4 class="mb-3">비밀번호 변경 폼</h4>
-                <form class="validation-form" th:object="${member}">
-                    <div class="row">
-                        <!-- 이름 -->
-                        <div class="col-md-6 mb-3">
-                            <label th:for="name">이름</label>
-                            <input type="text" class="form-control"
-                                   id="name" th:field="*{name}"
-                                   value="사용자" th:value="*{name}" readonly>
-                        </div>
-                        <!-- 성별 -->
-                        <div class="col-md-6 mb-3">
-                            <label for="sex">성별</label>
-                            <select class="custom-select d-block w-100" id="sex" th:field="*{sex}" disabled>
-                                <option selected disabled value="">성별</option>
-                                <option th:value="'M'">남</option>
-                                <option th:value="'F'">여</option>
-                            </select>
-                        </div>
-                        <!-- 나이 -->
-                        <div class="col-md-6 mb-3">
-                            <label for="age">나이</label>
-                            <input type="text" class="form-control"
-                                   id="age" th:field="*{age}"
-                                   value="100" th:value="*{age}" disabled>
-                        </div>
+        <div class="col-sm-12 pt-5">
+            <div class="card col-md-12 mx-auto">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <i class="fas fa-square"></i>
+                        비밀번호 변경 폼
+                    </h4>
+                </div>
+
+                <form class="card-body" th:object="${member}">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr style="line-height: 32px;">
+                                <td>이름</td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           id="name" th:field="*{name}"
+                                           value="사용자" th:value="*{name}" readonly>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 32px;">
+                                <td>성별</td>
+                                <td>
+                                    <select class="custom-select d-block w-100" id="sex" th:field="*{sex}" disabled>
+                                        <option selected disabled value="">성별</option>
+                                        <option th:value="'M'">남</option>
+                                        <option th:value="'F'">여</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 32px;">
+                                <td>나이</td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           id="age" th:field="*{age}"
+                                           value="100" th:value="*{age}" readonly>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 32px;">
+                                <td>이메일</td>
+                                <td>
+                                    <input type="email" class="form-control"
+                                           id="email" th:field="*{email}"
+                                           value="you@example.com" th:value="*{email}" readonly>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 32px;">
+                                <td>비밀번호</td>
+                                <td>
+                                    <input type="password" class="form-control"
+                                           id="password" th:field="*{password}"
+                                           value="1234" th:value="*{password}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <!-- 이메일 -->
-                    <div class="mb-3">
-                        <label for="email">이메일</label>
-                        <input type="email" class="form-control"
-                               id="email" th:field="*{email}"
-                               value="you@example.com" th:value="*{email}" readonly>
+                    <div class="text-center mt-3 mb-3">
+                        <button class="btn btn-success" type="submit" >비밀번호 변경하기</button>
                     </div>
-                    <!-- 비밀번호 -->
-                    <div class="mb-3">
-                        <label for="password">비밀번호</label>
-                        <input type="password" class="form-control"
-                               id="password" th:field="*{password}"
-                               >
-                    </div>
-                    <div class="mb-4"></div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">변경하기</button>
                 </form>
             </div>
         </div>
