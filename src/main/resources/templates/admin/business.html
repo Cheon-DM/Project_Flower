@@ -18,7 +18,7 @@
             <th>수정</th>
         </tr>
         <tr th:each="list : ${bouquetList}">
-            <td th:text="${list.bouquetName}"></td>
+            <td th:text="${list.name}"></td>
             <td th:text="${list.bouquetDetail}"></td>
             <td th:text="${list.color}"></td>
             <td th:text="${list.stock}"></td>
@@ -44,7 +44,7 @@
             <th>재고</th>
         </tr>
         <tr th:each="single : ${singleList}">
-            <td th:text="${single.flowerName}"></td>
+            <td th:text="${single.name}"></td>
             <td th:text="${single.flowerLang}"></td>
             <td th:text="${single.color}"></td>
             <td th:text="${single.stock}"></td>

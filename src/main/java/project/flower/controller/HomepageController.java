@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HomepageController {
 
-    private final BusinessService businessService;
+    private final CartService cartService;
     private final FavoriteService favoriteService;
 
     private final FlowerService flowerService;
@@ -37,8 +37,8 @@ public class HomepageController {
         model.addAttribute("singleMap", singleMap);
 
         if (memberDetails != null){
-            log.info(memberDetails.getMember().getName());
-            model.addAttribute("name", memberDetails.getMemberName());
+            model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
+            model.addAttribute("name", memberDetails.getMember().getName());
             model.addAttribute("member", memberDetails.getMember());
         } else {
             model.addAttribute("name", "guest");
@@ -71,6 +71,4 @@ public class HomepageController {
         model.addAttribute("member", memberDetails.getMember());
         return "adminpage";
     }
-
-
 }

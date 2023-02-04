@@ -26,7 +26,7 @@ public class FlowerBouquetForm {
 
     public FlowerBouquet toEntity(Business business){
         return FlowerBouquet.builder()
-                .bouquetName(bouquetName)
+                .name(bouquetName)
                 .bouquetDetail(bouquetDetail)
                 .color(color)
                 .price(price)

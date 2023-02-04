@@ -28,4 +28,7 @@ public class Cart {
     @OneToMany (mappedBy = "cart")
     private List<CartItem> cartItemList;
 
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
+    }
 }

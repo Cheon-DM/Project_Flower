@@ -26,7 +26,7 @@ public class FlowerSingleForm {
 
     public FlowerSingle toEntity(Business business){
         return FlowerSingle.builder()
-                .flowerName(flowerName)
+                .name(flowerName)
                 .flowerLang(flowerLang)
                 .color(color)
                 .price(price)

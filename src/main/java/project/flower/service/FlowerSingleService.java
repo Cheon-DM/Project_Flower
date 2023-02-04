@@ -26,7 +26,7 @@ public class FlowerSingleService {
         for (Business business : businessList) {
             List<FlowerSingle> singleList = flowerSingleRepository.findAllByBusiness(business);
             for (FlowerSingle single : singleList) {
-                log.info("single list={}",single.getFlowerName());
+                log.info("single list={}",single.getName());
             }
         }
 
