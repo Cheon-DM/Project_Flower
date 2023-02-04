@@ -226,22 +226,27 @@
 
 <div class="container px-4 px-lg-5 mt-5">
     <div>
-        가게 목록
+        [[${business.getBusinessName}]]
+    </div>
+    <div>
+        <a class="btn btn-info float-right btn-sm"
+           th:href="@{diybouquet/business/{businessId}(businessId=${business.id})}">제작하러가기</a>
     </div>
     <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="business : ${businessMap}">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="list : ${singleList}">
             <div class="card card-inverse card-info">
                 <img class="card-img-top" src="https://picsum.photos/200/150/?random">
                 <div class="card-block">
-                    <h4 class="card-title mt-3" th:text="${business.value.businessName}">가게 이름</h4>
+                    <h4 class="card-title mt-3" th:text="${list.flowerName}">꽃 이름</h4>
+                    <div class="meta card-text" th:text="${list.flowerLang}">
+                        <a>꽃말</a>
+                    </div>
 
                 </div>
                 <div class="card-footer">
-                    <!--                    <small>Last updated 3 mins ago</small>-->
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/diyshop/member/{memberId}/business/{businessId}(memberId=${member.id}, businessId=${business.key})}">가게 상세보기</a>
-                    <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/{businessId}(businessId=${business.key})}">Follow</a>
+                       th:href="@{singleflower/{singleId}(singleId=${list.id})}">꽃 상세보기</a>
+
                 </div>
             </div>
         </div>
