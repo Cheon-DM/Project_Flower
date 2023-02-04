@@ -23,7 +23,7 @@ public class CartController {
     @GetMapping("/add/bouquet/{bouquetId}")
     public String addBouquetToCart(@PathVariable("bouquetId") Long bouquetId, @AuthenticationPrincipal MemberDetails memberDetails,
                                 Model model){
-        log.info("item id = {}, user name = {}", bouquetId, memberDetails.getMemberName());
+        //log.info("item id = {}, user name = {}", bouquetId, memberDetails.getMemberName());
         model.addAttribute("user", memberDetails.getMember());
         cartService.saveBouquet(bouquetId, memberDetails.getMember());
         return "redirect:/";
@@ -32,7 +32,7 @@ public class CartController {
     @GetMapping("/add/single/{singleId}")
     public String addSingleToCart(@PathVariable("singleId") Long singleId, @AuthenticationPrincipal MemberDetails memberDetails,
                                    Model model){
-        log.info("item id = {}, user name = {}", singleId, memberDetails.getMemberName());
+        //log.info("item id = {}, user name = {}", singleId, memberDetails.getMemberName());
         model.addAttribute("user", memberDetails.getMember());
         cartService.saveSingle(singleId, memberDetails.getMember());
         return "redirect:/";

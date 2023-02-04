@@ -17,7 +17,7 @@ public class FlowerBouquet {
     private Long Id;
 
     @Column(name="bouquet_name")
-    private String bouquetName;
+    private String name;
     @Column(name="bouquet_detail")
     private String bouquetDetail;
 
@@ -42,7 +42,7 @@ public class FlowerBouquet {
     }
 
     public void update(String bouquetName, String bouquetDetail, FlowerColor color, int price, int stock){
-        this.bouquetName=bouquetName;
+        this.name =bouquetName;
         this.bouquetDetail=bouquetDetail;
         this.color=color;
         this.price=price;

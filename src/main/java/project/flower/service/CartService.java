@@ -33,7 +33,7 @@ public class CartService {
         Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
-                .itemName(bouquet.getBouquetName())
+                .itemName(bouquet.getName())
                 .price(bouquet.getPrice())
                 .count(1)
                 .imgUrl(bouquet.getImageUrl())
@@ -62,7 +62,7 @@ public class CartService {
         Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
-                .itemName(single.getFlowerName())
+                .itemName(single.getName())
                 .price(single.getPrice())
                 .count(1)
                 .imgUrl(single.getImageUrl())
