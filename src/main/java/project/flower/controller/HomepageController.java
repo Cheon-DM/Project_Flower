@@ -11,10 +11,7 @@ import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.MemberDetails;
-import project.flower.service.BusinessService;
-import project.flower.service.FavoriteService;
-import project.flower.service.FlowerBouquetService;
-import project.flower.service.FlowerSingleService;
+import project.flower.service.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,18 +23,17 @@ public class HomepageController {
 
     private final BusinessService businessService;
     private final FavoriteService favoriteService;
-    private final FlowerBouquetService bouquetService;
-    private final FlowerSingleService singleService;
+
+    private final FlowerService flowerService;
 
     @GetMapping ("/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-        List<Business> businessList = businessService.findAllBusiness();
-        model.addAttribute("businessList", businessList);
-
-        Map<Long, List<FlowerBouquet>> bouquetMap = bouquetService.findBouquetList();
+        // key : 부케, value : 가게
+        Map<FlowerBouquet, Business> bouquetMap = flowerService.findBouquetList();
         model.addAttribute("bouquetMap", bouquetMap);
 
-        Map<Long, List<FlowerSingle>> singleMap = singleService.findSingleList();
+        // key : 싱글, value : 가게
+        Map<FlowerSingle, Business> singleMap = flowerService.findSingleList();
         model.addAttribute("singleMap", singleMap);
 
         if (memberDetails != null){

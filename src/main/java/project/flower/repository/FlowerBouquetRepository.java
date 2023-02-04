@@ -9,6 +9,9 @@ import java.util.Optional;
 
 public interface FlowerBouquetRepository extends JpaRepository<FlowerBouquet, Long> {
 
+    @Override
+    List<FlowerBouquet> findAll();
+
     List<FlowerBouquet> findAllByBusiness(Business business);
 
     Optional<FlowerBouquet> findById(Long id);

@@ -20,7 +20,7 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/add/cart/{bouquetId}")
+    @GetMapping("/add/bouquet/{bouquetId}")
     public String addBouquetToCart(@PathVariable("bouquetId") Long bouquetId, @AuthenticationPrincipal MemberDetails memberDetails,
                                 Model model){
         log.info("item id = {}, user name = {}", bouquetId, memberDetails.getMemberName());
@@ -29,10 +29,25 @@ public class CartController {
         return "redirect:/";
     }
 
+    @GetMapping("/add/single/{singleId}")
+    public String addSingleToCart(@PathVariable("singleId") Long singleId, @AuthenticationPrincipal MemberDetails memberDetails,
+                                   Model model){
+        log.info("item id = {}, user name = {}", singleId, memberDetails.getMemberName());
+        model.addAttribute("user", memberDetails.getMember());
+        cartService.saveSingle(singleId, memberDetails.getMember());
+        return "redirect:/";
+    }
+
     @GetMapping("/member/cart")
     public String showCartItems(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
         List<CartItem> cartItems = cartService.findCartItems(memberDetails.getMember());
         model.addAttribute("cartItems", cartItems);
         return "member/cart";
+    }
+
+    @GetMapping("/member/cart/{cartItemId}")
+    public String deleteCartItem(@PathVariable Long cartItemId){
+        cartService.deleteCartItem(cartItemId);
+        return "redirect:/member/cart";
     }
 }

@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface FlowerSingleRepository extends JpaRepository<FlowerSingle, Long> {
 
+    @Override
+    List<FlowerSingle> findAll();
+
     List<FlowerSingle> findAllByBusiness(Business business);
 }

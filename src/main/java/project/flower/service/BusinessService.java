@@ -15,7 +15,9 @@ import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
 import project.flower.repository.FlowerSingleRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -43,8 +45,13 @@ public class BusinessService {
     }
 
     @Transactional
-    public List<Business> findAllBusiness(){
-        return businessRepository.findAll();
+    public Map<Long, Business> findBusinessMap(){
+        Map<Long, Business> businessMap = new HashMap<>();
+        List<Business> businessList = businessRepository.findAll();
+        for (Business business : businessList) {
+            businessMap.put(business.getId(), business);
+        }
+        return businessMap;
     }
 
     public Long registerBouquet(FlowerBouquetForm form, Business business){
