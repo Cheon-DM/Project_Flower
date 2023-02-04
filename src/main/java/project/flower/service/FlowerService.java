@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.flower.domain.admin.Business;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.flower.selfmade.FlowerSingle;
@@ -11,6 +12,10 @@ import project.flower.domain.flower.selfmade.FlowerSingleForm;
 import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
 import project.flower.repository.FlowerSingleRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -55,5 +60,39 @@ public class FlowerService {
         bouquet.update(form.getBouquetName(), form.getBouquetDetail(), form.getColor(),form.getPrice(), form.getStock());
 
         return id;
+    }
+
+    /**
+     * 부케 리스트 출력 (main page)
+     * @return key: 부케, value: 가게
+     */
+    public Map<FlowerBouquet, Business> findBouquetList(){
+        Map<FlowerBouquet, Business> bouquetMap = new HashMap<>();
+        List<FlowerBouquet> bouquetList = flowerBouquetRepository.findAll();
+
+        for (FlowerBouquet flowerBouquet : bouquetList) {
+            Long businessId = flowerBouquet.getBusiness().getId();
+            Business business = businessRepository.findById(businessId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+            bouquetMap.put(flowerBouquet, business);
+        }
+        return bouquetMap;
+    }
+
+    /**
+     * 단품 리스트 출력 (main page)
+     * @return key : 단품 꽃,  value : 가게
+     */
+    public Map<FlowerSingle, Business> findSingleList(){
+        Map<FlowerSingle, Business> singleMap = new HashMap<>();
+        List<FlowerSingle> singleList = flowerSingleRepository.findAll();
+
+        for (FlowerSingle flowerSingle : singleList) {
+            Long businessId = flowerSingle.getBusiness().getId();
+            Business business = businessRepository.findById(businessId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+            singleMap.put(flowerSingle, business);
+        }
+        return singleMap;
     }
 }
