@@ -33,7 +33,7 @@ public class CartService {
         Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
-                .itemName(bouquet.getBouquetName())
+                .itemName(bouquet.getName())
                 .price(bouquet.getPrice())
                 .count(1)
                 .imgUrl(bouquet.getImageUrl())
@@ -62,7 +62,7 @@ public class CartService {
         Cart cart = getCart(member);
 
         CartItem item = CartItem.builder()
-                .itemName(single.getFlowerName())
+                .itemName(single.getName())
                 .price(single.getPrice())
                 .count(1)
                 .imgUrl(single.getImageUrl())
@@ -98,6 +98,15 @@ public class CartService {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 카트 아이템은 존재하지 않습니다."));
         cartItemRepository.delete(cartItem);
+    }
+
+    // 카트 아이템 개수 띄우기
+    public int showItemCount(Member member){
+        Cart cart = cartRepository.findByMember(member)
+                .orElseThrow(() -> new IllegalArgumentException("해당 카트가 존재하지 않습니다."));
+        List<CartItem> cartItemList = cart.getCartItemList();
+        //log.info("cartItemList={}",cartItemList);
+        return cartItemList.size();
     }
 
 

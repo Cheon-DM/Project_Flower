@@ -6,10 +6,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import project.flower.domain.Role;
 import project.flower.domain.admin.Business;
 import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
+import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.*;
 
@@ -21,13 +23,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HomepageController {
 
-    private final BusinessService businessService;
+    private final CartService cartService;
     private final FavoriteService favoriteService;
 
     private final FlowerService flowerService;
 
     @GetMapping ("/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+
+
         // key : 부케, value : 가게
         Map<FlowerBouquet, Business> bouquetMap = flowerService.findBouquetList();
         model.addAttribute("bouquetMap", bouquetMap);
@@ -37,9 +41,15 @@ public class HomepageController {
         model.addAttribute("singleMap", singleMap);
 
         if (memberDetails != null){
-            log.info(memberDetails.getMember().getName());
-            model.addAttribute("name", memberDetails.getMemberName());
-            model.addAttribute("member", memberDetails.getMember());
+            if (memberDetails.getMember().getRole().equals(Role.ROLE_ADMIN)){
+                model.addAttribute("name", memberDetails.getMember().getName());
+                model.addAttribute("member", memberDetails.getMember());
+            }
+            else {
+                model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
+                model.addAttribute("name", memberDetails.getMember().getName());
+                model.addAttribute("member", memberDetails.getMember());
+            }
         } else {
             model.addAttribute("name", "guest");
             model.addAttribute("member", null);
@@ -72,6 +82,7 @@ public class HomepageController {
         return "adminpage";
     }
 
+
     @GetMapping("/diybouquetpage")
     public String diyPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
         model.addAttribute("member", memberDetails.getMember());
@@ -80,6 +91,7 @@ public class HomepageController {
 
         return "diybouquetpage";
     }
+
 
 
 }

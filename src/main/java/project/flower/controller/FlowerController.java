@@ -2,14 +2,19 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.FlowerType;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.flower.selfmade.FlowerSingleForm;
+import project.flower.domain.member.MemberDetails;
+import project.flower.service.CartService;
 import project.flower.service.FlowerService;
 
 @Slf4j
@@ -18,6 +23,7 @@ import project.flower.service.FlowerService;
 @RequiredArgsConstructor
 public class FlowerController {
 
+    private final CartService cartService;
     private final FlowerService flowerService;
 
     @GetMapping("/admin/businesses/{businessId}/single/{singleId}/edit")
@@ -58,5 +64,24 @@ public class FlowerController {
         flowerService.editBouquet(form, bouquetId);
 
         return "redirect:/admin/businesses/{businessId}";
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/flower/{flowerType}/{itemId}")
+    public String showDetailFlower(@PathVariable FlowerType flowerType, @PathVariable Long itemId,
+                                   @AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        String type = flowerType.getType();
+
+        if (type.equals(FlowerType.FLOWER_BOUQUET.getType())){
+            log.info("bouquet");
+            FlowerBouquet b = flowerService.findBouquet(itemId);
+            model.addAttribute("flower", b);
+        } else if (type.equals(FlowerType.FLOWER_SINGLE.getType())){
+            log.info("single");
+            FlowerSingle single = flowerService.findSingle(itemId);
+            model.addAttribute("flower", single);
+        }
+        model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
+        return "item";
     }
 }
