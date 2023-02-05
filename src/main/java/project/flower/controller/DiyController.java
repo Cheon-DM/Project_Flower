@@ -36,10 +36,10 @@ public class DiyController {
 
     @GetMapping("/diybouquet/business/{businessId}")
     public String diyBouquetPage(Model model){
-        return "";
+        return "shop/diybouquet";
     }
 
-    @GetMapping("/singleflower/{singleId}")
+    @GetMapping("/diyshop/member/{memberId}/business/singleflower/{singleId}")
     public String singleDetail( @PathVariable long singleId, Model model){
         FlowerSingle single = flowerService.findSingle(singleId);
         model.addAttribute("single", single);
