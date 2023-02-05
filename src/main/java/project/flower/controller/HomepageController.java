@@ -81,4 +81,17 @@ public class HomepageController {
         model.addAttribute("member", memberDetails.getMember());
         return "adminpage";
     }
+
+
+    @GetMapping("/diybouquetpage")
+    public String diyPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        model.addAttribute("member", memberDetails.getMember());
+        Map<Long, Business> businessMap = businessService.findBusinessMap();
+        model.addAttribute("businessMap", businessMap);
+
+        return "diybouquetpage";
+    }
+
+
+
 }
