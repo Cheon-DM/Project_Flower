@@ -25,6 +25,8 @@ public class HomepageController {
     private final CartService cartService;
     private final FavoriteService favoriteService;
 
+    private final BusinessService businessService;
+
     private final FlowerService flowerService;
 
     @GetMapping ("/")

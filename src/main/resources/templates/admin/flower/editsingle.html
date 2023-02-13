@@ -21,7 +21,7 @@
     <form action="/admin/flower/single" th:object="${single}" th:action method="post">
         <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" th:field="*{flowerName}" class="form-control" placeholder="상품 이름 입력">
+            <input type="text" id="itemName" th:field="*{name}" class="form-control" placeholder="상품 이름 입력">
         </div>
         <div>
             <label for="itemName">꽃말</label>
