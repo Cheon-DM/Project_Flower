@@ -23,14 +23,16 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("")
+
 @RequiredArgsConstructor
+
 public class DiyController {
 
     private final BusinessService businessService;
     private final MemberService memberService;
     private final FlowerService flowerService;
     private final FlowerSingleService flowerSingleService;
+
 
     @GetMapping("/diyshop/member/{memberId}/business/{businessId}")
     public String diyshopPage(@PathVariable long businessId, @PathVariable long memberId, Model model){
