@@ -11,7 +11,6 @@ import project.flower.domain.admin.Business;
 import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
-import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.*;
 
