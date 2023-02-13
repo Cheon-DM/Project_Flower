@@ -9,13 +9,12 @@ import project.flower.domain.flower.selfmade.SelfFlowerBouquet;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 public class SelfFlowerItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "self_item_id")
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "self_bouquet_id")
@@ -26,4 +25,11 @@ public class SelfFlowerItem {
     private FlowerSingle flowerSingle;
 
     private int count;
+
+    //==연관관계 메서드==//
+    public void setSelfBouquet(SelfFlowerBouquet selfBouquet){
+        this.selfFlowerBouquet=selfBouquet;
+        selfBouquet.selfFlowerItemList.add(this);
+
+    }
 }
