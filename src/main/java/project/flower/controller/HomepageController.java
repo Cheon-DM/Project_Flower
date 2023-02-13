@@ -25,6 +25,8 @@ public class HomepageController {
     private final CartService cartService;
     private final FavoriteService favoriteService;
 
+    private final BusinessService businessService;
+
     private final FlowerService flowerService;
 
     @GetMapping ("/")
@@ -80,4 +82,17 @@ public class HomepageController {
         model.addAttribute("member", memberDetails.getMember());
         return "adminpage";
     }
+
+
+    @GetMapping("/diybouquetpage")
+    public String diyPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+        model.addAttribute("member", memberDetails.getMember());
+        Map<Long, Business> businessMap = businessService.findBusinessMap();
+        model.addAttribute("businessMap", businessMap);
+
+        return "diybouquetpage";
+    }
+
+
+
 }

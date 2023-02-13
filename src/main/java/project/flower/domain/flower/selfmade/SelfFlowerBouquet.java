@@ -5,6 +5,9 @@ import lombok.*;
 import project.flower.domain.admin.Business;
 import project.flower.domain.member.Member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +18,7 @@ public class SelfFlowerBouquet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "self_bouquet_id")
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "business_id")
@@ -24,5 +27,9 @@ public class SelfFlowerBouquet {
    @ManyToOne
    @JoinColumn(name = "member_id")
     private Member member;
+
+   @OneToMany(mappedBy = "selfFlowerBouquet", fetch = FetchType.EAGER)
+   List<SelfFlowerItem> selfFlowerItemList = new ArrayList<SelfFlowerItem>();
+
 
 }

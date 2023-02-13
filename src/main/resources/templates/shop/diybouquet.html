@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+diybouquet
+
+꽃 목록이랑 담기+ 옆에는 뭐뭐담았는지 보이게 + 담은것 삭제하기 기능도(수정)
+<li>원하는 꽃 담기
+
+    <table>
+        꽃 목록
+        <tr>
+            <th>꽃 이름</th>
+            <th>상세</th>
+            <th>색</th>
+            <th>재고</th>
+            <th>가격</th>
+            <th>담기</th>
+        </tr>
+        <tr th:each="list : ${singleList}">
+            <td th:text="${list.name}"></td>
+            <td th:text="${list.flowerLang}"></td>
+            <td th:text="${list.color}"></td>
+            <td th:text="${list.stock}"></td>
+            <td th:text="${list.price}"></td>
+            <td> <button onclick="location.href='addsingle.html'"
+                         th:onclick="|location.href='@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                         type="button">상세보기</button> </td>
+
+        </tr>
+    </table>
+</li>
+<li>현재 담은 꽃
+    <table>
+        <tr>
+            <th>꽃 이름</th>
+            <th>갯수</th>
+            <th>가격</th>
+            <th>수량 수정하기</th>
+        </tr>
+        <tr th:each="list : ${selfFlowerItemList}">
+            <td th:text="${list.getFlowerSingle().name}"></td>
+            <td th:text="${list.count}"></td>
+            <td th:text="${list.totalPrice}"></td>
+            <td> <button onclick="location.href='addsingle.html'"
+                         th:onclick="|location.href='@{/edit/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                         type="button">수정</button> </td>
+
+
+        </tr>
+    </table>
+</li>
+
+<div>
+    <button onclick="location.href='addsingle.html'"
+            th:onclick="|location.href='@{/add/diy/{selfFlowerBouquetId}/(selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
+            type="button">DIY 부케 카트에 담기</button>
+</div>
+
+</body>
+</html>

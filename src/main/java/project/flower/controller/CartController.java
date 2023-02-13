@@ -38,6 +38,8 @@ public class CartController {
         return "redirect:/";
     }
 
+
+
     @GetMapping("/member/cart")
     public String showCartItems(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
         List<CartItem> cartItems = cartService.findCartItems(memberDetails.getMember());
