@@ -54,5 +54,11 @@ diybouquet
     </table>
 </li>
 
+<div>
+    <button onclick="location.href='addsingle.html'"
+            th:onclick="|location.href='@{/add/diy/{selfFlowerBouquetId}/(selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
+            type="button">DIY 부케 카트에 담기</button>
+</div>
+
 </body>
 </html>
