@@ -65,6 +65,20 @@ public class FlowerController {
 
         return "redirect:/admin/businesses/{businessId}";
     }
+    @GetMapping("/admin/businesses/{businessId}/single/{singleId}/delete")
+    public String deleteSingle(@PathVariable Long singleId){
+
+        flowerService.deleteSingle(singleId);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
+    @GetMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/delete")
+    public String deleteBouquet(@PathVariable Long bouquetId){
+
+        flowerService.deleteBouquet(bouquetId);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/flower/{flowerType}/{itemId}")

@@ -62,6 +62,16 @@ public class FlowerService {
         return id;
     }
 
+    @Transactional
+    public void deleteBouquet(Long id){
+        flowerBouquetRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteSingle(Long id){
+        flowerSingleRepository.deleteById(id);
+    }
+
     /**
      * 부케 리스트 출력 (main page)
      * @return key: 부케, value: 가게
