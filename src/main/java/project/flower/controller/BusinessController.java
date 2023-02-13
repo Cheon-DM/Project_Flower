@@ -48,7 +48,7 @@ public class BusinessController {
         Member currentMember = memberDetails.getMember();
         businessService.registerBusiness(form, currentMember);
 
-        return "adminpage";
+        return "redirect:/adminpage";
     }
 
     @GetMapping("/admin/businesses")
