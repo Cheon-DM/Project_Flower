@@ -19,6 +19,7 @@ public class SelfFlowerItemForm {
                 .selfFlowerBouquet(bouquet)
                 .flowerSingle(single)
                 .count(count)
+                .totalPrice(count* single.getPrice())
                 .build();
     }
 }

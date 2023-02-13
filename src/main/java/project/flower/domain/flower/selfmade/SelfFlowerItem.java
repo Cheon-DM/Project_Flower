@@ -26,10 +26,13 @@ public class SelfFlowerItem {
 
     private int count;
 
+    private int totalPrice;
+
     //==연관관계 메서드==//
     public void setSelfBouquet(SelfFlowerBouquet selfBouquet){
         this.selfFlowerBouquet=selfBouquet;
         selfBouquet.selfFlowerItemList.add(this);
 
     }
+
 }
