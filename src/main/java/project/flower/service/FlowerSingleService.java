@@ -45,6 +45,7 @@ public class FlowerSingleService {
         SelfFlowerBouquet selfFlowerBouquet = SelfFlowerBouquet.builder()
                 .business(business)
                 .member(member)
+                .totalPrice(0)
                 .build();
 
         return selfFlowerBouquetRepository.save(selfFlowerBouquet).getId();
@@ -62,6 +63,7 @@ public class FlowerSingleService {
 
         SelfFlowerItem selfFlowerItem = form.toEntity(bouquet, single);
         selfFlowerItem.setSelfBouquet(bouquet);
+        bouquet.addPrice(selfFlowerItem);
 
 
         return selfFlowerItemRepository.save(selfFlowerItem).getId();

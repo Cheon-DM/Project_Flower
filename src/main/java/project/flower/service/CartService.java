@@ -8,11 +8,9 @@ import project.flower.domain.cart.CartItem;
 import project.flower.domain.flower.FlowerType;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
+import project.flower.domain.flower.selfmade.SelfFlowerBouquet;
 import project.flower.domain.member.Member;
-import project.flower.repository.CartItemRepository;
-import project.flower.repository.CartRepository;
-import project.flower.repository.FlowerBouquetRepository;
-import project.flower.repository.FlowerSingleRepository;
+import project.flower.repository.*;
 
 import java.util.List;
 
@@ -23,6 +21,8 @@ public class CartService {
 
     private final FlowerBouquetRepository bouquetRepository;
     private final FlowerSingleRepository singleRepository;
+    private final SelfFlowerBouquetRepository selfFlowerBouquetRepository;
+
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
@@ -82,6 +82,27 @@ public class CartService {
         } else { // 카트에 없음.
             cartItemRepository.save(item);
         }
+    }
+
+    public void saveDiyBouquet(Long id, Member member){
+        SelfFlowerBouquet selfFlowerBouquet = selfFlowerBouquetRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 제작 꽃은 존재하지 않습니다."));
+
+        Cart cart=getCart(member);
+
+        CartItem item = CartItem.builder()
+                .itemName("DIY 부케"+selfFlowerBouquet.getId())
+                .price(selfFlowerBouquet.getTotalPrice())
+                .count(1)
+                //.imgUrl()
+                .cart(cart)
+                .type(FlowerType.FLOWER_SELF_BOUQUET)
+                .itemId(selfFlowerBouquet.getId())
+                .build();
+
+        cartItemRepository.save(item);
+
+
     }
 
     public List<CartItem> findCartItems(Member member){

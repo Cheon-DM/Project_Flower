@@ -38,6 +38,18 @@ public class CartController {
         return "redirect:/";
     }
 
+    @GetMapping("/add/{businessId}/diy/{selfFlowerBouquetId}")
+    public String addDiyBouquetToCart(@PathVariable Long selfFlowerBouquetId, @PathVariable Long businessId, @AuthenticationPrincipal MemberDetails memberDetails,
+                                      Model model){
+
+        model.addAttribute("user", memberDetails.getMember());
+        model.addAttribute("memberId", memberDetails.getMember().getId());
+
+        cartService.saveDiyBouquet(selfFlowerBouquetId, memberDetails.getMember());
+
+        return "redirect:/diyshop/member/{memberId}/business/{businessId}";
+    }
+
 
 
     @GetMapping("/member/cart")
