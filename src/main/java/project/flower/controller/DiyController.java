@@ -34,8 +34,8 @@ public class DiyController {
     private final FlowerSingleService flowerSingleService;
 
 
-    @GetMapping("/diyshop/member/{memberId}/business/{businessId}")
-    public String diyshopPage(@PathVariable long businessId, @PathVariable long memberId, Model model){
+    @GetMapping("/diyshop/business/{businessId}")
+    public String diyshopPage(@PathVariable long businessId, Model model){
 
         Business business = businessService.findBusiness(businessId);
         List<FlowerSingle> singleList = business.getSingleList();
@@ -44,7 +44,7 @@ public class DiyController {
         return "shop/diybusinessdetail";
     }
 
-    @GetMapping("/diyshop/member/{memberId}/business/singleflower/{singleId}")
+    @GetMapping("singleflower/{singleId}")
     public String singleDetail( @PathVariable long singleId, Model model){
         FlowerSingle single = flowerService.findSingle(singleId);
         model.addAttribute("single", single);

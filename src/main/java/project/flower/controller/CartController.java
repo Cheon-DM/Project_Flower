@@ -47,7 +47,7 @@ public class CartController {
 
         cartService.saveDiyBouquet(selfFlowerBouquetId, memberDetails.getMember());
 
-        return "redirect:/diyshop/member/{memberId}/business/{businessId}";
+        return "redirect:/diyshop/business/{businessId}";
     }
 
 
