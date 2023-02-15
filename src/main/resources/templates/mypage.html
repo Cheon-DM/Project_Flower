@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -10,28 +11,58 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
 </head>
 
 <body>
-<!-- Responsive navbar-->
+<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Flower</a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <a
+                            class="nav-link dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                    >Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#!">Bouquet</a></li>
+                        <li><a class="dropdown-item" href="#!">Single</a></li>
+                        <li><a class="dropdown-item" href="/diybouquetpage">DIY Bouquet</a></li>
                     </ul>
                 </li>
             </ul>
+            <form class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+            </form>
         </div>
     </div>
 </nav>
@@ -42,7 +73,7 @@
             <div class="card col-md-12 mx-auto">
                 <div class="card-header">
                     <h4 class="card-title">
-                        <i class="fas fa-square"></i>
+                        <i class="fas fa-user"></i>
                         마이페이지
                     </h4>
                 </div>
@@ -110,12 +141,17 @@
         <!-- 즐겨찾기 목록 -->
         <div class="card">
             <div class="card-header">
-                <h4>즐겨찾기 목록</h4>
+                <h4>
+                    <i class="fas fa-star"></i>
+                    즐겨찾기 목록
+                </h4>
             </div>
             <div class="card-body">
                 <table class="table">
-                    <tbody th:each="store: ${storeList}">
-                    <tr th:text="${store.business.businessName}">즐겨찾기 목록1</tr>
+                    <tbody>
+                    <tr th:each="store: ${storeList}">
+                        <td th:text="${store.business.businessName}">즐겨찾기 목록1</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -124,7 +160,7 @@
 </div>
 
 <footer class="my-3 text-center text-small">
-    <p class="mb-1">&copy; 2021 YD</p>
+    <p class="mb-1">&copy; 2023 Flower Shop</p>
 </footer>
 
 <!-- Bootstrap core JS-->
