@@ -109,6 +109,9 @@ public class CartService {
         return cartItemList.size();
     }
 
+    public void editCartItem(Long cartItemId){
+
+    }
 
     private Cart getCart(Member member) {
         return cartRepository.findByMember(member)

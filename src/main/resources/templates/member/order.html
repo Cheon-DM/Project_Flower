@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+<body>
+    주문 페이지
+    <div th:each="num : ${orderList}">
+        <li th:text="num">
+    </div>
+</body>
+</html>
