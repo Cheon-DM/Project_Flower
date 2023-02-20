@@ -12,6 +12,8 @@ import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.MemberDetails;
+import project.flower.domain.order.FlowerOrder;
+import project.flower.domain.order.FlowerOrderItem;
 import project.flower.service.*;
 
 import java.util.List;
@@ -24,10 +26,9 @@ public class HomepageController {
 
     private final CartService cartService;
     private final FavoriteService favoriteService;
-
     private final BusinessService businessService;
-
     private final FlowerService flowerService;
+    private final OrderService orderService;
 
     @GetMapping ("/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
@@ -72,8 +73,10 @@ public class HomepageController {
     @GetMapping("/mypage")
     public String myPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
         List<FavoriteStore> favoriteStoreList = favoriteService.findFavoriteStoreAll(memberDetails.getMember());
+        List<List<FlowerOrderItem>> orderList = orderService.findOrder(memberDetails.getMember());
         model.addAttribute("member", memberDetails.getMember());
         model.addAttribute("storeList", favoriteStoreList);
+        model.addAttribute("orderList", orderList);
         return "mypage";
     }
 

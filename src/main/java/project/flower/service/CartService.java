@@ -40,6 +40,7 @@ public class CartService {
                 .cart(cart)
                 .type(FlowerType.FLOWER_BOUQUET)
                 .itemId(bouquetId)
+                .business(bouquet.getBusiness())
                 .build();
 
         // 이미 카트에 담김
@@ -69,6 +70,7 @@ public class CartService {
                 .cart(cart)
                 .type(FlowerType.FLOWER_SINGLE)
                 .itemId(singleId)
+                .business(single.getBusiness())
                 .build();
 
         // 이미 카트에 담김
@@ -82,6 +84,11 @@ public class CartService {
         } else { // 카트에 없음.
             cartItemRepository.save(item);
         }
+    }
+
+    public CartItem findCartItem(Long id){
+        return cartItemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 카트 아이템이 없습니다."));
     }
 
     public List<CartItem> findCartItems(Member member){

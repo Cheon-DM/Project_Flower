@@ -48,8 +48,8 @@ public class Member {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Favorite favorite;
 
-    @OneToOne(mappedBy = "memberId")
-    private FlowerOrder flowerOrderId;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<FlowerOrder> flowerOrderList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
     List<Business> businessList= new ArrayList<Business>();
