@@ -3,12 +3,21 @@ package project.flower.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import project.flower.domain.admin.Business;
+import project.flower.domain.member.MemberDetails;
 import project.flower.domain.member.MemberForm;
+import project.flower.domain.order.FlowerOrderItem;
 import project.flower.service.MemberService;
+import project.flower.service.OrderService;
+
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -17,6 +26,7 @@ import project.flower.service.MemberService;
 public class AdminController {
 
     private final MemberService memberService;
+    private final OrderService orderService;
 
     @GetMapping("/signup/seller")
     public String signUpSellerForm(@ModelAttribute("form") MemberForm form){
@@ -47,5 +57,14 @@ public class AdminController {
         // 성공로직
         memberService.joinAdmin(form);
         return "redirect:/login";
+    }
+
+    @GetMapping("admin/order")
+    public String showOrder(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        Map<String, List<FlowerOrderItem>> orderMap = orderService.showOrder_Admin(businessList);
+        model.addAttribute("orderMap", orderMap);
+
+        return "admin/order";
     }
 }

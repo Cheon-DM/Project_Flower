@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8" />
@@ -8,10 +9,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="stylesheet" href="../css/styles.css"
-          th:href="@{/css/styles.css}"
-          type="text/css"/>
+    <link href="../css/styles.css" rel="stylesheet" type="text/css"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
 </head>
 
 <body class="sb-nav-fixed">
@@ -125,109 +128,42 @@
 
     <!-- 사이드 바 끝  -->
 
-    <!-- 등록된 부케 목록 -->
+    <!-- 주문 내역 -->
     <div id = "layoutSidenav_content">
         <main>
             <div class="container-fluid">
                 <div class="col-sm-12 pt-5">
-                    <div class="card col-md-12 mx-auto">
+                    <div class="card col-md-12 mx-auto" th:each="entry : ${orderMap}">
                         <div class="card-header">
-                            <h4 class="card-title">
-                                <i class="fa-solid fa-check"></i>
-                                등록된 부케 목록
+                            <h4 class="card-title" th:with="business=${entry.key}">
+                                <i class="fas fa-flower"></i>
+                                [[${business}]]
                             </h4>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" th:with="flowerList=${entry.value}">
                                 <thead>
                                 <tr>
-                                    <th>부케 이름</th>
-                                    <th>상세</th>
-                                    <th>색</th>
-                                    <th>재고</th>
-                                    <th>가격</th>
-                                    <th>수정</th>
-                                    <th>삭제</th>
+                                    <th> 꽃 이름</th>
+                                    <th> 꽃 수량</th>
+                                    <th> 꽃 가격</th>
+                                    <th> 배송 관리</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr style="line-height: 32px;" th:each="list : ${bouquetList}">
-                                    <td th:text="${list.name}"></td>
-                                    <td th:text="${list.bouquetDetail}"></td>
-                                    <td th:text="${list.color}"></td>
-                                    <td th:text="${list.stock}"></td>
-                                    <td th:text="${list.price}"></td>
-                                    <td> <button onclick="location.href='business.html'"
-                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}/bouquet/{bouquetId}/edit(businessId=${business.id}, bouquetId=${list.id})}'|"
-                                                 type="button" class="btn btn-success">수정</button> </td>
-                                    <td> <button class="btn btn-danger">삭제</button> </td>
+                                <tr style="line-height: 32px;" th:each="flower : ${flowerList}">
+                                    <td th:text="${flower.name}"></td>
+                                    <td th:text="${flower.count}"></td>
+                                    <td th:text="${flower.price}"></td>
+                                    <td th:text="${flower.status}"></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <!-- 부케 등록하기 -->
-                            <div class="text-center mt-3 mb-3">
-                                <a class="btn btn-info"
-                                   href="bouquet.html" th:href="@{/admin/businesses/{businessId}/bouquet(businessId=${business.id})}">
-                                    꽃(부케) 등록하기
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- 등록된 부케 목록 끝-->
-
-            <!-- 등록된 단품 목록 -->
-            <div class="container-fluid">
-                <div class="col-sm-12 pt-5">
-                    <div class="card col-md-12 mx-auto">
-                        <div class="card-header">
-                            <h4 class="card-title">
-                                <i class="fa-solid fa-check"></i>
-                                등록된 단품 목록
-                            </h4>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>단품 이름</th>
-                                    <th>상세</th>
-                                    <th>색</th>
-                                    <th>재고</th>
-                                    <th>가격</th>
-                                    <th>수정</th>
-                                    <th>삭제</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr style="line-height: 32px;" th:each="single : ${singleList}">
-                                    <td th:text="${single.name}"></td>
-                                    <td th:text="${single.flowerLang}"></td>
-                                    <td th:text="${single.color}"></td>
-                                    <td th:text="${single.stock}"></td>
-                                    <td th:text="${single.price}"></td>
-                                    <td> <button onclick="location.href='business.html'"
-                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}/single/{singleId}(businessId=${business.id}, singleId=${single.id})}/edit'|"
-                                                 type="button" class="btn btn-success">수정</button> </td>
-                                    <td> <button class="btn btn-danger">삭제</button> </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!-- 단품 등록하기 -->
-                            <div class="text-center mt-3 mb-3">
-                                <a class="btn btn-info"
-                                   href="single.html" th:href="@{/admin/businesses/{businessId}/single(businessId=${business.id})}">
-                                    꽃(단품) 등록하기
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 등록된 단품 목록 끝-->
         </main>
     </div>
 </div>

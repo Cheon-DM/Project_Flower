@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.flower.domain.admin.Business;
 import project.flower.domain.cart.Cart;
 import project.flower.domain.cart.CartItem;
 import project.flower.domain.member.Member;
@@ -70,5 +71,15 @@ public class OrderService {
             orderList.add(flowers);
         }
         return orderList;
+    }
+
+    public Map<String, List<FlowerOrderItem>> showOrder_Admin(List<Business> businessList){
+        Map<String, List<FlowerOrderItem>> orderMap = new HashMap<>();
+        for (Business business : businessList) {
+            List<FlowerOrderItem> flowers = orderItemRepository.findAllByBusiness(business);
+            orderMap.put(business.getBusinessName(), flowers);
+        }
+
+        return orderMap;
     }
 }
