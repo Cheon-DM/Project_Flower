@@ -2,10 +2,13 @@ package project.flower.domain.admin;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.flower.domain.cart.CartItem;
 import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.Member;
+import project.flower.domain.order.FlowerOrder;
+import project.flower.domain.order.FlowerOrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,12 @@ public class Business {
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
+
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    List<FlowerOrderItem> orderItemList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    List<CartItem> cartItemList = new ArrayList<>();
 
     //==연관관계 메서드==//
     public void setMember(Member member){

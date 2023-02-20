@@ -1,10 +1,9 @@
 package project.flower.domain.order;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import project.flower.domain.BaseTimeEntity;
+import project.flower.domain.admin.Business;
 import project.flower.domain.member.Member;
 
 import java.time.LocalDateTime;
@@ -14,24 +13,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
-public class FlowerOrder {
+@Setter
+public class FlowerOrder extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private Long id;
 
-    @Column
-    private LocalDateTime orderDate;
-
-    @Column(nullable = false)
-    private String status;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
     // FK
-    @OneToMany(mappedBy = "flowerOrderId")
-    private List<FlowerOrderItem> orders;
+    @OneToMany(mappedBy = "flowerOrder")
+    private List<FlowerOrderItem> orderItems;
 }

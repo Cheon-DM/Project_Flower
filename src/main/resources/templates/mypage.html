@@ -159,6 +159,40 @@
     </div>
 </div>
 
+<!-- 주문 내역 -->
+<div class="container">
+    <div class="col-sm-12 pt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    <i class="fas fa-receipt"></i>
+                    주문 내역
+                </h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>아이템 이름</td>
+                        <td>아이템 수량</td>
+                        <td>아이템 가격</td>
+                        <td>배송 상태</td>
+                    </tr>
+                    </thead>
+                    <tbody th:each="order : ${orderList}">
+                    <tr th:each="item : ${order}">
+                        <td th:text="${item.name}">아이템 이름</td>
+                        <td th:text="${item.count}">아이템 수량</td>
+                        <td th:text="${item.price}">아이템 가격</td>
+                        <td th:text="${item.status}">배송 상태</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer class="my-3 text-center text-small">
     <p class="mb-1">&copy; 2023 Flower Shop</p>
 </footer>
