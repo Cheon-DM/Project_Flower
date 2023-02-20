@@ -67,4 +67,10 @@ public class AdminController {
 
         return "admin/order";
     }
+
+    @GetMapping("admin/order/{flowerId}")
+    public String changeOrderStatus(){
+
+        return "redirect:/admin/order";
+    }
 }

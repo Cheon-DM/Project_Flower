@@ -148,6 +148,7 @@
                                     <th> 꽃 이름</th>
                                     <th> 꽃 수량</th>
                                     <th> 꽃 가격</th>
+                                    <th> 배송 상태</th>
                                     <th> 배송 관리</th>
                                 </tr>
                                 </thead>
@@ -157,6 +158,8 @@
                                     <td th:text="${flower.count}"></td>
                                     <td th:text="${flower.price}"></td>
                                     <td th:text="${flower.status}"></td>
+                                    <td><button class="btn btn-primary" id="delivery" th:value="${flower.id}"
+                                        th:onclick="|location.href='@{/admin/order/{flowerId} (flowerId=${flower.id})}'|">배송</button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -167,5 +170,12 @@
         </main>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    $(document).on('click', '#delivery', function (){
+        var itemId = $("input[id='delivery']");
+
+    });
+</script>
 </body>
 </html>
