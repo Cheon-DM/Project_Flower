@@ -35,7 +35,8 @@ public class FlowerSingle {
     private String flowerLang;
     private int price;
     private int stock;
-    private String imageUrl;
+    private String imgName; //이미지 파일명
+    private String imgPath;// 이미지 조회경로
 
     //==연관관계 메서드==//
     public void setBusiness(Business business){
@@ -43,9 +44,9 @@ public class FlowerSingle {
         business.getSingleList().add(this);
     }
 
-    //====//
-    public void update(String flowerName, String flowerLang, FlowerColor color, int price, int stock){
-        this.name =flowerName;
+
+    public void update(String name, String flowerLang, FlowerColor color, int price, int stock){
+        this.name =name;
         this.flowerLang=flowerLang;
         this.color=color;
         this.price=price;

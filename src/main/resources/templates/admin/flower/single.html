@@ -18,10 +18,10 @@
         <h2>상품 등록 폼 (꽃 단품)</h2>
     </div>
 
-    <form action="/admin/flower/single" th:object="${form}" th:action method="post">
+    <form action="/admin/flower/single" th:object="${form}" th:action method="post" enctype="multipart/form-data">
         <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" th:field="*{flowerName}" class="form-control" placeholder="상품 이름 입력">
+            <input type="text" id="itemName" th:field="*{name}" class="form-control" placeholder="상품 이름 입력">
         </div>
         <div>
             <label for="itemName">꽃말</label>
@@ -35,6 +35,11 @@
             <label for="quantity">수량</label>
             <input type="text" id="quantity" th:field="*{stock}" class="form-control" placeholder="수량을 입력">
         </div>
+        <div>
+            <label for="files">사진</label>
+            <input type="file" id="files" th:field="*{imgFile}"  class="form-control" placeholder="">
+        </div>
+
 
         <hr class="my-4">
         <div>

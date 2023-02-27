@@ -49,8 +49,8 @@ public class FlowerBouquet {
         business.getBouquetList().add(this);
     }
 
-    public void update(String bouquetName, String bouquetDetail, FlowerColor color, int price, int stock){
-        this.name =bouquetName;
+    public void update(String name, String bouquetDetail, FlowerColor color, int price, int stock){
+        this.name =name;
         this.bouquetDetail=bouquetDetail;
         this.color=color;
         this.price=price;

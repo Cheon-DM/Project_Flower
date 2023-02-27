@@ -40,7 +40,7 @@ public class FlowerService {
     public Long editSingle(FlowerSingleForm form, Long id){
         FlowerSingle single = flowerSingleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("없습니다."));
-        single.update(form.getFlowerName(), form.getFlowerLang(), form.getColor(),form.getPrice(), form.getStock());
+        single.update(form.getName(), form.getFlowerLang(), form.getColor(),form.getPrice(), form.getStock());
 
         return id;
     }
@@ -57,7 +57,7 @@ public class FlowerService {
     public Long editBouquet(FlowerBouquetForm form, Long id){
         FlowerBouquet bouquet = flowerBouquetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("없습니다."));
-        bouquet.update(form.getBouquetName(), form.getBouquetDetail(), form.getColor(),form.getPrice(), form.getStock());
+        bouquet.update(form.getName(), form.getBouquetDetail(), form.getColor(),form.getPrice(), form.getStock());
 
         return id;
     }

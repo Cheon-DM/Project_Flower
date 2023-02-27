@@ -16,7 +16,7 @@ import project.flower.domain.flower.FlowerType;
 @Data
 public class FlowerBouquetForm {
 
-    private String bouquetName;
+    private String name;
     private String bouquetDetail;
     private FlowerColor color;
 
@@ -34,7 +34,7 @@ public class FlowerBouquetForm {
 
     public FlowerBouquet toEntity(Business business){
         return FlowerBouquet.builder()
-                .name(bouquetName)
+                .name(name)
                 .bouquetDetail(bouquetDetail)
                 .color(color)
                 .price(price)
