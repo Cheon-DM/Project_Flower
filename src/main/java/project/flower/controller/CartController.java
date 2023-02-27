@@ -53,7 +53,8 @@ public class CartController {
 
 
     @GetMapping("/member/cart")
-    public String showCartItems(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+    public String showCartItems(@AuthenticationPrincipal MemberDetails memberDetails,
+                                Model model){
         List<CartItem> cartItems = cartService.findCartItems(memberDetails.getMember());
         model.addAttribute("cartItems", cartItems);
         return "member/cart";
@@ -63,5 +64,12 @@ public class CartController {
     public String deleteCartItem(@PathVariable Long cartItemId){
         cartService.deleteCartItem(cartItemId);
         return "redirect:/member/cart";
+    }
+
+    @GetMapping("/member/cart/edit/{cartItemId}")
+    public String editCart(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+        List<CartItem> cartItems = cartService.findCartItems(memberDetails.getMember());
+        model.addAttribute("cartItems", cartItems);
+        return "member/cartEdit";
     }
 }

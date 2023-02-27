@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerType;
 
 @Entity
@@ -39,6 +40,10 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "CART_ID")
     private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "BUSINESS_ID")
+    private Business business;
 
     public void plusPrice(int addPrice) {
         this.price += addPrice;

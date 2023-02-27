@@ -128,35 +128,35 @@
 
     <!-- 사이드 바 끝  -->
 
-    <!-- 나의 꽃집 목록 -->
+    <!-- 주문 내역 -->
     <div id = "layoutSidenav_content">
         <main>
             <div class="container-fluid">
                 <div class="col-sm-12 pt-5">
-                    <div class="card col-md-12 mx-auto">
+                    <div class="card col-md-12 mx-auto" th:each="entry : ${orderMap}">
                         <div class="card-header">
-                            <h4 class="card-title">
+                            <h4 class="card-title" th:with="business=${entry.key}">
                                 <i class="fas fa-flower"></i>
-                                나의 꽃집 목록
+                                [[${business}]]
                             </h4>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" th:with="flowerList=${entry.value}">
                                 <thead>
                                 <tr>
-                                    <th> 꽃집 이름</th>
-                                    <th> 사업자등록번호</th>
-                                    <th> 관리하기</th>
+                                    <th> 꽃 이름</th>
+                                    <th> 꽃 수량</th>
+                                    <th> 꽃 가격</th>
+                                    <th> 배송 관리</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr style="line-height: 32px;" th:each="list : ${businessList}">
-                                    <td th:text="${list.businessName}"></td>
-                                    <td th:text="${list.businessNum}"></td>
-                                    <td> <button onclick="location.href='business.html'"
-                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}(businessId=${list.id})}'|"
-                                                 type="button" class="btn btn-warning">꽃집 관리 하기</button> </td>
+                                <tr style="line-height: 32px;" th:each="flower : ${flowerList}">
+                                    <td th:text="${flower.name}"></td>
+                                    <td th:text="${flower.count}"></td>
+                                    <td th:text="${flower.price}"></td>
+                                    <td th:text="${flower.status}"></td>
                                 </tr>
                                 </tbody>
                             </table>
