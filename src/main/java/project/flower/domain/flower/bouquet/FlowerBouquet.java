@@ -49,6 +49,10 @@ public class FlowerBouquet {
         business.getBouquetList().add(this);
     }
 
+    public void setStock(int diff) {
+        this.stock -= diff;
+    }
+
     public void update(String name, String bouquetDetail, FlowerColor color, int price, int stock){
         this.name =name;
         this.bouquetDetail=bouquetDetail;
