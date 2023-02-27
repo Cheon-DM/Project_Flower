@@ -85,7 +85,6 @@ public class BusinessController {
     }
 
     @PostMapping("/admin/businesses/{businessId}/bouquet")
-    @ResponseStatus(HttpStatus.CREATED)
     public String registerBouquet(@PathVariable long businessId,
                                   @ModelAttribute("form") FlowerBouquetForm form,  BindingResult bindingResult, Model model) throws Exception {
 
@@ -103,7 +102,7 @@ public class BusinessController {
         businessService.registerBouquet(form ,bus);
 
 
-        return "redirect:/success";
+        return "redirect:/admin/businesses/{businessId}";
     }
 
     @GetMapping("/success")

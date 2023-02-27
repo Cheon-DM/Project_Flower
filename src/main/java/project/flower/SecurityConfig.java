@@ -32,8 +32,6 @@ public class SecurityConfig{
         http.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
-                        "/signup/**", "/login/**", "/error/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
-        http.authorizeHttpRequests().requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
                         "/signup/**", "/login/**", "/error/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**",
                         "/item", "/flower/**")
                 .permitAll().anyRequest().authenticated();
