@@ -47,7 +47,7 @@ public class BusinessController {
         }
         Member currentMember = memberDetails.getMember();
         businessService.registerBusiness(form, currentMember);
-
+//
         return "redirect:/adminpage";
     }
 
