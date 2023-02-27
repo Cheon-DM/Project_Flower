@@ -100,11 +100,10 @@ public class CartService {
                 .cart(cart)
                 .type(FlowerType.FLOWER_SELF_BOUQUET)
                 .itemId(selfFlowerBouquet.getId())
+                .business(selfFlowerBouquet.getBusiness())
                 .build();
 
         cartItemRepository.save(item);
-
-
     }
 
     public CartItem findCartItem(Long id){

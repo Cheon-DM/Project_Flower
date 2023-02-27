@@ -13,4 +13,7 @@ public interface OrderItemRepository extends JpaRepository<FlowerOrderItem, Long
     List<FlowerOrderItem> findAllByFlowerOrder(FlowerOrder order);
 
     List<FlowerOrderItem> findAllByBusiness(Business business);
+
+    @Override
+    Optional<FlowerOrderItem> findById(Long aLong);
 }
