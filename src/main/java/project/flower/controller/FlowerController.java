@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.FlowerType;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
@@ -16,6 +17,8 @@ import project.flower.domain.flower.selfmade.FlowerSingleForm;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.CartService;
 import project.flower.service.FlowerService;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -87,15 +90,27 @@ public class FlowerController {
         String type = flowerType.getType();
 
         if (type.equals(FlowerType.FLOWER_BOUQUET.getType())){
-            log.info("bouquet");
+            log.info("bouquet info get");
             FlowerBouquet b = flowerService.findBouquet(itemId);
+            Business bouquetBusiness = b.getBusiness();
+            List<FlowerBouquet> bouquetList = bouquetBusiness.getBouquetList();
             model.addAttribute("flower", b);
+            model.addAttribute("related", bouquetList);
         } else if (type.equals(FlowerType.FLOWER_SINGLE.getType())){
-            log.info("single");
+            log.info("single info get");
             FlowerSingle single = flowerService.findSingle(itemId);
+            Business singleBusiness = single.getBusiness();
+            List<FlowerSingle> singleList = singleBusiness.getSingleList();
             model.addAttribute("flower", single);
+            model.addAttribute("related", singleList);
         }
-        model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
+
+        if (memberDetails != null){
+            model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
+        } else {
+            model.addAttribute("cartItemCount", 0);
+        }
+
         return "item";
     }
 }

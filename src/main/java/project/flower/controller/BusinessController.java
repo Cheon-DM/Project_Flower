@@ -99,7 +99,7 @@ public class BusinessController {
         businessService.registerBouquet(form ,bus);
 
 
-        return "redirect:/success";
+        return "redirect:/admin/businesses/{businessId}";
     }
 
     @GetMapping("/success")
