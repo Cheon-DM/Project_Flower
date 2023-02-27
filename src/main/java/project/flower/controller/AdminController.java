@@ -1,5 +1,6 @@
 package project.flower.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,9 +69,25 @@ public class AdminController {
         return "admin/order";
     }
 
-    @GetMapping("admin/order/{flowerId}")
-    public String changeOrderStatus(){
+    @PostMapping(value = "admin/order/{flowerId}")
+    @ResponseBody
+    public void changeOrderStatus_delivery(HttpServletRequest request){
+        log.info("== processing -> in delivery ==");
+        String orderId = request.getParameter("order");
+        log.info(orderId);
 
-        return "redirect:/admin/order";
+        orderService.inDelivery(orderId);
+        return;
+    }
+
+    @PostMapping(value = "admin/orderComplete/{flowerId}")
+    @ResponseBody
+    public void changeOrderStatus_complete(HttpServletRequest request){
+        log.info("== processing -> in delivery ==");
+        String orderId = request.getParameter("order");
+        log.info(orderId);
+
+        orderService.complete(orderId);
+        return;
     }
 }

@@ -5,16 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.flower.domain.admin.Business;
-import project.flower.domain.cart.Cart;
 import project.flower.domain.cart.CartItem;
+import project.flower.domain.flower.FlowerType;
+import project.flower.domain.flower.bouquet.FlowerBouquet;
+import project.flower.domain.flower.selfmade.FlowerSingle;
+import project.flower.domain.flower.selfmade.SelfFlowerBouquet;
+import project.flower.domain.flower.selfmade.SelfFlowerItem;
 import project.flower.domain.member.Member;
 import project.flower.domain.order.FlowerOrder;
 import project.flower.domain.order.FlowerOrderItem;
 import project.flower.domain.order.OrderStatus;
-import project.flower.repository.CartItemRepository;
-import project.flower.repository.CartRepository;
-import project.flower.repository.OrderItemRepository;
-import project.flower.repository.OrderRepository;
+import project.flower.repository.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,11 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
+
+    private final FlowerBouquetRepository flowerBouquetRepository;
+    private final FlowerSingleRepository flowerSingleRepository;
+    private final SelfFlowerBouquetRepository selfFlowerBouquetRepository;
+    private final SelfFlowerItemRepository selfFlowerItemRepository;
     private final CartItemRepository cartItemRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
@@ -81,5 +87,49 @@ public class OrderService {
         }
 
         return orderMap;
+    }
+
+    public void inDelivery(String orderId){
+        FlowerOrderItem orderItem = orderItemRepository.findById(Long.valueOf(orderId))
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
+
+        // 상태 바꾸기
+        orderItem.setStatus(OrderStatus.IN_DELIVERY);
+        orderItemRepository.save(orderItem);
+
+        // 사장 물품 개수 줄이기
+        FlowerType type = orderItem.getType();
+
+        if (type.equals(FlowerType.FLOWER_BOUQUET)){
+            FlowerBouquet flowerBouquet = flowerBouquetRepository.findById(orderItem.getFlowerId())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 아이템 존재하지 않습니다."));
+            flowerBouquet.setStock(orderItem.getCount());
+            flowerBouquetRepository.save(flowerBouquet);
+        } else if (type.equals(FlowerType.FLOWER_SINGLE)){
+            FlowerSingle flowerSingle = flowerSingleRepository.findById(orderItem.getFlowerId())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 아이템 존재하지 않습니다."));
+            flowerSingle.setStock(orderItem.getCount());
+            flowerSingleRepository.save(flowerSingle);
+        } else if (type.equals(FlowerType.FLOWER_SELF_BOUQUET)){
+            SelfFlowerBouquet selfFlowerBouquet = selfFlowerBouquetRepository.findById(orderItem.getFlowerId())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 아이템 존재하지 않습니다."));
+            List<SelfFlowerItem> selfFlowerItems = selfFlowerItemRepository.findAllBySelfFlowerBouquet(selfFlowerBouquet);
+            for (SelfFlowerItem selfFlowerItem : selfFlowerItems) {
+                FlowerSingle flowerSingle = flowerSingleRepository.findById(selfFlowerItem.getFlowerSingle().getId())
+                        .orElseThrow(() -> new IllegalArgumentException("아이템 존재하지 않음"));
+                flowerSingle.setStock(orderItem.getCount());
+                flowerSingleRepository.save(flowerSingle);
+            }
+        }
+
+    }
+
+    public void complete(String orderId){
+        FlowerOrderItem orderItem = orderItemRepository.findById(Long.valueOf(orderId))
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
+
+        // 상태 바꾸기
+        orderItem.setStatus(OrderStatus.DELIVERY_COMPLETE);
+        orderItemRepository.save(orderItem);
     }
 }
