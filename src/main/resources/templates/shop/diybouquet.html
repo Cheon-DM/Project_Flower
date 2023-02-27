@@ -45,9 +45,7 @@ diybouquet
             <td th:text="${list.getFlowerSingle().name}"></td>
             <td th:text="${list.count}"></td>
             <td th:text="${list.totalPrice}"></td>
-            <td> <button onclick="location.href='addsingle.html'"
-                         th:onclick="|location.href='@{/edit/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
-                         type="button">수정</button> </td>
+
 
 
         </tr>
@@ -56,7 +54,10 @@ diybouquet
 
 <div>
     <button onclick="location.href='addsingle.html'"
-            th:onclick="|location.href='@{/add/diy/{selfFlowerBouquetId}/(selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
+            th:onclick="|location.href='@{/edit/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
+            type="button">수량 수정하기</button>
+    <button onclick="location.href='addsingle.html'"
+            th:onclick="|location.href='@{/add/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
             type="button">DIY 부케 카트에 담기</button>
 </div>
 

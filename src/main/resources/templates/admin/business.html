@@ -161,7 +161,9 @@
                                     <td> <button onclick="location.href='business.html'"
                                                  th:onclick="|location.href='@{/admin/businesses/{businessId}/bouquet/{bouquetId}/edit(businessId=${business.id}, bouquetId=${list.id})}'|"
                                                  type="button" class="btn btn-success">수정</button> </td>
-                                    <td> <button class="btn btn-danger">삭제</button> </td>
+                                    <td> <button onclick="location.href='business.html'"
+                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}/bouquet/{bouquetId}/delete(businessId=${business.id}, bouquetId=${list.id})}'|"
+                                                 type="button"class="btn btn-danger">삭제</button> </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -212,7 +214,9 @@
                                     <td> <button onclick="location.href='business.html'"
                                                  th:onclick="|location.href='@{/admin/businesses/{businessId}/single/{singleId}(businessId=${business.id}, singleId=${single.id})}/edit'|"
                                                  type="button" class="btn btn-success">수정</button> </td>
-                                    <td> <button class="btn btn-danger">삭제</button> </td>
+                                    <td> <button onclick="location.href='business.html'"
+                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}/single/{singleId}(businessId=${business.id}, singleId=${single.id})}/delete'|"
+                                                 type="button" class="btn btn-danger">삭제</button> </td>
                                 </tr>
                                 </tbody>
                             </table>

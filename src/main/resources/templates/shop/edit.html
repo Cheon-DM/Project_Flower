@@ -28,7 +28,7 @@ diybouquet
             <td th:text="${list.price}"></td>
             <td> <button onclick="location.href='addsingle.html'"
                          th:onclick="|location.href='@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
-                         type="button">상세보기</button> </td>
+                         type="button" disabled="true">상세보기</button> </td>
 
         </tr>
     </table>
@@ -44,13 +44,15 @@ diybouquet
         </tr>
         <tr th:each="list : ${selfFlowerItemList}">
             <td th:text="${list.getFlowerSingle().name}"></td>
-            <td th:text="${list.count}"></td>
+            <td style="border: 1px solid;">
+                <input id="count" th:field="*{list.count}" type="text" size="20" style="width:100%;">
+            </td>
             <td th:text="${list.totalPrice}"></td>
             <td> <button onclick="location.href='addsingle.html'"
-                         th:onclick="|location.href='@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                         th:onclick="|location.href='@{/edit/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
                          type="button">저장</button> </td>
             <td> <button onclick="location.href='addsingle.html'"
-                         th:onclick="|location.href='@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                         th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
                          type="button">삭제</button> </td>
 
         </tr>

@@ -18,6 +18,7 @@ import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.service.BusinessService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -82,24 +83,24 @@ public class BusinessController {
     }
 
     @PostMapping("/admin/businesses/{businessId}/bouquet")
-    public String registerBouquet(@PathVariable long businessId, @ModelAttribute("business") Business business,
-                                  @ModelAttribute("form") FlowerBouquetForm form, BindingResult bindingResult){
+    public String registerBouquet(@PathVariable long businessId,
+                                  @ModelAttribute("form") FlowerBouquetForm form,  BindingResult bindingResult, Model model) throws Exception {
 
         log.info("name = {}, detail = {}, price = {}, stock = {}, color = {}",
-                form.getBouquetName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
+                form.getName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
 
+        log.info("image = {}", form.getImgFile());
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
 
-            return "redirect:/admin/businesses/{businessId}/bouquet";
+            return "redirect:/admin/businesses/{businessId}";
         }
-
         Business bus = businessService.findBusiness(businessId);
         businessService.registerBouquet(form ,bus);
 
+
         return "redirect:/admin/businesses/{businessId}";
     }
-
 
     @GetMapping("/admin/businesses/{businessId}/single")
     public String registerSingleForm(@PathVariable long businessId, @ModelAttribute("form") FlowerSingleForm form, Model model){
@@ -111,10 +112,12 @@ public class BusinessController {
 
     @PostMapping("/admin/businesses/{businessId}/single")
     public String registerSingle(@PathVariable long businessId, @ModelAttribute("business") Business business,
-                                  @ModelAttribute("form") FlowerSingleForm form, BindingResult bindingResult){
+                                  @ModelAttribute("form") FlowerSingleForm form, BindingResult bindingResult) throws IOException {
 
         log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getFlowerName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
+                form.getName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
+
+        log.info("image = {}", form.getImgFile());
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);

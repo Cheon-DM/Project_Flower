@@ -14,17 +14,15 @@ import project.flower.domain.flower.selfmade.SelfFlowerItem;
 import project.flower.domain.flower.selfmade.SelfFlowerItemForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
-import project.flower.service.BusinessService;
-import project.flower.service.FlowerService;
-import project.flower.service.FlowerSingleService;
-import project.flower.service.MemberService;
+import project.flower.service.*;
 
 import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("")
+
 @RequiredArgsConstructor
+
 public class DiyController {
 
     private final BusinessService businessService;
@@ -32,8 +30,11 @@ public class DiyController {
     private final FlowerService flowerService;
     private final FlowerSingleService flowerSingleService;
 
-    @GetMapping("/diyshop/member/{memberId}/business/{businessId}")
-    public String diyshopPage(@PathVariable long businessId, @PathVariable long memberId, Model model){
+    private final CartService cartService;
+
+
+    @GetMapping("/diyshop/business/{businessId}")
+    public String diyshopPage(@PathVariable long businessId, Model model){
 
         Business business = businessService.findBusiness(businessId);
         List<FlowerSingle> singleList = business.getSingleList();
@@ -42,10 +43,11 @@ public class DiyController {
         return "shop/diybusinessdetail";
     }
 
-    @GetMapping("/diyshop/member/{memberId}/business/singleflower/{singleId}")
-    public String singleDetail( @PathVariable long singleId, Model model){
+    @GetMapping("singleflower/{singleId}")
+    public String singleDetail( @PathVariable long singleId,@AuthenticationPrincipal MemberDetails memberDetails, Model model){
         FlowerSingle single = flowerService.findSingle(singleId);
         model.addAttribute("single", single);
+        model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
         return "shop/single";
     }
 
@@ -109,9 +111,16 @@ public class DiyController {
         return "redirect:/diybouquet/business/{businessId}/diy/{selfFlowerBouquetId}";
     }
 
-    @GetMapping("/edit/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
-    public String editQuantityPage(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId, @ModelAttribute("form") SelfFlowerItemForm form, Model model){
+    @GetMapping("/edit/{businessId}/diy/{selfFlowerBouquetId}")
+    public String editQuantityPage(@PathVariable long selfFlowerBouquetId, @PathVariable long businessId, @ModelAttribute("form") SelfFlowerItemForm form, Model model){
 
+        Business business = businessService.findBusiness(businessId);
+        List<FlowerSingle> singleList = business.getSingleList();
+        SelfFlowerBouquet selfFlowerBouquet = flowerSingleService.findSelfFlowerBouquet(selfFlowerBouquetId);
+        List<SelfFlowerItem> selfFlowerItemList = selfFlowerBouquet.getSelfFlowerItemList();
+
+        model.addAttribute("singleList", singleList);
+        model.addAttribute("selfFlowerItemList", selfFlowerItemList);
 
         return"shop/edit";
     }
@@ -122,4 +131,6 @@ public class DiyController {
 
         return"shop/edit";
     }
+
+
 }

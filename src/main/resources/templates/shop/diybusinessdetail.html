@@ -21,7 +21,7 @@
     />
 
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="/css/styles.css" rel="stylesheet" />
 
     <style>
         html {
@@ -235,7 +235,7 @@
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="list : ${singleList}">
             <div class="card card-inverse card-info">
-                <img class="card-img-top" src="https://picsum.photos/200/150/?random">
+                <img class="card-img-top" th:src="|/images/${list.getImgName()}|">
                 <div class="card-block">
                     <h4 class="card-title mt-3" th:text="${list.name}">꽃 이름</h4>
                     <div class="meta card-text" th:text="${list.flowerLang}">
@@ -245,7 +245,7 @@
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{singleflower/{singleId}(singleId=${list.id})}">꽃 상세보기</a>
+                       th:href="@{/singleflower/{singleId}(singleId=${list.id})}">꽃 상세보기</a>
 
                 </div>
             </div>

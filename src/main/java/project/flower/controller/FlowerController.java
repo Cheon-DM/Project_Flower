@@ -42,7 +42,7 @@ public class FlowerController {
     @PostMapping("/admin/businesses/{businessId}/single/{singleId}/edit")
     public String editSingle(@PathVariable long singleId,@ModelAttribute("form") FlowerSingleForm form, @ModelAttribute("single") FlowerSingle single){
         log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getFlowerName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
+                form.getName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
 
         flowerService.editSingle(form, singleId);
 
@@ -62,9 +62,23 @@ public class FlowerController {
     @PostMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/edit")
     public String editBouquet(@PathVariable long businessId, @PathVariable long bouquetId,@ModelAttribute("form") FlowerBouquetForm form, @ModelAttribute("bouquet") FlowerBouquet bouquet){
         log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getBouquetName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
+                form.getName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
 
         flowerService.editBouquet(form, bouquetId);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
+    @GetMapping("/admin/businesses/{businessId}/single/{singleId}/delete")
+    public String deleteSingle(@PathVariable Long singleId){
+
+        flowerService.deleteSingle(singleId);
+
+        return "redirect:/admin/businesses/{businessId}";
+    }
+    @GetMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/delete")
+    public String deleteBouquet(@PathVariable Long bouquetId){
+
+        flowerService.deleteBouquet(bouquetId);
 
         return "redirect:/admin/businesses/{businessId}";
     }

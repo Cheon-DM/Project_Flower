@@ -6,6 +6,9 @@ import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.FlowerType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,7 +36,12 @@ public class FlowerBouquet {
 
     private int price;
     private int stock;
-    private String imageUrl;
+    private String imgName; //이미지 파일명
+    private String imgPath;// 이미지 조회경로
+
+    @OneToMany(mappedBy = "bouquet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
+    private List<BouquetImage> imageList = new ArrayList<BouquetImage>();
 
     //==연관관계 메서드==//
     public void setBusiness(Business business){
@@ -41,11 +49,21 @@ public class FlowerBouquet {
         business.getBouquetList().add(this);
     }
 
-    public void update(String bouquetName, String bouquetDetail, FlowerColor color, int price, int stock){
-        this.name =bouquetName;
+    public void update(String name, String bouquetDetail, FlowerColor color, int price, int stock){
+        this.name =name;
         this.bouquetDetail=bouquetDetail;
         this.color=color;
         this.price=price;
         this.stock=stock;
+    }
+
+    //부케에서의 파일 처리..?
+    public void addImage(BouquetImage image){
+
+        this.imageList.add(image);
+
+        if(image.getBouquet() != this){
+            image.setFlowerBouquet(this);
+        }
     }
 }
