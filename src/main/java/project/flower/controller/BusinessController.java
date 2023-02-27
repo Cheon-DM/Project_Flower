@@ -2,14 +2,17 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.flower.FlowerColor;
+import project.flower.domain.flower.bouquet.BouquetImage;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.flower.selfmade.FlowerSingle;
@@ -82,22 +85,30 @@ public class BusinessController {
     }
 
     @PostMapping("/admin/businesses/{businessId}/bouquet")
-    public String registerBouquet(@PathVariable long businessId, @ModelAttribute("business") Business business,
-                                  @ModelAttribute("form") FlowerBouquetForm form, BindingResult bindingResult){
+    @ResponseStatus(HttpStatus.CREATED)
+    public String registerBouquet(@PathVariable long businessId,
+                                  @ModelAttribute("form") FlowerBouquetForm form,  BindingResult bindingResult, Model model) throws Exception {
 
         log.info("name = {}, detail = {}, price = {}, stock = {}, color = {}",
                 form.getBouquetName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
 
+        log.info("image = {}", form.getImgFile());
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
 
-            return "redirect:/admin/businesses/{businessId}/bouquet";
+            return "redirect:/admin/businesses/{businessId}";
         }
-
+        model.addAttribute("businessId", businessId);
         Business bus = businessService.findBusiness(businessId);
         businessService.registerBouquet(form ,bus);
 
-        return "redirect:/admin/businesses/{businessId}";
+
+        return "redirect:/success";
+    }
+
+    @GetMapping("/success")
+    public String bouquetSuccess(){
+        return"/admin/flower/success";
     }
 
 

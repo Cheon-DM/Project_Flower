@@ -28,8 +28,15 @@ public class SelfFlowerBouquet {
    @JoinColumn(name = "member_id")
     private Member member;
 
+   private int totalPrice=0;
+
    @OneToMany(mappedBy = "selfFlowerBouquet", fetch = FetchType.EAGER)
    List<SelfFlowerItem> selfFlowerItemList = new ArrayList<SelfFlowerItem>();
+
+   public void addPrice(SelfFlowerItem selfFlowerItem){
+       int addPrice = selfFlowerItem.getTotalPrice();
+       this.totalPrice+=addPrice;
+   }
 
 
 }
