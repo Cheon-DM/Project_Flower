@@ -111,9 +111,16 @@ public class DiyController {
         return "redirect:/diybouquet/business/{businessId}/diy/{selfFlowerBouquetId}";
     }
 
-    @GetMapping("/edit/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
-    public String editQuantityPage(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId, @ModelAttribute("form") SelfFlowerItemForm form, Model model){
+    @GetMapping("/edit/{businessId}/diy/{selfFlowerBouquetId}")
+    public String editQuantityPage(@PathVariable long selfFlowerBouquetId, @PathVariable long businessId, @ModelAttribute("form") SelfFlowerItemForm form, Model model){
 
+        Business business = businessService.findBusiness(businessId);
+        List<FlowerSingle> singleList = business.getSingleList();
+        SelfFlowerBouquet selfFlowerBouquet = flowerSingleService.findSelfFlowerBouquet(selfFlowerBouquetId);
+        List<SelfFlowerItem> selfFlowerItemList = selfFlowerBouquet.getSelfFlowerItemList();
+
+        model.addAttribute("singleList", singleList);
+        model.addAttribute("selfFlowerItemList", selfFlowerItemList);
 
         return"shop/edit";
     }
@@ -124,4 +131,6 @@ public class DiyController {
 
         return"shop/edit";
     }
+
+
 }

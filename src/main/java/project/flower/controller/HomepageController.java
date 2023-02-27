@@ -2,18 +2,27 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import project.flower.domain.Role;
 import project.flower.domain.admin.Business;
 import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.MemberDetails;
+import project.flower.file.FileStore;
 import project.flower.service.*;
 
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +38,11 @@ public class HomepageController {
 
     private final FlowerService flowerService;
 
-    @GetMapping ("/")
+    private final FileStore fileStore;
+
+    @GetMapping (value = "/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
+
 
 
         // key : 부케, value : 가게
@@ -93,6 +105,11 @@ public class HomepageController {
         return "diybouquetpage";
     }
 
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
 
+        return new UrlResource("file:/" + fileStore.getFullPath(filename));
+    }
 
 }

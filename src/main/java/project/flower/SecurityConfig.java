@@ -1,6 +1,7 @@
 package project.flower;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,9 @@ public class SecurityConfig{
         http.csrf().disable();
 
         // 해당 경로 접근 허용
-        http.authorizeHttpRequests().requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
+        http.authorizeHttpRequests()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
                         "/signup/**", "/login/**", "/error/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**")
                 .permitAll().anyRequest().authenticated();
 
