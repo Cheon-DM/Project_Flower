@@ -24,6 +24,7 @@ import project.flower.repository.FlowerBouquetRepository;
 import project.flower.repository.FlowerSingleRepository;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -155,7 +156,15 @@ public class BusinessService {
     }
 
     @Transactional
-    public Long registerSingle(FlowerSingleForm form, Business business){
+    public Long registerSingle(FlowerSingleForm form, Business business) throws IOException {
+
+        UploadFile storeImageFIle = fileStore.storeFile(form.getImgFile());
+        String storeFileName = storeImageFIle.getStoreFileName();
+        String uploadFileName = storeImageFIle.getUploadFileName();
+
+
+        form.setImgName(storeFileName);
+        form.setImgPath(uploadFileName);
 
         FlowerSingle single = form.toEntity(business);
         single.setBusiness(business);

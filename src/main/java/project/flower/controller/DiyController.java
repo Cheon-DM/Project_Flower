@@ -14,10 +14,7 @@ import project.flower.domain.flower.selfmade.SelfFlowerItem;
 import project.flower.domain.flower.selfmade.SelfFlowerItemForm;
 import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
-import project.flower.service.BusinessService;
-import project.flower.service.FlowerService;
-import project.flower.service.FlowerSingleService;
-import project.flower.service.MemberService;
+import project.flower.service.*;
 
 import java.util.List;
 
@@ -33,6 +30,8 @@ public class DiyController {
     private final FlowerService flowerService;
     private final FlowerSingleService flowerSingleService;
 
+    private final CartService cartService;
+
 
     @GetMapping("/diyshop/business/{businessId}")
     public String diyshopPage(@PathVariable long businessId, Model model){
@@ -45,9 +44,10 @@ public class DiyController {
     }
 
     @GetMapping("singleflower/{singleId}")
-    public String singleDetail( @PathVariable long singleId, Model model){
+    public String singleDetail( @PathVariable long singleId,@AuthenticationPrincipal MemberDetails memberDetails, Model model){
         FlowerSingle single = flowerService.findSingle(singleId);
         model.addAttribute("single", single);
+        model.addAttribute("cartItemCount", cartService.showItemCount(memberDetails.getMember()));
         return "shop/single";
     }
 
