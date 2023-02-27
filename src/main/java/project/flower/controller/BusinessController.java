@@ -2,17 +2,14 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import project.flower.domain.admin.Business;
 import project.flower.domain.admin.BusinessForm;
 import project.flower.domain.flower.FlowerColor;
-import project.flower.domain.flower.bouquet.BouquetImage;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.bouquet.FlowerBouquetForm;
 import project.flower.domain.flower.selfmade.FlowerSingle;
@@ -85,7 +82,6 @@ public class BusinessController {
     }
 
     @PostMapping("/admin/businesses/{businessId}/bouquet")
-    @ResponseStatus(HttpStatus.CREATED)
     public String registerBouquet(@PathVariable long businessId,
                                   @ModelAttribute("form") FlowerBouquetForm form,  BindingResult bindingResult, Model model) throws Exception {
 
