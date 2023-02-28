@@ -2,6 +2,8 @@ package project.flower.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.selfmade.*;
@@ -75,4 +77,15 @@ public class FlowerSingleService {
         return selfFlowerItem;
     }
 
+    public Page<FlowerSingle> flowerSingleList(Pageable pageable){
+        return flowerSingleRepository.findAll(pageable);
+    }
+
+    public Page<FlowerSingle> singleSearchListByName(String search, Pageable pageable){
+        return flowerSingleRepository.findByNameContaining(search, pageable);
+    }
+
+    public Page<FlowerSingle> singleSearchListByLang(String search, Pageable pageable){
+        return flowerSingleRepository.findByFlowerLangContaining(search, pageable);
+    }
 }

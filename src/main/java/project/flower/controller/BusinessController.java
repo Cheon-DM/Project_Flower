@@ -36,7 +36,7 @@ public class BusinessController {
 
     @PostMapping("/admin/registerbusiness")
     public String register(@ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
-                           @AuthenticationPrincipal MemberDetails memberDetails, Model model){
+                           @AuthenticationPrincipal MemberDetails memberDetails, Model model) throws IOException {
 
         log.info("businessName = {}, num = {}",
                 form.getBusinessName(), form.getBusinessNum());

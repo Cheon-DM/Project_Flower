@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -38,6 +42,9 @@ public class HomepageController {
     private final BusinessService businessService;
     private final FlowerService flowerService;
     private final OrderService orderService;
+
+    private final FlowerBouquetService flowerBouquetService;
+    private final FlowerSingleService flowerSingleService;
 
     private final FileStore fileStore;
 
@@ -113,6 +120,75 @@ public class HomepageController {
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
 
         return new UrlResource("file:/" + fileStore.getFullPath(filename));
+    }
+
+    @GetMapping("/bouquetlist")
+    public String flowerBouquetList(Model model, String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+
+        Page<FlowerBouquet> list = null;
+
+
+        if(searchKeyword==null){
+            list = flowerBouquetService.flowerBouquetList(pageable);
+        }
+        else{
+            if(searchType.length() == 4){ //왜 =="name"으로 하면 안되는 거지??
+                System.out.println("1이 실행");
+                list = flowerBouquetService.bouquetSearchListByName(searchKeyword, pageable);
+            } else if (searchType.length() == 6) {
+                System.out.println("2가 실행");
+                list = flowerBouquetService.bouquetSearchListByDetail(searchKeyword, pageable);
+            }
+            else{
+                list = flowerBouquetService.flowerBouquetList(pageable);
+            }
+
+        }
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 9, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "bouquetlist";
+
+    }
+
+    @GetMapping("/singlelist")
+    public String flowerSingleList(Model model,String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+
+        Page<FlowerSingle> list = null;
+
+        if(searchKeyword==null){
+            list = flowerSingleService.flowerSingleList(pageable);
+        }
+        else{
+            if(searchType.length() == 4){
+                list = flowerSingleService.singleSearchListByName(searchKeyword, pageable);
+            }
+            else if (searchType.length() == 6) {
+                list = flowerSingleService.singleSearchListByLang(searchKeyword, pageable);
+            }
+            else {
+                list = flowerSingleService.flowerSingleList(pageable);
+            }
+        }
+
+        int nowPage = list.getPageable().getPageNumber() +1;
+        int startPage = Math.max(nowPage -4, 1);
+        int endPage = Math.min(nowPage +9, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "singlelist";
+
     }
 
 }
