@@ -123,15 +123,23 @@ public class HomepageController {
     }
 
     @GetMapping("/bouquetlist")
-    public String flowerBouquetList(Model model, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerBouquetList(Model model, String searchType, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<FlowerBouquet> list = null;
+
 
         if(searchKeyword==null){
             list = flowerBouquetService.flowerBouquetList(pageable);
         }
         else{
-            list = flowerBouquetService.flowerBouquetSearchList(searchKeyword, pageable);
+            if(searchType.length() == 4){ //왜 =="name"으로 하면 안되는 거지??
+                System.out.println("1이 실행");
+                list = flowerBouquetService.bouquetSearchListByName(searchKeyword, pageable);
+            } else if (searchType.length() == 6) {
+                System.out.println("2가 실행");
+                list = flowerBouquetService.bouquetSearchListByDetail(searchKeyword, pageable);
+            }
+
         }
 
         int nowPage = list.getPageable().getPageNumber() + 1;
@@ -148,15 +156,29 @@ public class HomepageController {
     }
 
     @GetMapping("")
-    public String flowerSingleList(Model model, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerSingleList(Model model,String searchType, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<FlowerSingle> list = null;
+
+        System.out.println("searchType:=========="+ searchType);
+
+
+
 
         if(searchKeyword==null){
             list = flowerSingleService.flowerSingleList(pageable);
         }
         else{
-            list = flowerSingleService.flowerSingleSearchList(searchKeyword, pageable);
+            if(searchType == "1"){
+                list = flowerSingleService.flowerSingleSearchList(searchKeyword, pageable);
+            }
+            else if (searchType == "2") {
+
+            }
+            else {
+
+            }
+
         }
 
         int nowPage = list.getPageable().getPageNumber() +1;

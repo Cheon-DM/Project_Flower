@@ -230,6 +230,11 @@
         부케 목록
     </div>
     <form th:action="@{/bouquetlist}" method="get">
+        <select title="검색 유형 선택" name="searchType">
+            <option th:value="name">부케 이름</option>
+            <option th:value="detail">부케 디테일</option>
+
+        </select>
         <input type="text" name="searchKeyword">
         <button type="submit">검색</button>
     </form>
@@ -239,7 +244,6 @@
                 <img class="card-img-top" th:src="|/images/${bouquet.getImgName()}|">
                 <div class="card-block">
                     <h4 class="card-title mt-3" th:text="${bouquet.name}">부케 이름</h4>
-
                 </div>
                 <!--<div class="card-footer">
                     <a class="btn btn-info float-right btn-sm"
@@ -251,7 +255,7 @@
         </div>
     </div>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword})}" th:text ="${page}"></a>
+        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
 
     </th:block>

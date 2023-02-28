@@ -19,4 +19,5 @@ public interface FlowerBouquetRepository extends JpaRepository<FlowerBouquet, Lo
     Optional<FlowerBouquet> findById(Long id);
 
     Page<FlowerBouquet> findByNameContaining(String searchKeyword, Pageable pageable);
+    Page<FlowerBouquet> findByBouquetDetailContaining(String searchKeyword, Pageable pageable);
 }

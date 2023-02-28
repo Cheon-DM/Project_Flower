@@ -23,7 +23,11 @@ public class FlowerBouquetService {
         return flowerBouquetRepository.findAll(pageable);
     }
 
-    public Page<FlowerBouquet> flowerBouquetSearchList(String search, Pageable pageable){
+    public Page<FlowerBouquet> bouquetSearchListByName(String search, Pageable pageable){
         return flowerBouquetRepository.findByNameContaining(search, pageable);
+    }
+
+    public Page<FlowerBouquet> bouquetSearchListByDetail(String search, Pageable pageable){
+        return flowerBouquetRepository.findByBouquetDetailContaining(search, pageable);
     }
 }
