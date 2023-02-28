@@ -230,6 +230,11 @@
         단품 목록
     </div>
     <form th:action="@{/singlelist}" method="get">
+        <select title="검색 유형 선택" name="searchType">
+            <option th:value="name">꽃 이름</option>
+            <option th:value="detail">꽃말</option>
+
+        </select>
         <input type="text" name="searchKeyword">
         <button type="submit">검색</button>
     </form>
@@ -251,7 +256,7 @@
         </div>
     </div>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword})}" th:text ="${page}"></a>
+        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
 
     </th:block>

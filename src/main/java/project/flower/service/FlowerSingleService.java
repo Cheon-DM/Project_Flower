@@ -81,7 +81,11 @@ public class FlowerSingleService {
         return flowerSingleRepository.findAll(pageable);
     }
 
-    public Page<FlowerSingle> flowerSingleSearchList(String search, Pageable pageable){
+    public Page<FlowerSingle> singleSearchListByName(String search, Pageable pageable){
         return flowerSingleRepository.findByNameContaining(search, pageable);
+    }
+
+    public Page<FlowerSingle> singleSearchListByLang(String search, Pageable pageable){
+        return flowerSingleRepository.findByFlowerLangContaining(search, pageable);
     }
 }

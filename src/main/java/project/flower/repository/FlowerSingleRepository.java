@@ -16,4 +16,5 @@ public interface FlowerSingleRepository extends JpaRepository<FlowerSingle, Long
     List<FlowerSingle> findAllByBusiness(Business business);
 
     Page<FlowerSingle> findByNameContaining(String searchKeyword, Pageable pageable);
+    Page<FlowerSingle> findByFlowerLangContaining(String searchKeyword, Pageable pageable);
 }
