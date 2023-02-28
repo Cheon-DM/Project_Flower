@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
   <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="">Start Bootstrap</a>
+  <a class="navbar-brand ps-3" href="/">Flower</a>
   <!-- Sidebar Toggle-->
   <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
   <!-- Navbar Search-->
@@ -138,7 +138,7 @@
             </div>
 
             <form class="card-body"
-                  action="/admin/registerbusiness" method="post">
+                  action="/admin/registerbusiness" method="post" enctype="multipart/form-data">
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
@@ -154,6 +154,13 @@
                     <td>
                       <input type="text" class="form-control"
                              placeholder="사업등록번호" name="businessNum">
+                    </td>
+                  </tr>
+                  <tr style="line-height: 32px;">
+                    <td>사업체 이미지 등록</td>
+                    <td>
+                      <input type="file" class="form-control"
+                             placeholder="사업체 이미지" name="imgFile">
                     </td>
                   </tr>
                   </tbody>

@@ -9,7 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>DIY BOUQUET</title>
+    <title>BOUQUET</title>
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -21,7 +21,7 @@
     />
 
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link type="text/css" href="/css/styles.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
 
     <style>
         html {
@@ -144,7 +144,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="/">Flower</a>
         <button
                 class="navbar-toggler"
                 type="button"
@@ -172,7 +172,7 @@
                             aria-expanded="false"
                     >Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/">Flower</a></li>
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                         <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
@@ -222,33 +222,32 @@
     </div>
 </header>
 
-<!-- 가 게 목 록 -->
+<!-- 부 케 목 록 -->
 
 <div class="container px-4 px-lg-5 mt-5">
     <div>
-        [[${business.getBusinessName}]]
-    </div>
-    <div>
-        <a class="btn btn-info float-right btn-sm"
-           th:href="@{/diybouquet/business/{businessId}(businessId=${business.id})}">제작하러가기</a>
+        부케 목록
     </div>
     <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="list : ${singleList}">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each = "bouquet:${list}">
             <div class="card card-inverse card-info">
-                <img class="card-img-top" th:src="|/images/${list.getImgName()}|">
+                <img class="card-img-top" th:src="|/images/${bouquet.getImgName()}|">
                 <div class="card-block">
-                    <h4 class="card-title mt-3" th:text="${list.name}">꽃 이름</h4>
-                    <div class="meta card-text" th:text="${list.flowerLang}">
-                        <a>꽃말</a>
-                    </div>
+                    <h4 class="card-title mt-3" th:text="${bouquet.name}">부케 이름</h4>
 
                 </div>
-                <div class="card-footer">
+                <!--<div class="card-footer">
                     <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/singleflower/{singleId}(singleId=${list.id})}">꽃 상세보기</a>
-
-                </div>
+                       th:href="@{/diyshop/business/{businessId}(businessId=${business.key})}">부케 상세보기</a>
+                    <a class="btn btn-info float-right btn-sm"
+                       th:href="@{/add/{businessId}(businessId=${business.key})}">Follow</a>
+                </div>-->
             </div>
         </div>
     </div>
+    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1})}" th:text ="${page}"></a>
+        <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+
+    </th:block>
 </div>

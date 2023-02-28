@@ -2,6 +2,8 @@ package project.flower.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.selfmade.*;
@@ -73,6 +75,10 @@ public class FlowerSingleService {
         SelfFlowerItem selfFlowerItem = selfFlowerItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없습니다."));
 
         return selfFlowerItem;
+    }
+
+    public Page<FlowerSingle> flowerSingleList(Pageable pageable){
+        return flowerSingleRepository.findAll(pageable);
     }
 
 }

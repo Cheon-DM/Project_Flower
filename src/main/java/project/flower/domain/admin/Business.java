@@ -31,6 +31,9 @@ public class Business {
     @Column(name = "business_num",nullable = false)
     private int businessNum;
 
+    private String imgName; //이미지 파일명
+    private String imgPath;// 이미지 조회경로
+
     //FK
     @ManyToOne
     @JoinColumn(name = "member_id")

@@ -43,7 +43,15 @@ public class BusinessService {
 
     private final FileHandler fileHandler;
     private final FileStore fileStore;
-    public Long registerBusiness(BusinessForm form, Member member){
+    public Long registerBusiness(BusinessForm form, Member member) throws IOException {
+
+        UploadFile storeImageFIle = fileStore.storeFile(form.getImgFile());
+        String storeFileName = storeImageFIle.getStoreFileName();
+        String uploadFileName = storeImageFIle.getUploadFileName();
+
+
+        form.setImgName(storeFileName);
+        form.setImgPath(uploadFileName);
 
         Business business = form.toEntity(member);
         business.setMember(member);
