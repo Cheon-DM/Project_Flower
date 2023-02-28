@@ -123,13 +123,20 @@ public class HomepageController {
     }
 
     @GetMapping("/bouquetlist")
-    public String flowerBouquetList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerBouquetList(Model model, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
-        Page<FlowerBouquet> list = flowerBouquetService.flowerBouquetList(pageable);
+        Page<FlowerBouquet> list = null;
 
-        int nowPage = list.getPageable().getPageNumber() +1;
-        int startPage = Math.max(nowPage -4, 1);
-        int endPage = Math.min(nowPage +9, list.getTotalPages());
+        if(searchKeyword==null){
+            list = flowerBouquetService.flowerBouquetList(pageable);
+        }
+        else{
+            list = flowerBouquetService.flowerBouquetSearchList(searchKeyword, pageable);
+        }
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 9, list.getTotalPages());
 
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
@@ -141,9 +148,16 @@ public class HomepageController {
     }
 
     @GetMapping("")
-    public String flowerSingleList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerSingleList(Model model, String searchKeyword, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
-        Page<FlowerSingle> list = flowerSingleService.flowerSingleList(pageable);
+        Page<FlowerSingle> list = null;
+
+        if(searchKeyword==null){
+            list = flowerSingleService.flowerSingleList(pageable);
+        }
+        else{
+            list = flowerSingleService.flowerSingleSearchList(searchKeyword, pageable);
+        }
 
         int nowPage = list.getPageable().getPageNumber() +1;
         int startPage = Math.max(nowPage -4, 1);

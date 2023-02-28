@@ -1,5 +1,7 @@
 package project.flower.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.selfmade.FlowerSingle;
@@ -12,4 +14,6 @@ public interface FlowerSingleRepository extends JpaRepository<FlowerSingle, Long
     List<FlowerSingle> findAll();
 
     List<FlowerSingle> findAllByBusiness(Business business);
+
+    Page<FlowerSingle> findByNameContaining(String searchKeyword, Pageable pageable);
 }

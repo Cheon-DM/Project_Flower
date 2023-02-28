@@ -172,10 +172,11 @@
                             aria-expanded="false"
                     >Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
-                        <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                         <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/singlelist">Single</a></li>
                         <li><a class="dropdown-item" href="/diybouquet">DIY 부케</a></li>
                     </ul>
                 </li>
@@ -228,7 +229,10 @@
     <div>
         부케 목록
     </div>
-
+    <form th:action="@{/bouquetlist}" method="get">
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
+    </form>
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each = "bouquet:${list}">
             <div class="card card-inverse card-info">
@@ -247,7 +251,7 @@
         </div>
     </div>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1})}" th:text ="${page}"></a>
+        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
 
     </th:block>

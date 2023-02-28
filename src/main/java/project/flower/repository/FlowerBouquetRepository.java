@@ -1,5 +1,7 @@
 package project.flower.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
@@ -15,4 +17,6 @@ public interface FlowerBouquetRepository extends JpaRepository<FlowerBouquet, Lo
     List<FlowerBouquet> findAllByBusiness(Business business);
 
     Optional<FlowerBouquet> findById(Long id);
+
+    Page<FlowerBouquet> findByNameContaining(String searchKeyword, Pageable pageable);
 }

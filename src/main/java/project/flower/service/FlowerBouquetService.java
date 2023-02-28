@@ -22,4 +22,8 @@ public class FlowerBouquetService {
     public Page<FlowerBouquet> flowerBouquetList(Pageable pageable){
         return flowerBouquetRepository.findAll(pageable);
     }
+
+    public Page<FlowerBouquet> flowerBouquetSearchList(String search, Pageable pageable){
+        return flowerBouquetRepository.findByNameContaining(search, pageable);
+    }
 }
