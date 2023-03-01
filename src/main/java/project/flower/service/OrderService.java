@@ -17,7 +17,7 @@ import project.flower.domain.order.FlowerOrderItem;
 import project.flower.domain.order.OrderStatus;
 import project.flower.repository.*;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,15 +68,15 @@ public class OrderService {
         }
     }
 
-    public List<List<FlowerOrderItem>> findOrder(Member member){
-        List<List<FlowerOrderItem>> orderList = new ArrayList<>(new ArrayList<>());
+    public Map<LocalDateTime, List<FlowerOrderItem>> findOrder(Member member){
+        Map<LocalDateTime, List<FlowerOrderItem>> orderMap = new HashMap<>();
         List<FlowerOrder> orders = orderRepository.findAllByMember(member);
 
         for (FlowerOrder order : orders) {
             List<FlowerOrderItem> flowers = orderItemRepository.findAllByFlowerOrder(order);
-            orderList.add(flowers);
+            orderMap.put(order.getCreateDate(), flowers);
         }
-        return orderList;
+        return orderMap;
     }
 
     public Map<String, List<FlowerOrderItem>> showOrder_Admin(List<Business> businessList){
