@@ -35,109 +35,6 @@
             line-height: 1.2857em;
             margin: 0;
         }
-
-        .card {
-            font-size: 1em;
-            overflow: hidden;
-            padding: 0;
-            border: none;
-            border-radius: .28571429rem;
-            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-        }
-
-        .card-block {
-            font-size: 1em;
-            position: relative;
-            margin: 0;
-            padding: 1em;
-            border: none;
-            border-top: 1px solid rgba(34, 36, 38, .1);
-            box-shadow: none;
-        }
-
-        .card-img-top {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        .card-title {
-            font-size: 1.28571429em;
-            font-weight: 700;
-            line-height: 1.2857em;
-        }
-
-        .card-text {
-            clear: both;
-            margin-top: .5em;
-            color: rgba(0, 0, 0, .68);
-        }
-
-        .card-footer {
-            font-size: 1em;
-            position: static;
-            top: 0;
-            left: 0;
-            max-width: 100%;
-            padding: .75em 1em;
-            color: rgba(0, 0, 0, .4);
-            border-top: 1px solid rgba(0, 0, 0, .05) !important;
-            background: #fff;
-        }
-
-        .card-inverse .btn {
-            border: 1px solid rgba(0, 0, 0, .05);
-        }
-
-        .profile {
-            position: absolute;
-            top: -12px;
-            display: inline-block;
-            overflow: hidden;
-            box-sizing: border-box;
-            width: 25px;
-            height: 25px;
-            margin: 0;
-            border: 1px solid #fff;
-            border-radius: 50%;
-        }
-
-        .profile-avatar {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-
-        .profile-inline {
-            position: relative;
-            top: 0;
-            display: inline-block;
-        }
-
-        .profile-inline ~ .card-title {
-            display: inline-block;
-            margin-left: 4px;
-            vertical-align: top;
-        }
-
-        .text-bold {
-            font-weight: 700;
-        }
-
-        .meta {
-            font-size: 1em;
-            color: rgba(0, 0, 0, .4);
-        }
-
-        .meta a {
-            text-decoration: none;
-            color: rgba(0, 0, 0, .4);
-        }
-
-        .meta a:hover {
-            color: rgba(0, 0, 0, .87);
-        }
     </style>
 </head>
 <body>
@@ -210,21 +107,21 @@
 </nav>
 
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-flower py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">DIY BOUQUET</h1>
             <h1 class="display-4 fw-bolder"></h1>
             <p class="lead fw-normal text-white-50 mb-0"
                sec:authorize="isAuthenticated()">
-                DIY YOUR BOUQUET!
+                FIND YOUR FLOWER YOU PREFER !
             </p>
         </div>
     </div>
 </header>
 
 <!-- 단 품 목 록 -->
-
+<section class="py-5">
 <div class="container px-4 px-lg-5 mt-5">
     <div>
         단품 목록
@@ -240,7 +137,7 @@
     </form>
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each = "bouquet:${list}">
-            <div class="card card-inverse card-info">
+            <div class="card h-100 text-center">
                 <img class="card-img-top" th:src="|/images/${bouquet.getImgName()}|">
                 <div class="card-block">
                     <h4 class="card-title mt-3" th:text="${bouquet.name}">부케 이름</h4>
@@ -261,3 +158,20 @@
 
     </th:block>
 </div>
+</section>
+
+<!-- Footer-->
+<footer class="py-4 bg-flower-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; Your Website 2023
+        </p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+
+</body>
+</html>

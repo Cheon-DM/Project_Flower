@@ -36,95 +36,6 @@
             margin: 0;
         }
 
-        .card {
-            font-size: 1em;
-            overflow: hidden;
-            padding: 0;
-            border: none;
-            border-radius: .28571429rem;
-            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-        }
-
-        .card-block {
-            font-size: 1em;
-            position: relative;
-            margin: 0;
-            padding: 1em;
-            border: none;
-            border-top: 1px solid rgba(34, 36, 38, .1);
-            box-shadow: none;
-        }
-
-        .card-img-top {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        .card-title {
-            font-size: 1.28571429em;
-            font-weight: 700;
-            line-height: 1.2857em;
-        }
-
-        .card-text {
-            clear: both;
-            margin-top: .5em;
-            color: rgba(0, 0, 0, .68);
-        }
-
-        .card-footer {
-            font-size: 1em;
-            position: static;
-            top: 0;
-            left: 0;
-            max-width: 100%;
-            padding: .75em 1em;
-            color: rgba(0, 0, 0, .4);
-            border-top: 1px solid rgba(0, 0, 0, .05) !important;
-            background: #fff;
-        }
-
-        .card-inverse .btn {
-            border: 1px solid rgba(0, 0, 0, .05);
-        }
-
-        .profile {
-            position: absolute;
-            top: -12px;
-            display: inline-block;
-            overflow: hidden;
-            box-sizing: border-box;
-            width: 25px;
-            height: 25px;
-            margin: 0;
-            border: 1px solid #fff;
-            border-radius: 50%;
-        }
-
-        .profile-avatar {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-
-        .profile-inline {
-            position: relative;
-            top: 0;
-            display: inline-block;
-        }
-
-        .profile-inline ~ .card-title {
-            display: inline-block;
-            margin-left: 4px;
-            vertical-align: top;
-        }
-
-        .text-bold {
-            font-weight: 700;
-        }
-
         .meta {
             font-size: 1em;
             color: rgba(0, 0, 0, .4);
@@ -210,7 +121,7 @@
 </nav>
 
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-flower py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Flower Shop in style</h1>
@@ -227,136 +138,85 @@
 </header>
 
 <!-- 꽃 다 발 -->
+<section class="py-5">
 <div class="container px-4 px-lg-5 mt-5">
-    <div>
-        <h4>
-            꽃 다 발
-        </h4>
-    </div>
     <div class="row justify-content-center">
+        <h2 class="fw-light">
+            꽃 다 발
+        </h2>
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="bouquet : ${bouquetMap}">
-            <div class="card card-inverse card-info">
-                <img class="card-img-top" th:src="|/images/${bouquet.key.getImgName()}|">
-                <div class="card-block">
-                    <h4 class="card-title mt-3" th:text="${bouquet.key.name}">상품 이름</h4>
-                    <div class="meta card-text" th:text="${bouquet.value.businessName}">
-                        <a>가게 이름</a>
+            <div class="card-deck">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top" th:src="|/images/${bouquet.key.getImgName()}|">
+                    <div class="card-block">
+                        <h4 class="card-title mt-3" th:text="${bouquet.key.name}">상품 이름</h4>
+                        <div class="meta card-text" th:text="${bouquet.value.businessName}">
+                            <a>가게 이름</a>
+                        </div>
+                        <div class="card-text" th:text="${bouquet.key.bouquetDetail}">
+                            상품 설명
+                        </div>
                     </div>
-                    <div class="card-text" th:text="${bouquet.key.bouquetDetail}">
-                        상품 설명
+                    <div class="card-footer">
+                        <!--<small>Last updated 3 mins ago</small>-->
+                        <a class="btn btn-outline-info float-right btn-sm"
+                           th:href="@{/add/bouquet/{bouquetId}(bouquetId=${bouquet.key.id})}">Add</a>
+                        <a class="btn btn-outline-dark float-right btn-sm" th:with="type=${bouquet.key.type}"
+                           th:href="@{/flower/{flowerType}/{itemId} (flowerType=${type}, itemId=${bouquet.key.id})}">Show</a>
+                        <a class="btn btn-outline-danger float-right btn-sm"
+                           th:href="@{/add/{businessId}(businessId=${bouquet.value.id})}">Follow</a>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <!--<small>Last updated 3 mins ago</small>-->
-                    <a class="btn btn-secondary float-right btn-sm" th:with="type=${bouquet.key.type}"
-                       th:href="@{/flower/{flowerType}/{itemId} (flowerType=${type}, itemId=${bouquet.key.id})}">Show</a>
-                    <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/bouquet/{bouquetId}(bouquetId=${bouquet.key.id})}">Add</a>
-                    <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/{businessId}(businessId=${bouquet.value.id})}">Follow</a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+</section>
 <!-- 꽃 다 발 끝-->
 
 <!-- 꽃 단 품 -->
+<section class="py-5">
 <div class="container px-4 px-lg-5 mt-5">
-    <div>
-        <h4>
-            꽃 단 품
-        </h4>
-    </div>
     <div class="row justify-content-center">
+        <h2 class="fw-light">
+            꽃 단 품
+        </h2>
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="single : ${singleMap}">
-            <div class="card card-inverse card-info">
-                <img class="card-img-top" th:src="|/images/${single.key.getImgName()}|">
-                <div class="card-block">
-                    <h4 class="card-title mt-3" th:text="${single.key.name}">상품 이름</h4>
-                    <div class="meta card-text" th:text="${single.value.businessName}">
-                        <a>가게 이름</a>
+            <div class="card-deck">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top" th:src="|/images/${single.key.getImgName()}|">
+                    <div class="card-block">
+                        <h4 class="card-title mt-3" th:text="${single.key.name}">상품 이름</h4>
+                        <div class="meta card-text" th:text="${single.value.businessName}">
+                            <a>가게 이름</a>
+                        </div>
+                        <div class="card-text" th:text="${single.key.flowerLang}">
+                            꽃 말
+                        </div>
                     </div>
-                    <div class="card-text" th:text="${single.key.flowerLang}">
-                        꽃 말
+                    <div class="card-footer">
+                        <!--                    <small>Last updated 3 mins ago</small>-->
+                        <a class="btn btn-outline-info float-right btn-sm"
+                           th:href="@{/add/single/{singleId}(singleId=${single.key.id})}">Add</a>
+                        <a class="btn btn-outline-dark float-right btn-sm" th:with="type=${single.key.type}"
+                           th:href="@{/flower/{flowerType}/{itemId} (flowerType=${type}, itemId=${single.key.id})}">Show</a>
+                        <a class="btn btn-outline-danger float-right btn-sm"
+                           th:href="@{/add/{businessId}(businessId=${single.value.id})}">Follow</a>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <!--                    <small>Last updated 3 mins ago</small>-->
-                    <a class="btn btn-secondary float-right btn-sm" th:with="type=${single.key.type}"
-                       th:href="@{/flower/{flowerType}/{itemId} (flowerType=${type}, itemId=${single.key.id})}">Show</a>
-                    <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/single/{singleId}(singleId=${single.key.id})}">Add</a>
-                    <a class="btn btn-info float-right btn-sm"
-                       th:href="@{/add/{businessId}(businessId=${single.value.id})}">Follow</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</section>
 <!-- 꽃 단 품 끝-->
 
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <!-- sample -->
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div
-                            class="badge bg-dark text-white position-absolute"
-                            style="top: 0.5rem; right: 0.5rem"
-                    >
-                        Sale
-                    </div>
-                    <!-- Product image-->
-                    <img
-                            class="card-img-top"
-                            src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
-                            alt="..."
-                    />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Special Item</h5>
-                            <!-- Product reviews-->
-                            <div
-                                    class="d-flex justify-content-center small text-warning mb-2"
-                            >
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through"
-                            >$20.00</span
-                            >
-                            $18.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" href="#"
-                            >Add to cart</a
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Footer-->
-<footer class="py-5 bg-dark">
+<footer class="py-4 bg-flower-bottom">
     <div class="container">
         <p class="m-0 text-center text-white">
-            Copyright &copy; Your Website 2023
+            Copyright &copy; Flower Shop 2023
         </p>
     </div>
 </footer>

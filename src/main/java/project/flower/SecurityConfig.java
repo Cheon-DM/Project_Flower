@@ -33,7 +33,7 @@ public class SecurityConfig{
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/", "/signup", "/login", "/index.html", "/loginProc",
                         "/signup/**", "/login/**", "/error/**", "/css/**", "/favicon.ico", "/assets/**", "/js/**",
-                        "/item", "/flower/**")
+                        "/item", "/flower/**", "/bouquetlist", "/diybouquetpage", "/singlelist")
                 .permitAll().anyRequest().authenticated();
 
         // 로그인 페이지 지정
