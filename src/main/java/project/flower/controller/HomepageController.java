@@ -48,8 +48,6 @@ public class HomepageController {
     @GetMapping (value = "/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
 
-
-
         // key : 부케, value : 가게
         Map<FlowerBouquet, Business> bouquetMap = flowerService.findBouquetList();
         model.addAttribute("bouquetMap", bouquetMap);
