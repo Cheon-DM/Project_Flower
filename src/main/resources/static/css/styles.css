@@ -7935,6 +7935,14 @@ textarea.form-control-lg {
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
 }
 
+.bg-banner {
+  --bs-bg-opacity: 1;
+  background-image: url("https://g-grafolio.pstatic.net/20201210_120/1607600480844bAqKn_JPEG/12%BF%F9_%B9%E8%B0%E6%C8%AD%B8%E91.jpg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+
 .bg-flower {
   --bs-bg-opacity: 1;
   background-image: url("https://g-grafolio.pstatic.net/20220603_280/1654257985516G7SKu_PNG/%C4%C4%BB%E7%C0%CC%C1%EE.png");
