@@ -4508,6 +4508,9 @@ textarea.form-control-lg {
 }
 
 .card {
+  font-size: 1em;
+  overflow: hidden;
+  padding: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -4541,6 +4544,16 @@ textarea.form-control-lg {
   border-top: 0;
 }
 
+.card-block {
+  font-size: 1em;
+  position: relative;
+  margin: 0;
+  padding: 1em;
+  border: none;
+  border-top: 1px solid rgba(34, 36, 38, .1);
+  box-shadow: none;
+}
+
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
@@ -4548,11 +4561,20 @@ textarea.form-control-lg {
 
 .card-title {
   margin-bottom: 0.5rem;
+  font-size: 1.28571429em;
+  font-weight: 700;
+  line-height: 1.2857em;
 }
 
 .card-subtitle {
   margin-top: -0.25rem;
   margin-bottom: 0;
+}
+
+.card-text {
+  clear: both;
+  margin-top: .5em;
+  color: rgba(0, 0, 0, .68);
 }
 
 .card-text:last-child {
@@ -4574,8 +4596,14 @@ textarea.form-control-lg {
 }
 
 .card-footer {
+  font-size: 1em;
+  position: static;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  color: rgba(0, 0, 0, .4);
   padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #ffff;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-footer:last-child {
@@ -4607,7 +4635,9 @@ textarea.form-control-lg {
 .card-img,
 .card-img-top,
 .card-img-bottom {
+  display: block;
   width: 100%;
+  height: auto;
 }
 
 .card-img,
@@ -4620,6 +4650,10 @@ textarea.form-control-lg {
 .card-img-bottom {
   border-bottom-right-radius: calc(0.25rem - 1px);
   border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+.card-inverse .btn {
+  border: 1px solid rgba(0, 0, 0, .05);
 }
 
 .card-group > .card {
@@ -4662,6 +4696,52 @@ textarea.form-control-lg {
   .card-group > .card:not(:first-child) .card-footer {
     border-bottom-left-radius: 0;
   }
+}
+
+/* responsively enforce wrapping */
+.card-deck span {
+  display: none;
+}
+
+@media (min-width:1200px){
+  .card-deck span:nth-of-type(5n) {
+    display: block;
+    width: 100%;
+  }
+
+}
+@media (min-width:992px) and (max-width: 1199px) {
+  .card-deck span:nth-of-type(4n) {
+    display: block;
+    width: 100%;
+  }
+
+}
+@media (min-width:768px) and (max-width: 991px) {
+  .card-deck span:nth-of-type(3n) {
+    display: block;
+    width: 100%;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .card-deck span:nth-of-type(2n) {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* add css for margin fix -- this will not be needed after beta */
+.card-deck .card {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.card-deck .card:not(:last-child) {
+  margin-right: 15px;
+}
+
+.card-deck .card:not(:first-child) {
+  margin-left: 15px;
 }
 
 .accordion-button {
@@ -7853,6 +7933,22 @@ textarea.form-control-lg {
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-flower {
+  --bs-bg-opacity: 1;
+  background-image: url("https://g-grafolio.pstatic.net/20220603_280/1654257985516G7SKu_PNG/%C4%C4%BB%E7%C0%CC%C1%EE.png");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+
+.bg-flower-bottom {
+  --bs-bg-opacity: 1;
+  background-image: url("https://g-grafolio.pstatic.net/20221115_137/1668489300555hS9f2_JPEG/Picsart_22-11-13_22-04-07-681.jpg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
 }
 
 .bg-body {
