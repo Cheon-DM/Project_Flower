@@ -21,7 +21,7 @@
     />
 
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link type="text/css" href="/css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="../css/styles.css" rel="stylesheet"/>
 
     <style>
         html {
@@ -34,95 +34,6 @@
             font-weight: 700;
             line-height: 1.2857em;
             margin: 0;
-        }
-
-        .card {
-            font-size: 1em;
-            overflow: hidden;
-            padding: 0;
-            border: none;
-            border-radius: .28571429rem;
-            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-        }
-
-        .card-block {
-            font-size: 1em;
-            position: relative;
-            margin: 0;
-            padding: 1em;
-            border: none;
-            border-top: 1px solid rgba(34, 36, 38, .1);
-            box-shadow: none;
-        }
-
-        .card-img-top {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        .card-title {
-            font-size: 1.28571429em;
-            font-weight: 700;
-            line-height: 1.2857em;
-        }
-
-        .card-text {
-            clear: both;
-            margin-top: .5em;
-            color: rgba(0, 0, 0, .68);
-        }
-
-        .card-footer {
-            font-size: 1em;
-            position: static;
-            top: 0;
-            left: 0;
-            max-width: 100%;
-            padding: .75em 1em;
-            color: rgba(0, 0, 0, .4);
-            border-top: 1px solid rgba(0, 0, 0, .05) !important;
-            background: #fff;
-        }
-
-        .card-inverse .btn {
-            border: 1px solid rgba(0, 0, 0, .05);
-        }
-
-        .profile {
-            position: absolute;
-            top: -12px;
-            display: inline-block;
-            overflow: hidden;
-            box-sizing: border-box;
-            width: 25px;
-            height: 25px;
-            margin: 0;
-            border: 1px solid #fff;
-            border-radius: 50%;
-        }
-
-        .profile-avatar {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-
-        .profile-inline {
-            position: relative;
-            top: 0;
-            display: inline-block;
-        }
-
-        .profile-inline ~ .card-title {
-            display: inline-block;
-            margin-left: 4px;
-            vertical-align: top;
-        }
-
-        .text-bold {
-            font-weight: 700;
         }
 
         .meta {
@@ -144,7 +55,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="/">Flower</a>
         <button
                 class="navbar-toggler"
                 type="button"
@@ -172,36 +83,37 @@
                             aria-expanded="false"
                     >Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/">Flower</a></li>
-                        <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                         <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/singlelist">Single</a></li>
                         <li><a class="dropdown-item" href="/diybouquet">DIY 부케</a></li>
                     </ul>
                 </li>
             </ul>
             <form class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                    <a href="/mypage" class="nav-link">mypage</a>
+                    <a href="/mypage" class="nav-link">My Page</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="/adminpage" class="nav-link">관리자페이지</a>
+                    <a href="/adminpage" class="nav-link">Admin</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
                     <a href="/member/cart" class="nav-link" >
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" th:text="${cartItemCount}">0</span>
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a href="/login" class="nav-link">login</a>
+                    <a href="/login" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a href="/signup" class="nav-link">sign up</a>
+                    <a href="/signup" class="nav-link">Sign up</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a href="/logout" class="nav-link">logout</a>
+                    <a href="/logout" class="nav-link">Logout</a>
                 </li>
             </form>
         </div>
@@ -209,7 +121,7 @@
 </nav>
 
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-flower py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">DIY BOUQUET</h1>
@@ -222,19 +134,19 @@
     </div>
 </header>
 
-<!-- 가 게 목 록 -->
-
+<!-- 가 게 상 세 설 명 -->
+<section class="py-3">
 <div class="container px-4 px-lg-5 mt-5">
     <div>
         [[${business.getBusinessName}]]
     </div>
     <div>
-        <a class="btn btn-info float-right btn-sm"
+        <a class="btn btn-outline-warning float-right btn-sm"
            th:href="@{/diybouquet/business/{businessId}(businessId=${business.id})}">제작하러가기</a>
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="list : ${singleList}">
-            <div class="card card-inverse card-info">
+            <div class="card h-100 text-center">
                 <img class="card-img-top" th:src="|/images/${list.getImgName()}|">
                 <div class="card-block">
                     <h4 class="card-title mt-3" th:text="${list.name}">꽃 이름</h4>
@@ -244,7 +156,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-info float-right btn-sm"
+                    <a class="btn btn-outline-dark float-right btn-sm"
                        th:href="@{/singleflower/{singleId}(singleId=${list.id})}">꽃 상세보기</a>
 
                 </div>
@@ -252,3 +164,7 @@
         </div>
     </div>
 </div>
+</section>
+
+</body>
+</html>

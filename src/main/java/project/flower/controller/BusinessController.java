@@ -30,7 +30,9 @@ public class BusinessController {
     private final BusinessService businessService;
 
     @GetMapping("/admin/registerbusiness")
-    public String registerForm(){
+    public String registerForm(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
         return "admin/registerbusiness";
     }
 

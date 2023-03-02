@@ -97,6 +97,9 @@ public class HomepageController {
     @GetMapping("/adminpage")
     public String adminPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
         model.addAttribute("member", memberDetails.getMember());
+
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
         return "adminpage";
     }
 
