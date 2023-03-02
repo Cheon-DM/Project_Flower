@@ -44,7 +44,7 @@ public class AdminController {
             log.info("errors={}", bindingResult);
 
             // 회원가입 페이지로 다시 이동
-            return "signup/customer";
+            return "signup/seller";
         }
 
         // 중복 체크
@@ -52,7 +52,7 @@ public class AdminController {
             memberService.validateDuplicateMember(form.toUserEntity());
         } catch (Exception e) {
             bindingResult.addError(new FieldError("form", "email", e.getMessage()));
-            return "signup/customer";
+            return "signup/seller";
         }
 
         // 성공로직
@@ -65,6 +65,7 @@ public class AdminController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         Map<String, List<FlowerOrderItem>> orderMap = orderService.showOrder_Admin(businessList);
         model.addAttribute("orderMap", orderMap);
+        model.addAttribute("businessList", businessList);
 
         return "admin/order";
     }
