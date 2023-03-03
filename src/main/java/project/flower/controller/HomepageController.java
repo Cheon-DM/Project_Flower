@@ -2,15 +2,12 @@ package project.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +21,12 @@ import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.MemberDetails;
-import project.flower.domain.order.FlowerOrder;
 import project.flower.domain.order.FlowerOrderItem;
 import project.flower.file.FileStore;
 import project.flower.service.*;
 
 import java.net.MalformedURLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +48,6 @@ public class HomepageController {
 
     @GetMapping (value = "/")
     public String homePage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-
-
 
         // key : 부케, value : 가게
         Map<FlowerBouquet, Business> bouquetMap = flowerService.findBouquetList();
@@ -93,16 +88,19 @@ public class HomepageController {
     @GetMapping("/mypage")
     public String myPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
         List<FavoriteStore> favoriteStoreList = favoriteService.findFavoriteStoreAll(memberDetails.getMember());
-        List<List<FlowerOrderItem>> orderList = orderService.findOrder(memberDetails.getMember());
+        Map<LocalDateTime, List<FlowerOrderItem>> orderMap = orderService.findOrder(memberDetails.getMember());
         model.addAttribute("member", memberDetails.getMember());
         model.addAttribute("storeList", favoriteStoreList);
-        model.addAttribute("orderList", orderList);
+        model.addAttribute("orderMap", orderMap);
         return "mypage";
     }
 
     @GetMapping("/adminpage")
     public String adminPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
         model.addAttribute("member", memberDetails.getMember());
+
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
         return "adminpage";
     }
 

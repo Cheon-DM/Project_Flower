@@ -17,6 +17,7 @@
               th:href="@{/css/styles.css}"
               rel="stylesheet"/>
     </head>
+
     <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -52,9 +53,9 @@
                             <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                             <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Bouquet</a></li>
-                            <li><a class="dropdown-item" href="#!">Single</a></li>
-                            <li><a class="dropdown-item" href="/diybouquetpage">DIY Bouquet</a></li>
+                            <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
+                            <li><a class="dropdown-item" href="/singlelist">Single</a></li>
+                            <li><a class="dropdown-item" href="/diybouquet">DIY Bouquet</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -90,7 +91,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="|/images/${flower.getImgName()}|" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="height: 40vw" th:src="|/images/${flower.getImgName()}|" alt="..." /></div>
                     <div class="col-md-6">
                         <div class="small mb-1">상품 번호 : [[${flower.id}]]</div>
                         <h1 class="display-5 fw-bolder" th:text="${flower.name}">꽃 이름</h1>
@@ -126,15 +127,14 @@
 
         <!-- Related items section-->
         <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
+            <div class="container px-4 px-lg-4 mt-3">
                 <!-- 해당 가게 상품 전시 -->
                 <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                    th:each="item : ${related}">
-                    <div class="col mb-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5" th:each="item : ${related}">
                         <div class="card h-100">
                             <!-- Product image -->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" th:src="|/images/${item.getImgName()}|">
                             <!-- Product details -->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -149,7 +149,7 @@
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
                                        th:href="@{/flower/{flowerType}/{itemId} (flowerType=${item.type}, itemId=${item.id})}">
-                                        View options
+                                        More
                                     </a>
                                 </div>
                             </div>
@@ -160,8 +160,8 @@
         </section>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        <footer class="py-4 bg-flower-bottom">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Flower Shop 2023</p></div>
         </footer>
 
         <!-- Bootstrap core JS-->

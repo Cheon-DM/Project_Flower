@@ -30,7 +30,9 @@ public class BusinessController {
     private final BusinessService businessService;
 
     @GetMapping("/admin/registerbusiness")
-    public String registerForm(){
+    public String registerForm(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
         return "admin/registerbusiness";
     }
 
@@ -62,11 +64,15 @@ public class BusinessController {
     }
 
     @GetMapping("/admin/businesses/{businessId}")
-    public String flowerList(@PathVariable long businessId, Model model){
+    public String flowerList(@AuthenticationPrincipal MemberDetails memberDetails,
+                             @PathVariable long businessId, Model model){
 
         Business business = businessService.findBusiness(businessId);
         List<FlowerBouquet> bouquetList = business.getBouquetList();
         List<FlowerSingle> singleList = business.getSingleList();
+        List<Business> businessList = memberDetails.getMember().getBusinessList();
+        model.addAttribute("businessList", businessList);
+
         model.addAttribute("bouquetList", bouquetList);
         model.addAttribute("singleList", singleList);
         model.addAttribute("business", business);

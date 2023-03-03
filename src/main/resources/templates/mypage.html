@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Bare - Start Bootstrap Template</title>
+    <title>My Page</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -19,7 +19,7 @@
 
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-banner">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="/">Flower</a>
         <button
@@ -52,9 +52,9 @@
                         <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                         <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Bouquet</a></li>
-                        <li><a class="dropdown-item" href="#!">Single</a></li>
-                        <li><a class="dropdown-item" href="/diybouquetpage">DIY Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/singlelist">Single</a></li>
+                        <li><a class="dropdown-item" href="/diybouquet">DIY Bouquet</a></li>
                     </ul>
                 </li>
             </ul>
@@ -172,18 +172,19 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <td>아이템 이름</td>
-                        <td>아이템 수량</td>
-                        <td>아이템 가격</td>
-                        <td>배송 상태</td>
+                    <tr class="text-center">
+                        <th>아이템 이름</th>
+                        <th>아이템 수량</th>
+                        <th>아이템 가격</th>
+                        <th>배송 상태</th>
                     </tr>
                     </thead>
-                    <tbody th:each="order : ${orderList}">
-                    <tr th:each="item : ${order}">
+                    <tbody th:each="order : ${orderMap}">
+                    <th colspan="2" class="text-center table-secondary" th:with="datetime=${order.key}" th:text="${#temporals.format(datetime, 'yyyy년 MM월 dd일 HH:mm:ss')}">yyyy년 MM월 dd일 HH:mm:ss</th>
+                    <tr class="text-center" th:each="item : ${order.value}">
                         <td th:text="${item.name}">아이템 이름</td>
-                        <td th:text="${item.count}">아이템 수량</td>
-                        <td th:text="${item.price}">아이템 가격</td>
+                        <td >[[${item.count}]]개</td>
+                        <td >[[${item.price}]]원</td>
                         <td th:text="${item.status}">배송 상태</td>
                     </tr>
                     </tbody>
@@ -193,8 +194,13 @@
     </div>
 </div>
 
-<footer class="my-3 text-center text-small">
-    <p class="mb-1">&copy; 2023 Flower Shop</p>
+<!-- Footer-->
+<footer class="py-4 bg-banner">
+    <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; Flower Shop 2023
+        </p>
+    </div>
 </footer>
 
 <!-- Bootstrap core JS-->
