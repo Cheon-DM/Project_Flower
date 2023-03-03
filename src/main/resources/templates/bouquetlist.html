@@ -235,9 +235,29 @@
             <option th:value="detail">부케 디테일</option>
 
         </select>
+        <select title="색깔 선택" name="colorType" >
+            <option value="">색상 전체</option>
+            <option th:each="fcolor : ${flowercolor}" th:value="${fcolor.name()}"
+                    th:text="${fcolor.getDescription()}" ></option>
+        </select>
         <input type="text" name="searchKeyword">
         <button type="submit">검색</button>
     </form>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Action
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each = "bouquet:${list}">
             <div class="card card-inverse card-info">
@@ -255,7 +275,7 @@
         </div>
     </div>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType})}" th:text ="${page}"></a>
+        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType}, colorType=${param.colorType})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
 
     </th:block>
