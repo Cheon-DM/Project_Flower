@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
@@ -30,4 +31,14 @@ public class FlowerBouquetService {
     public Page<FlowerBouquet> bouquetSearchListByDetail(String search, Pageable pageable){
         return flowerBouquetRepository.findByBouquetDetailContaining(search, pageable);
     }
+
+    public Page<FlowerBouquet> bouquetSearchListByNameAndColor(String search, FlowerColor color, Pageable pageable){
+        return flowerBouquetRepository.findByNameContainingAndColor(search, color, pageable);
+    }
+
+    public Page<FlowerBouquet> bouquetSearchListByDetailAndColor(String search, FlowerColor color, Pageable pageable){
+        return flowerBouquetRepository.findByBouquetDetailContainingAndColor(search, color, pageable);
+    }
+
+
 }

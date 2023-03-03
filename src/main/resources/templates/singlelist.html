@@ -130,7 +130,11 @@
         <select title="검색 유형 선택" name="searchType">
             <option th:value="name">꽃 이름</option>
             <option th:value="detail">꽃말</option>
-
+        </select>
+        <select title="색깔 선택" name="colorType" >
+            <option value="">색상 전체</option>
+            <option th:each="fcolor : ${flowercolor}" th:value="${fcolor.name()}"
+                    th:text="${fcolor.getDescription()}" ></option>
         </select>
         <input type="text" name="searchKeyword">
         <button type="submit">검색</button>
@@ -153,7 +157,7 @@
         </div>
     </div>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/bouquetlist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType})}" th:text ="${page}"></a>
+        <a th:if="${page != nowPage}" th:href="@{/singlelist(page=${page-1}, searchKeyword=${param.searchKeyword}, searchType=${param.searchType}, flowerColor=${param.flowerColor})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
 
     </th:block>

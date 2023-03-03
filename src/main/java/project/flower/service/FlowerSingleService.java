@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.flower.domain.admin.Business;
+import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.selfmade.*;
 import project.flower.domain.member.Member;
 import project.flower.repository.BusinessRepository;
@@ -87,5 +88,13 @@ public class FlowerSingleService {
 
     public Page<FlowerSingle> singleSearchListByLang(String search, Pageable pageable){
         return flowerSingleRepository.findByFlowerLangContaining(search, pageable);
+    }
+
+    public Page<FlowerSingle> singleSearchListByNameAndColor(String search, FlowerColor color, Pageable pageable){
+        return flowerSingleRepository.findByNameContainingAndColor(search, color, pageable);
+    }
+
+    public Page<FlowerSingle> singleSearchListByLangAndColor(String search, FlowerColor color, Pageable pageable){
+        return flowerSingleRepository.findByFlowerLangContainingAndColor(search, color, pageable);
     }
 }

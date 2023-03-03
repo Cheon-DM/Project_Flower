@@ -155,7 +155,7 @@
                                 <tr style="line-height: 32px;" th:each="list : ${bouquetList}">
                                     <td th:text="${list.name}"></td>
                                     <td th:text="${list.bouquetDetail}"></td>
-                                    <td th:text="${list.color}"></td>
+                                    <td th:text="${list.color.getDescription()}"></td>
                                     <td th:text="${list.stock}"></td>
                                     <td th:text="${list.price}"></td>
                                     <td> <button onclick="location.href='business.html'"

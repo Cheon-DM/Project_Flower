@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import project.flower.domain.Role;
 import project.flower.domain.admin.Business;
 import project.flower.domain.favorite.FavoriteStore;
+import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.MemberDetails;
@@ -121,21 +122,35 @@ public class HomepageController {
     }
 
     @GetMapping("/bouquetlist")
-    public String flowerBouquetList(Model model, String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerBouquetList(Model model,FlowerColor colorType , String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<FlowerBouquet> list = null;
 
-
         if(searchKeyword==null){
             list = flowerBouquetService.flowerBouquetList(pageable);
+
+
         }
         else{
-            if(searchType.length() == 4){ //왜 =="name"으로 하면 안되는 거지??
-                System.out.println("1이 실행");
-                list = flowerBouquetService.bouquetSearchListByName(searchKeyword, pageable);
+            if(searchType.length() == 4){
+
+                if(colorType == null ){
+                    list = flowerBouquetService.bouquetSearchListByName(searchKeyword, pageable);
+                }
+                else{
+                    list = flowerBouquetService.bouquetSearchListByNameAndColor(searchKeyword, colorType, pageable);
+                }
+
+
+
             } else if (searchType.length() == 6) {
-                System.out.println("2가 실행");
-                list = flowerBouquetService.bouquetSearchListByDetail(searchKeyword, pageable);
+
+                if(colorType == null){
+                    list = flowerBouquetService.bouquetSearchListByDetail(searchKeyword, pageable);
+                }
+                else{
+                    list = flowerBouquetService.bouquetSearchListByDetailAndColor(searchKeyword, colorType, pageable);
+                }
             }
             else{
                 list = flowerBouquetService.flowerBouquetList(pageable);
@@ -147,6 +162,7 @@ public class HomepageController {
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 9, list.getTotalPages());
 
+        model.addAttribute("flowercolor", FlowerColor.values());
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
@@ -157,7 +173,7 @@ public class HomepageController {
     }
 
     @GetMapping("/singlelist")
-    public String flowerSingleList(Model model,String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerSingleList(Model model,String searchType,FlowerColor colorType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<FlowerSingle> list = null;
 
@@ -165,11 +181,23 @@ public class HomepageController {
             list = flowerSingleService.flowerSingleList(pageable);
         }
         else{
-            if(searchType.length() == 4){
-                list = flowerSingleService.singleSearchListByName(searchKeyword, pageable);
+            if(searchType.equals("name")){
+                if(colorType == null ){
+                    list = flowerSingleService.singleSearchListByName(searchKeyword, pageable);
+                }
+                else{
+                    list = flowerSingleService.singleSearchListByNameAndColor(searchKeyword, colorType, pageable);
+                }
             }
             else if (searchType.length() == 6) {
-                list = flowerSingleService.singleSearchListByLang(searchKeyword, pageable);
+
+                if(colorType == null ){
+                    list = flowerSingleService.singleSearchListByLang(searchKeyword, pageable);
+
+                }
+                else{
+                    list = flowerSingleService.singleSearchListByLangAndColor(searchKeyword, colorType, pageable);
+                }
             }
             else {
                 list = flowerSingleService.flowerSingleList(pageable);
@@ -180,6 +208,7 @@ public class HomepageController {
         int startPage = Math.max(nowPage -4, 1);
         int endPage = Math.min(nowPage +9, list.getTotalPages());
 
+        model.addAttribute("flowercolor", FlowerColor.values());
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);

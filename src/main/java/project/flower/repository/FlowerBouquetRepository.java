@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import project.flower.domain.admin.Business;
+import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 
 import java.util.List;
@@ -20,4 +21,9 @@ public interface FlowerBouquetRepository extends JpaRepository<FlowerBouquet, Lo
 
     Page<FlowerBouquet> findByNameContaining(String searchKeyword, Pageable pageable);
     Page<FlowerBouquet> findByBouquetDetailContaining(String searchKeyword, Pageable pageable);
+
+    Page<FlowerBouquet> findByNameContainingAndColor(String searchKeyword, FlowerColor color, Pageable pageable);
+    Page<FlowerBouquet> findByBouquetDetailContainingAndColor(String searchKeyword, FlowerColor color, Pageable pageable);
+
+    Page<FlowerBouquet> findByColor(FlowerColor color, Pageable pageable);
 }
