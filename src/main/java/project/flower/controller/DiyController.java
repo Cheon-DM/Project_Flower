@@ -24,7 +24,6 @@ import java.util.List;
 public class DiyController {
 
     private final BusinessService businessService;
-    private final MemberService memberService;
     private final FlowerService flowerService;
     private final FlowerSingleService flowerSingleService;
 
@@ -77,17 +76,6 @@ public class DiyController {
     }
 
 
-
-    /*@GetMapping("/add/diy/{selfFlowerBouquetId}/single/{singleId}")
-    public String addDiyFlower(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId){
-        log.info("bouquetId = {}, singleID = {}",
-                selfFlowerBouquetId, singleId);
-        SelfFlowerBouquet selfFlowerBouquet = flowerSingleService.findSelfFlowerBouquet(selfFlowerBouquetId);
-        FlowerSingle single = flowerService.findSingle(singleId);
-        flowerSingleService.addItem(selfFlowerBouquet, single);
-        return "redirect:/"; //??
-    }*/
-
     @GetMapping("/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
     public String detailFlowerForm(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId, Model model, @ModelAttribute("form") SelfFlowerItemForm form){
         FlowerSingle single = flowerService.findSingle(singleId);
@@ -98,6 +86,8 @@ public class DiyController {
         model.addAttribute("business", business);
         return"shop/addsingle";
     }
+
+
     @PostMapping("/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
     public String addFlower(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId, @ModelAttribute("form") SelfFlowerItemForm form, Model model, @PathVariable String businessId){
         log.info("count ={}",form.getCount());
@@ -108,6 +98,7 @@ public class DiyController {
         return "redirect:/diybouquet/business/{businessId}/diy/{selfFlowerBouquetId}";
     }
 
+
     @GetMapping("/delete/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
     public String deleteDiySingle(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId){
         flowerSingleService.deleteSingleFlower(singleId);//나중에 diyService를 만드는게 좋을듯
@@ -115,8 +106,9 @@ public class DiyController {
         return "redirect:/diybouquet/business/{businessId}/diy/{selfFlowerBouquetId}";
     }
 
+
     @GetMapping("/delete/{businessId}/diy/{selfFlowerBouquetId}")
-    public String deleteDiyBouquet(@PathVariable long selfFlowerBouquetId, @PathVariable long businessId, Model model){
+    public String deleteDiyBouquet(@PathVariable long selfFlowerBouquetId){
 
         flowerSingleService.deleteDiybouquet(selfFlowerBouquetId);
 

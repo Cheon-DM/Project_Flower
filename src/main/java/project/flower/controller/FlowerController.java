@@ -60,7 +60,7 @@ public class FlowerController {
     }
 
     @PostMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/edit")
-    public String editBouquet(@PathVariable long businessId, @PathVariable long bouquetId,@ModelAttribute("form") FlowerBouquetForm form, @ModelAttribute("bouquet") FlowerBouquet bouquet){
+    public String editBouquet(@PathVariable long bouquetId,@ModelAttribute("form") FlowerBouquetForm form, @ModelAttribute("bouquet") FlowerBouquet bouquet){
         log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
                 form.getName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
 
