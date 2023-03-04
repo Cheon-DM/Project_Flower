@@ -1,68 +1,200 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>DIY BOUQUET</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+    <!-- Bootstrap icons-->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+    <style>
+        html {
+            font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        .meta a {
+            text-decoration: none;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        .meta a:hover {
+            color: rgba(0, 0, 0, .87);
+        }
+    </style>
 </head>
+
 <body>
-diybouquet
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Flower</a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item dropdown">
+                    <a
+                            class="nav-link dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                    >Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/singlelist">Single</a></li>
+                        <li><a class="dropdown-item" href="/diybouquetpage">DIY Bouquet</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+                    <a href="/mypage" class="nav-link">My Page</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/adminpage" class="nav-link">Admin</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+                    <a href="/member/cart" class="nav-link" >
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" th:text="${cartItemCount}">0</span>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/signup" class="nav-link">Sign up</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+            </form>
+        </div>
+    </div>
+</nav>
 
-꽃 목록이랑 담기+ 옆에는 뭐뭐담았는지 보이게 + 담은것 삭제하기 기능도(수정)
-<li>원하는 꽃 담기
+<!-- Header-->
+<header class="bg-flower py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">DIY BOUQUET</h1>
+            <h1 class="display-4 fw-bolder"></h1>
+            <p class="lead fw-normal text-white-50 mb-0"
+               sec:authorize="isAuthenticated()">
+                DIY YOUR BOUQUET!
+            </p>
+        </div>
+    </div>
+</header>
 
-    <table>
-        꽃 목록
-        <tr>
-            <th>꽃 이름</th>
-            <th>상세</th>
-            <th>색</th>
-            <th>재고</th>
-            <th>가격</th>
-            <th>담기</th>
-        </tr>
-        <tr th:each="list : ${singleList}">
-            <td th:text="${list.name}"></td>
-            <td th:text="${list.flowerLang}"></td>
-            <td th:text="${list.color}"></td>
-            <td th:text="${list.stock}"></td>
-            <td th:text="${list.price}"></td>
-            <td> <button onclick="location.href='addsingle.html'"
-                         th:onclick="|location.href='@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
-                         type="button">상세보기</button> </td>
-
-        </tr>
-    </table>
-</li>
-<li>현재 담은 꽃
-    <table>
-        <tr>
-            <th>꽃 이름</th>
-            <th>갯수</th>
-            <th>가격</th>
-            <th>삭제</th>
-        </tr>
-        <tr th:each="list : ${selfFlowerItemList}">
-            <td th:text="${list.getFlowerSingle().name}"></td>
-            <td th:text="${list.count}"></td>
-            <td th:text="${list.totalPrice}"></td>
-            <td><button onclick="location.href='business.html'"
-                                                     th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
-                                                     type="button"class="btn btn-danger">삭제</button></td>
+<!-- 가 게 목 록 -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row justify-content-center">
+            <h2 class="fw-light">
+                담은 꽃 목록
+            </h2>
+            <table>
+                <tr>
+                    <th>꽃 이름</th>
+                    <th>갯수</th>
+                    <th>가격</th>
+                    <th>삭제</th>
+                </tr>
+                <tr th:each="list : ${selfFlowerItemList}">
+                    <td th:text="${list.getFlowerSingle().name}"></td>
+                    <td th:text="${list.count}"></td>
+                    <td th:text="${list.totalPrice}"></td>
+                    <td><button onclick="location.href='business.html'"
+                                th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                                type="button"class="btn btn-danger">삭제</button></td>
 
 
 
-        </tr>
-    </table>
-</li>
+                </tr>
+            </table>
+            <h2 class="fw-light">
+                꽃 목록
+            </h2>
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="list : ${singleList}">
+                <div class="card-deck">
+                    <div class="card h-100 text-center">
+                        <img class="card-img-top" th:src="|/images/${list.getImgName()}|">
+                        <div class="card-block">
+                            <h4 class="card-title mt-3" th:text="${list.name}">꽃 이름</h4>
 
-<div>
-    <button onclick="location.href='addsingle.html'"
-            th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
-            type="button">취소하기</button>
-    <button onclick="location.href='addsingle.html'"
-            th:onclick="|location.href='@{/add/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
-            type="button">DIY 부케 카트에 담기</button>
-</div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-dark float-right btn-sm"
+                               th:href="@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}">가게 상세보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="py-4 bg-flower-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; Flower Shop 2023
+        </p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
 
 </body>
 </html>
