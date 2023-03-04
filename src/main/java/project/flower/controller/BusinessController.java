@@ -40,8 +40,6 @@ public class BusinessController {
     public String register(@ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
                            @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
 
-        log.info("businessName = {}, num = {}",
-                form.getBusinessName(), form.getBusinessNum());
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
