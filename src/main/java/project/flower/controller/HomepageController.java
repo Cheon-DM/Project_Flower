@@ -108,7 +108,11 @@ public class HomepageController {
 
     @GetMapping("/diybouquetpage")
     public String diyPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-        //model.addAttribute("member", memberDetails.getMember());
+
+        if(memberDetails.getMember()!=null){
+            model.addAttribute("member", memberDetails.getMember());
+        }
+
         Map<Long, Business> businessMap = businessService.findBusinessMap();
         model.addAttribute("businessMap", businessMap);
 
@@ -218,6 +222,19 @@ public class HomepageController {
 
         return "singlelist";
 
+    }
+
+    @GetMapping("/storelist")
+    public String storeList(@AuthenticationPrincipal MemberDetails memberDetails ,Model model){
+
+        if(memberDetails.getMember()!=null){
+            model.addAttribute("member", memberDetails.getMember());
+        }
+
+        Map<Long, Business> businessMap = businessService.findBusinessMap();
+        model.addAttribute("businessMap", businessMap);
+
+        return "storelist";
     }
 
 }
