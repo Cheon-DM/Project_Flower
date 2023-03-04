@@ -27,7 +27,6 @@ import project.flower.repository.MemberRepository;
 public class MemberService{
 
     private final MemberRepository memberRepository;
-    private final CartRepository cartRepository;
     private final BCryptPasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
 

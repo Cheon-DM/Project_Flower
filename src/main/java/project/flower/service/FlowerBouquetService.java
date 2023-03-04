@@ -16,7 +16,6 @@ import project.flower.repository.FlowerBouquetRepository;
 @RequiredArgsConstructor
 public class FlowerBouquetService {
 
-    private final BusinessRepository businessRepository;
     private final FlowerBouquetRepository flowerBouquetRepository;
 
 
