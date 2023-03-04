@@ -41,8 +41,6 @@ public class FlowerController {
 
     @PostMapping("/admin/businesses/{businessId}/single/{singleId}/edit")
     public String editSingle(@PathVariable long singleId,@ModelAttribute("form") FlowerSingleForm form, @ModelAttribute("single") FlowerSingle single){
-        log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
 
         flowerService.editSingle(form, singleId);
 
@@ -61,8 +59,6 @@ public class FlowerController {
 
     @PostMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/edit")
     public String editBouquet(@PathVariable long bouquetId,@ModelAttribute("form") FlowerBouquetForm form, @ModelAttribute("bouquet") FlowerBouquet bouquet){
-        log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
 
         flowerService.editBouquet(form, bouquetId);
 
