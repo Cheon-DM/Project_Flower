@@ -39,12 +39,15 @@ diybouquet
             <th>꽃 이름</th>
             <th>갯수</th>
             <th>가격</th>
-            <th>수량 수정하기</th>
+            <th>삭제</th>
         </tr>
         <tr th:each="list : ${selfFlowerItemList}">
             <td th:text="${list.getFlowerSingle().name}"></td>
             <td th:text="${list.count}"></td>
             <td th:text="${list.totalPrice}"></td>
+            <td><button onclick="location.href='business.html'"
+                                                     th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${list.id})}'|"
+                                                     type="button"class="btn btn-danger">삭제</button></td>
 
 
 
@@ -54,8 +57,8 @@ diybouquet
 
 <div>
     <button onclick="location.href='addsingle.html'"
-            th:onclick="|location.href='@{/edit/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
-            type="button">수량 수정하기</button>
+            th:onclick="|location.href='@{/delete/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
+            type="button">취소하기</button>
     <button onclick="location.href='addsingle.html'"
             th:onclick="|location.href='@{/add/{businessId}/diy/{selfFlowerBouquetId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id})}'|"
             type="button">DIY 부케 카트에 담기</button>

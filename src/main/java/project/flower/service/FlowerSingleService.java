@@ -56,6 +56,8 @@ public class FlowerSingleService {
 
     }
 
+
+
     public SelfFlowerBouquet findSelfFlowerBouquet(Long id){
         SelfFlowerBouquet selfFlowerBouquet = selfFlowerBouquetRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없습니다."));
 
@@ -70,6 +72,14 @@ public class FlowerSingleService {
 
 
         return selfFlowerItemRepository.save(selfFlowerItem).getId();
+    }
+
+    public void deleteSingleFlower(Long singleId){
+        selfFlowerItemRepository.deleteById(singleId);
+    }
+
+    public void deleteDiybouquet(Long id){
+        selfFlowerBouquetRepository.deleteById(id);
     }
 
     public SelfFlowerItem findSelfFlowerItem(Long id){

@@ -30,13 +30,11 @@ public class SelfFlowerBouquet {
 
    private int totalPrice=0;
 
-   @OneToMany(mappedBy = "selfFlowerBouquet", fetch = FetchType.EAGER)
+   @OneToMany(mappedBy = "selfFlowerBouquet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    List<SelfFlowerItem> selfFlowerItemList = new ArrayList<SelfFlowerItem>();
 
    public void addPrice(SelfFlowerItem selfFlowerItem){
        int addPrice = selfFlowerItem.getTotalPrice();
        this.totalPrice+=addPrice;
    }
-
-
 }
