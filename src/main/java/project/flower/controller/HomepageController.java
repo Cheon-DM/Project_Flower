@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -107,7 +108,11 @@ public class HomepageController {
 
     @GetMapping("/diybouquetpage")
     public String diyPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-        model.addAttribute("member", memberDetails.getMember());
+
+        if(memberDetails.getMember()!=null){
+            model.addAttribute("member", memberDetails.getMember());
+        }
+
         Map<Long, Business> businessMap = businessService.findBusinessMap();
         model.addAttribute("businessMap", businessMap);
 
@@ -122,9 +127,10 @@ public class HomepageController {
     }
 
     @GetMapping("/bouquetlist")
-    public String flowerBouquetList(Model model,FlowerColor colorType , String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String flowerBouquetList(Model model,FlowerColor colorType ,String orderType, String searchType, String searchKeyword, @PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<FlowerBouquet> list = null;
+
 
         if(searchKeyword==null){
             list = flowerBouquetService.flowerBouquetList(pageable);
@@ -216,6 +222,19 @@ public class HomepageController {
 
         return "singlelist";
 
+    }
+
+    @GetMapping("/storelist")
+    public String storeList(@AuthenticationPrincipal MemberDetails memberDetails ,Model model){
+
+        if(memberDetails.getMember()!=null){
+            model.addAttribute("member", memberDetails.getMember());
+        }
+
+        Map<Long, Business> businessMap = businessService.findBusinessMap();
+        model.addAttribute("businessMap", businessMap);
+
+        return "storelist";
     }
 
 }

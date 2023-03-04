@@ -1,21 +1,55 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Add Single</title>
+    <title>DIY BOUQUET</title>
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
     <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css"
-          th:href="@{/css/styles.css}"
-          rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet" />
+
+    <style>
+        html {
+            font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        .meta a {
+            text-decoration: none;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        .meta a:hover {
+            color: rgba(0, 0, 0, .87);
+        }
+    </style>
 </head>
 
 <body>
@@ -87,32 +121,43 @@
     </div>
 </nav>
 
-<!-- Product section-->
-<section class="py-5">
+<!-- Header-->
+<header class="bg-flower py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="height: 40vw" src="https://picsum.photos/600/700/?random"
-                                       th:src="|/images/${single.getImgName()}|" alt="..." /></div>
-            <div class="col-md-6">
-                <div class="small mb-1">재고 : [[${single.stock}]]</div>
-                <h1 class="display-5 fw-bolder" th:text="${single.name}">꽃 이름</h1>
-                <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through">가격</span>
-                    <span>&#8361 [[${single.price}]]</span>
-                </div>
-                <p class="lead">꽃 설명</p>
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">DIY BOUQUET</h1>
+            <h1 class="display-4 fw-bolder"></h1>
+            <p class="lead fw-normal text-white-50 mb-0"
+               sec:authorize="isAuthenticated()">
+                DIY YOUR BOUQUET!
+            </p>
+        </div>
+    </div>
+</header>
 
-                <form class="d-flex" action="@{/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}(businessId=${business.id}, selfFlowerBouquetId=${selfFlowerBouquet.id}, singleId=${single.id})}" th:object="${form}" th:action method="post">
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="count" th:field="*{count}" type="text" value="1" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            장바구니
-                        </button>
+<!-- 가 게 목 록 -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row justify-content-center">
+            <h2 class="fw-light">
+                가게 목록
+            </h2>
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="business : ${businessMap}">
+                <div class="card-deck">
+                    <div class="card h-100 text-center">
+                        <img class="card-img-top" th:src="|/images/${business.value.getImgName()}|">
+                        <div class="card-block">
+                            <h4 class="card-title mt-3" th:text="${business.value.businessName}">가게 이름</h4>
+
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-dark float-right btn-sm"
+                               th:href="@{/business/{businessId}(businessId=${business.key})}">가게 상세보기</a>
+                            <a class="btn btn-outline-danger float-right btn-sm"
+                               th:href="@{/add/{businessId}(businessId=${business.key})}">Follow</a>
+                        </div>
                     </div>
-                </form>
-
-
+                </div>
             </div>
         </div>
     </div>
@@ -120,12 +165,16 @@
 
 <!-- Footer-->
 <footer class="py-4 bg-flower-bottom">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Flower Shop 2023</p></div>
+    <div class="container">
+        <p class="m-0 text-center text-white">
+            Copyright &copy; Flower Shop 2023
+        </p>
+    </div>
 </footer>
+
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"
-        th:src="@{js/scripts.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+
 </body>
 </html>

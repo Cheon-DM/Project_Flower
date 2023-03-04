@@ -75,7 +75,7 @@
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="/bouquetlist">Bouquet</a></li>
                         <li><a class="dropdown-item" href="/singlelist">Single</a></li>
-                        <li><a class="dropdown-item" href="/diybouquet">DIY Bouquet</a></li>
+                        <li><a class="dropdown-item" href="/diybouquetpage">DIY Bouquet</a></li>
                     </ul>
                 </li>
             </ul>
@@ -142,19 +142,6 @@
         <button type="submit">검색</button>
     </form>
 
-    <!-- Example single danger button -->
-    <div class="btn-group">
-        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-        </ul>
-    </div>
 
     <div class="row justify-content-center">
         <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each = "bouquet:${list}">

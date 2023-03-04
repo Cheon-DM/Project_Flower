@@ -136,4 +136,16 @@ public class BusinessController {
 
         return "redirect:/admin/businesses/{businessId}";
     }
+
+    @GetMapping("/business/{businessId}")
+    public String showFlowerList(@PathVariable long businessId, Model model){
+        Business business = businessService.findBusiness(businessId);
+        List<FlowerSingle> singleList = business.getSingleList();
+        List<FlowerBouquet> bouquetList = business.getBouquetList();
+        model.addAttribute("business", business);
+        model.addAttribute("singleList", singleList);
+        model.addAttribute("bouquetList", bouquetList);
+
+        return"/shop/flowerlist";
+    }
 }
