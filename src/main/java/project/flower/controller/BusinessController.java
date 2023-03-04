@@ -34,6 +34,7 @@ public class BusinessController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
         return "admin/registerbusiness";
+
     }
 
     @PostMapping("/admin/registerbusiness")
