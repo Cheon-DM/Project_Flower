@@ -132,7 +132,6 @@ public class CartService {
         Cart cart = cartRepository.findByMember(member)
                 .orElseThrow(() -> new IllegalArgumentException("해당 카트가 존재하지 않습니다."));
         List<CartItem> cartItemList = cart.getCartItemList();
-        //log.info("cartItemList={}",cartItemList);
         return cartItemList.size();
     }
 

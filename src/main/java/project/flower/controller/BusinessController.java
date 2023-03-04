@@ -34,14 +34,13 @@ public class BusinessController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
         return "admin/registerbusiness";
+
     }
 
     @PostMapping("/admin/registerbusiness")
     public String register(@ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
-                           @AuthenticationPrincipal MemberDetails memberDetails, Model model) throws IOException {
+                           @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
 
-        log.info("businessName = {}, num = {}",
-                form.getBusinessName(), form.getBusinessNum());
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
