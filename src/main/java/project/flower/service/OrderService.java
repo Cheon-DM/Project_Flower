@@ -17,11 +17,10 @@ import project.flower.domain.order.FlowerOrderItem;
 import project.flower.domain.order.OrderStatus;
 import project.flower.repository.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalTime;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -148,5 +147,35 @@ public class OrderService {
         // 상태 바꾸기
         orderItem.setStatus(OrderStatus.DELIVERY_COMPLETE);
         orderItemRepository.save(orderItem);
+    }
+
+    public Map<LocalDateTime, Map<Business, Integer>> showProfitByDate(List<Business> businessList){
+        Map<LocalDateTime, Map<Business, Integer>> profitMap = new HashMap<>();
+
+        for (int i = 0; i < 7; i++) {
+            LocalDateTime startDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(0,0,0));
+            LocalDateTime endDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(23,59,59));
+            List<FlowerOrder> flowerOrderList = orderRepository.findAllByCreateDateBetween(startDay, endDay);
+            log.info("flowerOrderList Size = {}", flowerOrderList);
+
+            for (FlowerOrder order : flowerOrderList) {
+                for (Business business : businessList) {
+                    Map<Business, Integer> tmp = new HashMap<>();
+                    int totalProfit;
+                    List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
+
+                    if (!orderItem.isEmpty()){
+                        totalProfit = orderItem.stream().mapToInt(FlowerOrderItem::getPrice).sum();
+                        tmp.put(business, totalProfit);
+                    } else {
+                        tmp.put(business, 0);
+                    }
+
+                    profitMap.put(startDay, tmp);
+                }
+            }
+        }
+
+        return profitMap;
     }
 }

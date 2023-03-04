@@ -102,6 +102,10 @@ public class HomepageController {
 
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
+
+        Map<LocalDateTime, Map<Business, Integer>> orderMap = orderService.showProfitByDate(businessList);
+        log.info("orderMap={}",orderMap.size());
+
         return "adminpage";
     }
 
