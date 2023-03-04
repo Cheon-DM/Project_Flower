@@ -9,7 +9,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link href="../css/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link
             rel="stylesheet"
@@ -102,7 +102,7 @@
                         <div class="collapse" id="collapseCoins" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrder">
                                 <a class="nav-link collapsed" th:text="${b.businessName}"
-                                   th:href="@{/admin/order}">
+                                   th:href="@{/admin/order/{businessId} (businessId=${b.id})}">
                                     Business Name
                                 </a>
                             </nav>
@@ -133,11 +133,11 @@
         <main>
             <div class="container-fluid">
                 <div class="col-sm-12 pt-5">
-                    <div class="card col-md-12 mx-auto" th:each="entry : ${orderMap}">
+                    <div class="card col-md-12 mx-auto m-3" th:each="entry : ${orderMap}">
                         <div class="card-header">
-                            <h4 class="card-title" th:with="business=${entry.key}">
-                                <i class="fas fa-flower"></i>
-                                [[${business}]]
+                            <h4 class="card-title" th:with="datetime=${entry.key}">
+                                <i class="fas fa-calendar-days"></i>
+                                [[${#temporals.format(datetime, 'yyyy년 MM월 dd일 HH:mm:ss')}]]
                             </h4>
                         </div>
 
@@ -155,16 +155,20 @@
                                 <tbody>
                                 <tr style="line-height: 32px;" th:each="flower : ${flowerList}">
                                     <td th:text="${flower.name}"></td>
-                                    <td th:text="${flower.count}"></td>
-                                    <td th:text="${flower.price}"></td>
+                                    <td>
+                                        [[${flower.count}]]개
+                                    </td>
+                                    <td>
+                                        &#8361 [[${flower.price}]]
+                                    </td>
                                     <td th:text="${flower.status}"></td>
                                     <td>
-                                        <button class="btn btn-primary" id="delivery" th:value="${flower.id}"
+                                        <button class="btn btn-outline-primary" id="delivery" th:value="${flower.id}"
                                                 th:if="${flower.status.name()} == 'PROCESSING'"
-                                        onclick="inDelivery(this)">배송</button>
-                                        <button class="btn btn-success" id="complete" th:value="${flower.id}"
+                                        onclick="inDelivery(this)">준비중 -> 배송중</button>
+                                        <button class="btn btn-outline-danger" id="complete" th:value="${flower.id}"
                                                 th:if="${flower.status.name()} == 'IN_DELIVERY'"
-                                                onclick="orderComplete(this)">완료</button>
+                                                onclick="orderComplete(this)">배송중 -> 배송완료</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -174,7 +178,6 @@
                 </div>
             </div>
         </main>
-
 
         <!-- footer -->
         <footer class="py-4 bg-light mt-auto">
