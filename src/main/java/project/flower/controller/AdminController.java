@@ -17,6 +17,8 @@ import project.flower.domain.order.FlowerOrderItem;
 import project.flower.service.MemberService;
 import project.flower.service.OrderService;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,10 +62,12 @@ public class AdminController {
         return "redirect:/login";
     }
 
-    @GetMapping("admin/order")
-    public String showOrder(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+    @GetMapping("admin/order/{businessId}")
+    public String showOrder(@PathVariable Long businessId,
+                            @AuthenticationPrincipal MemberDetails memberDetails, Model model){
         List<Business> businessList = memberDetails.getMember().getBusinessList();
-        Map<String, List<FlowerOrderItem>> orderMap = orderService.showOrder_Admin(businessList);
+        Map<LocalDateTime, List<FlowerOrderItem>> orderMap = orderService.showOrder_Admin(businessId);
+
         model.addAttribute("orderMap", orderMap);
         model.addAttribute("businessList", businessList);
 

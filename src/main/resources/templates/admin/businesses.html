@@ -102,7 +102,7 @@
                         <div class="collapse" id="collapseCoins" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrder">
                                 <a class="nav-link collapsed" th:text="${b.businessName}"
-                                   th:href="@{/admin/order}">
+                                   th:href="@{/admin/order/{businessId} (businessId=${b.id})}">
                                     Business Name
                                 </a>
                             </nav>
@@ -131,39 +131,31 @@
     <!-- 나의 꽃집 목록 -->
     <div id = "layoutSidenav_content">
         <main>
-            <div class="container-fluid">
-                <div class="col-sm-12 pt-5">
-                    <div class="card col-md-12 mx-auto">
-                        <div class="card-header">
-                            <h4 class="card-title">
-                                <i class="fas fa-flower"></i>
-                                나의 꽃집 목록
-                            </h4>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th> 꽃집 이름</th>
-                                    <th> 사업자등록번호</th>
-                                    <th> 관리하기</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr style="line-height: 32px;" th:each="list : ${businessList}">
-                                    <td th:text="${list.businessName}"></td>
-                                    <td th:text="${list.businessNum}"></td>
-                                    <td> <button onclick="location.href='business.html'"
-                                                 th:onclick="|location.href='@{/admin/businesses/{businessId}(businessId=${list.id})}'|"
-                                                 type="button" class="btn btn-warning">꽃집 관리 하기</button> </td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <section class="py-3">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row justify-content-center">
+                        <h2 class="fw-light">
+                            나의 꽃집 목록
+                        </h2>
+                        <div class="col-sm-6 col-md-4 col-lg-3 mt-4" th:each="business : ${businessList}">
+                            <div class="card-deck">
+                                <div class="card h-100 text-center">
+                                    <img class="card-img-top" th:src="|/images/${business.getImgName()}|" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg">
+                                    <div class="card-block">
+                                        <h4 class="card-title mt-3" th:text="${business.businessName}">가게 이름</h4>
+                                        <div class="meta card-text" th:text="${business.businessNum}">가게 사업자 등록번호</div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button onclick="location.href='business.html'"
+                                                th:onclick="|location.href='@{/admin/businesses/{businessId}(businessId=${business.id})}'|"
+                                                type="button" class="btn btn-outline-warning">가게 관리 하기</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </main>
 
         <!-- footer -->

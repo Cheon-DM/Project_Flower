@@ -18,6 +18,7 @@ import project.flower.domain.order.OrderStatus;
 import project.flower.repository.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final BusinessRepository businessRepository;
 
     @Transactional
     public void checkout(Member member, String[] itemIds){
@@ -79,11 +81,26 @@ public class OrderService {
         return orderMap;
     }
 
-    public Map<String, List<FlowerOrderItem>> showOrder_Admin(List<Business> businessList){
-        Map<String, List<FlowerOrderItem>> orderMap = new HashMap<>();
-        for (Business business : businessList) {
-            List<FlowerOrderItem> flowers = orderItemRepository.findAllByBusiness(business);
-            orderMap.put(business.getBusinessName(), flowers);
+    public Map<LocalDateTime, List<FlowerOrderItem>> showOrder_Admin(Long businessId){
+        Business business = businessRepository.findById(businessId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+
+        Map<LocalDateTime, List<FlowerOrderItem>> orderMap = new HashMap<>();
+
+        List<FlowerOrderItem> orderItemList = orderItemRepository.findAllByBusiness(business);
+
+        for (FlowerOrderItem orderItem : orderItemList) {
+            LocalDateTime flowerCreateDate = orderItem.getFlowerOrder().getCreateDate();
+
+            if (!orderMap.containsKey(flowerCreateDate)){
+                List<FlowerOrderItem> tmp = new ArrayList<>();
+                tmp.add(orderItem);
+                orderMap.put(flowerCreateDate, tmp);
+            } else {
+                List<FlowerOrderItem> flowerOrderItems = orderMap.get(flowerCreateDate);
+                flowerOrderItems.add(orderItem);
+                orderMap.put(flowerCreateDate, flowerOrderItems);
+            }
         }
 
         return orderMap;
