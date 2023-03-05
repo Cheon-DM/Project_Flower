@@ -1,5 +1,6 @@
 package project.flower.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,7 +31,7 @@ public class BusinessController {
     private final BusinessService businessService;
 
     @GetMapping("/admin/registerbusiness")
-    public String registerForm(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
+    public String registerForm(@ModelAttribute("form") BusinessForm form, @AuthenticationPrincipal MemberDetails memberDetails, Model model){
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
         return "admin/registerbusiness";
@@ -38,7 +39,7 @@ public class BusinessController {
     }
 
     @PostMapping("/admin/registerbusiness")
-    public String register(@ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
+    public String register(@Valid @ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
                            @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
 
 
@@ -47,6 +48,8 @@ public class BusinessController {
 
             return "/admin/registerbusiness";
         }
+
+
         Member currentMember = memberDetails.getMember();
         businessService.registerBusiness(form, currentMember);
 

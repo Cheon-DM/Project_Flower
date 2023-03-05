@@ -36,9 +36,20 @@ public class BusinessService {
     private final FileStore fileStore;
     public Long registerBusiness(BusinessForm form, Member member) throws IOException {
 
+        String storeFileName="";
+        String uploadFileName="";
         UploadFile storeImageFIle = fileStore.storeFile(form.getImgFile());
-        String storeFileName = storeImageFIle.getStoreFileName();
-        String uploadFileName = storeImageFIle.getUploadFileName();
+        if(storeImageFIle != null){
+
+            storeFileName = storeImageFIle.getStoreFileName();
+            uploadFileName = storeImageFIle.getUploadFileName();
+        }
+        else{
+            storeFileName="noImage.png";
+            uploadFileName="noImage";
+        }
+
+
 
 
         form.setImgName(storeFileName);
