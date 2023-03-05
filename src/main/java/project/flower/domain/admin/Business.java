@@ -29,7 +29,7 @@ public class Business {
     private String businessName;
 
     @Column(name = "business_num",nullable = false)
-    private int businessNum;
+    private String businessNum;
 
     private String imgName; //이미지 파일명
     private String imgPath;// 이미지 조회경로
