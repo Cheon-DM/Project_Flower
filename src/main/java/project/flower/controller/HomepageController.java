@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -103,8 +104,8 @@ public class HomepageController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
 
-        Map<LocalDateTime, Map<Business, Integer>> orderMap = orderService.showProfitByDate(businessList);
-        log.info("orderMap={}",orderMap.size());
+        Map<Business, List<Pair<LocalDateTime, Integer>>> orderMap = orderService.showProfitByDate(businessList);
+        model.addAttribute("profitMap", orderMap);
 
         return "adminpage";
     }

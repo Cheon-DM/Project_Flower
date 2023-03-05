@@ -2,6 +2,7 @@ package project.flower.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.flower.domain.admin.Business;
@@ -149,31 +150,34 @@ public class OrderService {
         orderItemRepository.save(orderItem);
     }
 
-    public Map<LocalDateTime, Map<Business, Integer>> showProfitByDate(List<Business> businessList){
-        Map<LocalDateTime, Map<Business, Integer>> profitMap = new HashMap<>();
+    public Map<Business, List<Pair<LocalDateTime, Integer>>> showProfitByDate(List<Business> businessList){
+        Map<Business, List<Pair<LocalDateTime, Integer>>> profitMap = new HashMap<>();
 
-        for (int i = 0; i < 7; i++) {
-            LocalDateTime startDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(0,0,0));
-            LocalDateTime endDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(23,59,59));
-            List<FlowerOrder> flowerOrderList = orderRepository.findAllByCreateDateBetween(startDay, endDay);
-            log.info("flowerOrderList Size = {}", flowerOrderList);
+        for (Business business : businessList) {
+            List<Pair<LocalDateTime, Integer>> listTmp = new ArrayList<>();
 
-            for (FlowerOrder order : flowerOrderList) {
-                for (Business business : businessList) {
-                    Map<Business, Integer> tmp = new HashMap<>();
-                    int totalProfit;
+            for (int i = 6; i >= 0; i--) {
+                LocalDateTime startDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(0,0,0));
+                LocalDateTime endDay = LocalDateTime.of(LocalDate.now().minusDays(i), LocalTime.of(23,59,59));
+                List<FlowerOrder> flowerOrderList = orderRepository.findAllByCreateDateBetween(startDay, endDay);
+
+                int totalProfit = 0;
+
+                for (FlowerOrder order : flowerOrderList) {
+                    //log.info("business name={}, order createDate={}", business.getBusinessName(), order.getCreateDate());
+                    int profit = 0;
                     List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
 
                     if (!orderItem.isEmpty()){
-                        totalProfit = orderItem.stream().mapToInt(FlowerOrderItem::getPrice).sum();
-                        tmp.put(business, totalProfit);
-                    } else {
-                        tmp.put(business, 0);
+                        profit = orderItem.stream().mapToInt(FlowerOrderItem::getPrice).sum();
+                        totalProfit += profit;
                     }
-
-                    profitMap.put(startDay, tmp);
                 }
+
+                Pair<LocalDateTime, Integer> tmp = Pair.of(startDay, totalProfit);
+                listTmp.add(tmp);
             }
+            profitMap.put(business, listTmp);
         }
 
         return profitMap;
