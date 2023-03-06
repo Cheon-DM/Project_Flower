@@ -42,10 +42,10 @@ public class Business {
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     List<FavoriteStore> favoriteStoreList;
 
-    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FlowerBouquet> bouquetList = new ArrayList<FlowerBouquet>();
 
-    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
