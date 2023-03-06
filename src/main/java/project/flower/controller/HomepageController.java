@@ -29,6 +29,8 @@ import project.flower.service.*;
 
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -104,8 +106,26 @@ public class HomepageController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
 
-        Map<Business, List<Pair<LocalDateTime, Integer>>> orderMap = orderService.showProfitByDate(businessList);
-        model.addAttribute("profitMap", orderMap);
+        Map<Business, List<Pair<LocalDateTime, Integer>>> profitMap_Date = orderService.showProfitByDate(businessList);
+        model.addAttribute("profitMap_Date", profitMap_Date);
+
+        Map<Business, List<Pair<Month, Integer>>> profitMap_Month = orderService.showProfitByMonth(businessList);
+        model.addAttribute("profitMap_Month", profitMap_Month);
+
+        List<FlowerSingle> singleList = new ArrayList<>();
+        List<FlowerBouquet> bouquetList = new ArrayList<>();
+        for (Business business : businessList) {
+            List<FlowerSingle> s = businessService.getSingle(business);
+            if (!s.isEmpty()){
+                singleList.addAll(s);
+            }
+            List<FlowerBouquet> b = businessService.getBouquet(business);
+            if (!b.isEmpty()){
+                bouquetList.addAll(b);
+            }
+        }
+        model.addAttribute("singleList", singleList);
+        model.addAttribute("bouquetList", bouquetList);
 
         return "adminpage";
     }

@@ -113,4 +113,14 @@ public class BusinessService {
         return flowerSingleRepository.save(single).getId();
     }
 
+    @Transactional
+    public List<FlowerSingle> getSingle(Business business){
+        return business.getSingleList();
+    }
+
+    @Transactional
+    public List<FlowerBouquet> getBouquet(Business business){
+        return business.getBouquetList();
+    }
+
 }
