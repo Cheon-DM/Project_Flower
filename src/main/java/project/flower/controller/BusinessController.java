@@ -42,13 +42,9 @@ public class BusinessController {
     public String register(@Valid @ModelAttribute("form") BusinessForm form, BindingResult bindingResult,
                            @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
 
-
         if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-
             return "/admin/registerbusiness";
         }
-
 
         Member currentMember = memberDetails.getMember();
         businessService.registerBusiness(form, currentMember);
@@ -74,7 +70,6 @@ public class BusinessController {
         List<FlowerSingle> singleList = business.getSingleList();
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
-
         model.addAttribute("bouquetList", bouquetList);
         model.addAttribute("singleList", singleList);
         model.addAttribute("business", business);
@@ -94,18 +89,11 @@ public class BusinessController {
     public String registerBouquet(@PathVariable long businessId,
                                   @ModelAttribute("form") FlowerBouquetForm form,  BindingResult bindingResult, Model model) throws Exception {
 
-        log.info("name = {}, detail = {}, price = {}, stock = {}, color = {}",
-                form.getName(), form.getBouquetDetail(), form.getPrice(), form.getStock(), form.getColor());
-
-        log.info("image = {}", form.getImgFile());
         if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-
             return "redirect:/admin/businesses/{businessId}";
         }
         Business bus = businessService.findBusiness(businessId);
         businessService.registerBouquet(form ,bus);
-
 
         return "redirect:/admin/businesses/{businessId}";
     }
@@ -122,14 +110,7 @@ public class BusinessController {
     public String registerSingle(@PathVariable long businessId, @ModelAttribute("business") Business business,
                                   @ModelAttribute("form") FlowerSingleForm form, BindingResult bindingResult) throws IOException {
 
-        log.info("name = {}, lang = {}, price = {}, stock = {}, color = {}",
-                form.getName(), form.getFlowerLang(), form.getPrice(), form.getStock(), form.getColor());
-
-        log.info("image = {}", form.getImgFile());
-
         if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-
             return "redirect:/admin/businesses/{businessId}/single";
         }
 

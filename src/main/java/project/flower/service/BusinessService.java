@@ -40,7 +40,6 @@ public class BusinessService {
         String uploadFileName="";
         UploadFile storeImageFIle = fileStore.storeFile(form.getImgFile());
         if(storeImageFIle != null){
-
             storeFileName = storeImageFIle.getStoreFileName();
             uploadFileName = storeImageFIle.getUploadFileName();
         }
@@ -48,9 +47,6 @@ public class BusinessService {
             storeFileName="noImage.png";
             uploadFileName="noImage";
         }
-
-
-
 
         form.setImgName(storeFileName);
         form.setImgPath(uploadFileName);
@@ -60,6 +56,7 @@ public class BusinessService {
 
         return businessRepository.save(business).getId();
     }
+
     @Transactional
     public Business findBusiness(Long id){
 
@@ -78,7 +75,6 @@ public class BusinessService {
         }
         return businessMap;
     }
-
 
     @Transactional
     public Long registerBouquet(FlowerBouquetForm form, Business business) throws Exception {
@@ -111,6 +107,16 @@ public class BusinessService {
         single.setBusiness(business);
 
         return flowerSingleRepository.save(single).getId();
+    }
+
+    @Transactional
+    public List<FlowerSingle> getSingle(Business business){
+        return business.getSingleList();
+    }
+
+    @Transactional
+    public List<FlowerBouquet> getBouquet(Business business){
+        return business.getBouquetList();
     }
 
 }

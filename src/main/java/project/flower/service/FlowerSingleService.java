@@ -30,19 +30,6 @@ public class FlowerSingleService {
 
     private final SelfFlowerItemRepository selfFlowerItemRepository;
 
-    public Map<Long, List<FlowerSingle>> findSingleList() {
-        List<Business> businessList = businessRepository.findAll();
-        Map<Long, List<FlowerSingle>> singleMap = new HashMap<>();
-        for (Business business : businessList) {
-            List<FlowerSingle> singleList = flowerSingleRepository.findAllByBusiness(business);
-            for (FlowerSingle single : singleList) {
-                log.info("single list={}",single.getName());
-            }
-        }
-
-        return singleMap;
-    }
-
     public Long makeSelfBouquet(Member member, Business business){
 
         SelfFlowerBouquet selfFlowerBouquet = SelfFlowerBouquet.builder()
@@ -52,8 +39,6 @@ public class FlowerSingleService {
                 .build();
 
         return selfFlowerBouquetRepository.save(selfFlowerBouquet).getId();
-
-
     }
 
 
@@ -70,7 +55,6 @@ public class FlowerSingleService {
         selfFlowerItem.setSelfBouquet(bouquet);
         bouquet.addPrice(selfFlowerItem);
 
-
         return selfFlowerItemRepository.save(selfFlowerItem).getId();
     }
 
@@ -83,9 +67,7 @@ public class FlowerSingleService {
     }
 
     public SelfFlowerItem findSelfFlowerItem(Long id){
-        SelfFlowerItem selfFlowerItem = selfFlowerItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없습니다."));
-
-        return selfFlowerItem;
+        return selfFlowerItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없습니다."));
     }
 
     public Page<FlowerSingle> flowerSingleList(Pageable pageable){

@@ -1,6 +1,5 @@
 package project.flower.domain.flower.bouquet;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,20 +28,9 @@ public class BouquetImage {
 
     private Long fileSize;
 
-/*    @Builder
-    public BouquetImage(String origFileName, String filePath, Long fileSize){
-        this.origFileName = origFileName;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-    }*/
-
     public void setFlowerBouquet(FlowerBouquet bouquet){
         this.bouquet=bouquet;
         bouquet.getImageList().add(this);
-       /* if(!bouquet.getImageList().contains(this)){
-          }
-        */
     }
-
 
 }

@@ -7,12 +7,10 @@ import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.Member;
-import project.flower.domain.order.FlowerOrder;
 import project.flower.domain.order.FlowerOrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @NoArgsConstructor
@@ -42,10 +40,10 @@ public class Business {
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     List<FavoriteStore> favoriteStoreList;
 
-    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FlowerBouquet> bouquetList = new ArrayList<FlowerBouquet>();
 
-    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FlowerSingle> singleList = new ArrayList<FlowerSingle>();
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)

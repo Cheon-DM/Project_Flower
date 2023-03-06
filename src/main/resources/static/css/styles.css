@@ -7960,7 +7960,7 @@ textarea.form-control-lg {
 
 .bg-banner {
     --bs-bg-opacity: 1;
-    background-image: url("https://g-grafolio.pstatic.net/20201210_120/1607600480844bAqKn_JPEG/12%BF%F9_%B9%E8%B0%E6%C8%AD%B8%E91.jpg");
+    background-image: url("https://g-grafolio.pstatic.net/20201210_120/1607600480844bAqKn_JPEG/12%BF%F9_%B9%E8%B0%E6%C8%AD%B8%E91.jpg"); !important;
     background-repeat:no-repeat;
     background-position:center;
     background-size:cover;
@@ -7968,7 +7968,7 @@ textarea.form-control-lg {
 
 .bg-flower {
     --bs-bg-opacity: 1;
-    background-image: url("https://g-grafolio.pstatic.net/20220603_280/1654257985516G7SKu_PNG/%C4%C4%BB%E7%C0%CC%C1%EE.png");
+    background-image: url("https://g-grafolio.pstatic.net/20220603_280/1654257985516G7SKu_PNG/%C4%C4%BB%E7%C0%CC%C1%EE.png"); !important;
     background-repeat:no-repeat;
     background-position:center;
     background-size:cover;
@@ -7976,7 +7976,7 @@ textarea.form-control-lg {
 
 .bg-flower-bottom {
     --bs-bg-opacity: 1;
-    background-image: url("https://g-grafolio.pstatic.net/20221115_137/1668489300555hS9f2_JPEG/Picsart_22-11-13_22-04-07-681.jpg");
+    background-image: url("https://g-grafolio.pstatic.net/20221115_137/1668489300555hS9f2_JPEG/Picsart_22-11-13_22-04-07-681.jpg"); !important;
     background-repeat:no-repeat;
     background-position:center;
     background-size:cover;

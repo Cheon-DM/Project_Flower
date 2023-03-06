@@ -30,10 +30,8 @@ public class FlowerService {
 
     @Transactional
     public FlowerSingle findSingle(Long id){
-        FlowerSingle single = flowerSingleRepository.findById(id)
+        return flowerSingleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 단품 꽃 없습니다."));
-
-        return single;
     }
 
     @Transactional
@@ -47,10 +45,8 @@ public class FlowerService {
 
     @Transactional
     public FlowerBouquet findBouquet(Long id){
-        FlowerBouquet bouquet = flowerBouquetRepository.findById(id)
+        return flowerBouquetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 부케 없습니다."));
-
-        return bouquet;
     }
 
     @Transactional

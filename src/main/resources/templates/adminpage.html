@@ -131,25 +131,25 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Admin Page</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">하단 정리중</li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">가게 이름</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-black stretched-link" href="#">가게 관리하기</a>
-                                <div class="small text-black"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-xl-3 col-md-6">-->
+<!--                        <div class="card bg-primary text-white mb-4">-->
+<!--                            <div class="card-body">가게 이름</div>-->
+<!--                            <div class="card-footer d-flex align-items-center justify-content-between">-->
+<!--                                <a class="small text-black stretched-link" href="#">가게 관리하기</a>-->
+<!--                                <div class="small text-black"><i class="fas fa-angle-right"></i></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
+                                일주일 가게별 수익
                             </div>
                             <div class="card-body"><canvas id="line-chart" width="100%" height="40"></canvas></div>
                         </div>
@@ -158,71 +158,55 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar me-1"></i>
-                                Bar Chart Example
+                                월별 가게별 수익
                             </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                            <div class="card-body"><canvas id="bar-chart" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        DataTable Example
+                        제품 미리보기
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Type</th>
+                                <th>Business</th>
+                                <th>Color</th>
+                                <th>Stock</th>
+                                <th>price</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Type</th>
+                                <th>Business</th>
+                                <th>Color</th>
+                                <th>Stock</th>
+                                <th>price</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
+                            <tr th:each="single : ${singleList}">
+                                <th th:text="${single.name}">Name</th>
+                                <th th:text="${single.type}">Type</th>
+                                <th th:text="${single.business.businessName}">Business</th>
+                                <th th:text="${single.color}">Color</th>
+                                <th>[[${single.stock}]]개</th>
+                                <th>&#8361 [[${single.price}]]</th>
                             </tr>
-                            <tr>
-                                <td>Bradley Greer</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                <td>41</td>
-                                <td>2012/10/13</td>
-                                <td>$132,000</td>
-                            </tr>
-                            <tr>
-                                <td>Dai Rios</td>
-                                <td>Personnel Lead</td>
-                                <td>Edinburgh</td>
-                                <td>35</td>
-                                <td>2012/09/26</td>
-                                <td>$217,500</td>
-                            </tr>
-                            <tr>
-                                <td>Jenette Caldwell</td>
-                                <td>Development Lead</td>
-                                <td>New York</td>
-                                <td>30</td>
-                                <td>2011/09/03</td>
-                                <td>$345,000</td>
+                            <tr th:each="bouquet : ${bouquetList}">
+                                <th th:text="${bouquet.name}">Name</th>
+                                <th th:text="${bouquet.type}">Type</th>
+                                <th th:text="${bouquet.business.businessName}">Business</th>
+                                <th th:text="${bouquet.color}">Color</th>
+                                <th>[[${bouquet.stock}]]개</th>
+                                <th>&#8361 [[${bouquet.price}]]</th>
                             </tr>
                             </tbody>
                         </table>
@@ -258,9 +242,19 @@
     "#ff66d9", "#ff66b3", "#ff668c", "#ff6666"];
 
     var datasetsList = [];
+    var dayList = [];
+    var now = new Date();
+    for (let i = 6; i >= 0; i--) {
+        let date = new Date(now);
+        date.setDate(date.getDate()-i);
+        let year = date.getFullYear();
+        let month = ("0" + (1 + date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+        dayList.push(year + "-" + month + "-" + day);
+    }
 
-    var profitMap = [[${profitMap}]];
-    /*[# th:each="p : ${profitMap}"]*/
+    var colorIdx = 0;
+    /*[# th:each="p : ${profitMap_Date}"]*/
 
         var business = "[(${p.key.businessName})]";
 
@@ -268,19 +262,27 @@
         var profitSet = [];
         for (let i = 0; i < profitList.length; i++) {
             profitSet.push(profitList[i].second);
-            console.log(profitList[i]);
         }
 
-        var set = {data: profitSet, label: business, borderColor: colorList[Math.floor(Math.random() * colorList.length)], fill: false};
+        var selectColor = colorList[colorIdx];
+        colorIdx += 4;
+        if (colorIdx >= 25){
+            colorIdx %= 25;
+        }
+
+        var set = {data: profitSet,
+            label: business,
+            borderColor: selectColor,
+            backgroundColor: selectColor,
+            fill: false};
         datasetsList.push(set);
 
     /*[/]*/
 
-
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            labels: [1,2,3,4,5,6,7],
+            labels: dayList,
             datasets: datasetsList
         },
         options: {
@@ -313,7 +315,70 @@
             }
         },
     })
+</script>
 
+<script th:inline="javascript">
+    var colorList = ["#ff6666", "#ff8c66", "#ffb366", "#ffd966", "#ffff66", "#d9ff66",
+        "#b3ff66", "#8cff66", "#66ff66", "#66ff8c", "#66ffb3",
+        "#66ffd9", "#66ffff", "#66d9ff", "#66b3ff", "#668cff",
+        "#6666ff", "#8c66ff", "#b366ff", "#d966ff", "#ff66ff",
+        "#ff66d9", "#ff66b3", "#ff668c", "#ff6666"];
+
+    var monthList = [];
+
+    var now = new Date();
+    for (let i = 5; i >= 0; i--) {
+        var d = new Date();
+        d.setMonth(d.getMonth() - i);
+        console.log(d.toLocaleDateString());
+        var month = d.toLocaleString("en-US", { month: "long" });
+        monthList.push(month);
+    }
+
+    var datasetsList = [];
+    var colorIdx = 0;
+
+    /*[# th:each="p : ${profitMap_Month}"]*/
+        var business = "[(${p.key.businessName})]";
+
+        var profitList = /*[[${p.value}]]*/;
+        var profitSet = [];
+        for (let i = 0; i < profitList.length; i++) {
+            profitSet.push(profitList[i].second);
+        }
+
+        var selectColor = colorList[colorIdx];
+        colorIdx += 4;
+        if (colorIdx >= 25){
+            colorIdx %= 25;
+        }
+
+        var set = {data: profitSet,
+            label: business,
+            borderColor: selectColor,
+            backgroundColor: selectColor};
+        datasetsList.push(set);
+    /*[/]*/
+
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+            labels: monthList,
+            datasets: datasetsList
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '월별 수익 분포'
+                }
+            }
+        }
+    })
 </script>
 
 <script src="assets/chart-area-demo.js"></script>

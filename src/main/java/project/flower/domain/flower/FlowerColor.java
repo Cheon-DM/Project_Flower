@@ -10,7 +10,4 @@ public enum FlowerColor {
     , PURPLE("보라"), PINK("분홍"), WHITE("흰색"), ETC("기타");
 
     private final String description;
-
-
-
 }

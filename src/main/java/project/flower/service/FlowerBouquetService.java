@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.flower.domain.flower.FlowerColor;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
-import project.flower.repository.BusinessRepository;
 import project.flower.repository.FlowerBouquetRepository;
 
 
@@ -17,7 +16,6 @@ import project.flower.repository.FlowerBouquetRepository;
 public class FlowerBouquetService {
 
     private final FlowerBouquetRepository flowerBouquetRepository;
-
 
     public Page<FlowerBouquet> flowerBouquetList(Pageable pageable){
         return flowerBouquetRepository.findAll(pageable);
@@ -38,6 +36,5 @@ public class FlowerBouquetService {
     public Page<FlowerBouquet> bouquetSearchListByDetailAndColor(String search, FlowerColor color, Pageable pageable){
         return flowerBouquetRepository.findByBouquetDetailContainingAndColor(search, color, pageable);
     }
-
 
 }

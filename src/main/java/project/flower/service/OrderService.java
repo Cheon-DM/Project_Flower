@@ -18,9 +18,7 @@ import project.flower.domain.order.FlowerOrderItem;
 import project.flower.domain.order.OrderStatus;
 import project.flower.repository.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.*;
 
 @Slf4j
@@ -151,7 +149,7 @@ public class OrderService {
     }
 
     public Map<Business, List<Pair<LocalDateTime, Integer>>> showProfitByDate(List<Business> businessList){
-        Map<Business, List<Pair<LocalDateTime, Integer>>> profitMap = new HashMap<>();
+        Map<Business, List<Pair<LocalDateTime, Integer>>> profitMap_Day = new HashMap<>();
 
         for (Business business : businessList) {
             List<Pair<LocalDateTime, Integer>> listTmp = new ArrayList<>();
@@ -164,7 +162,6 @@ public class OrderService {
                 int totalProfit = 0;
 
                 for (FlowerOrder order : flowerOrderList) {
-                    //log.info("business name={}, order createDate={}", business.getBusinessName(), order.getCreateDate());
                     int profit = 0;
                     List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
 
@@ -177,9 +174,42 @@ public class OrderService {
                 Pair<LocalDateTime, Integer> tmp = Pair.of(startDay, totalProfit);
                 listTmp.add(tmp);
             }
-            profitMap.put(business, listTmp);
+            profitMap_Day.put(business, listTmp);
         }
 
-        return profitMap;
+        return profitMap_Day;
+    }
+
+    public Map<Business, List<Pair<Month, Integer>>> showProfitByMonth(List<Business> businessList){
+        Map<Business, List<Pair<Month, Integer>>> profitMap_Month = new HashMap<>();
+
+        for (Business business : businessList) {
+            List<Pair<Month, Integer>> listTmp = new ArrayList<>();
+
+            for (int i = 5; i >= 0; i--) {
+                LocalDate initial = LocalDate.now().minusMonths(i);
+                LocalDateTime startDay = LocalDateTime.of(initial.withDayOfMonth(1), LocalTime.of(0,0,0));
+                LocalDateTime endDay = LocalDateTime.of(initial.withDayOfMonth(initial.lengthOfMonth()), LocalTime.of(23,59,59));
+                List<FlowerOrder> flowerOrderList = orderRepository.findAllByCreateDateBetween(startDay, endDay);
+
+                int totalProfit = 0;
+
+                for (FlowerOrder order : flowerOrderList) {
+                    int profit = 0;
+                    List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
+
+                    if (!orderItem.isEmpty()){
+                        profit = orderItem.stream().mapToInt(FlowerOrderItem::getPrice).sum();
+                        totalProfit += profit;
+                    }
+                }
+
+                Pair<Month, Integer> tmp = Pair.of(startDay.getMonth(), totalProfit);
+                listTmp.add(tmp);
+            }
+            profitMap_Month.put(business, listTmp);
+        }
+
+        return profitMap_Month;
     }
 }

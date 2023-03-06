@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.flower.domain.admin.Business;
 import project.flower.domain.flower.FlowerType;
-import project.flower.domain.flower.bouquet.FlowerBouquet;
 
 @Entity
 @NoArgsConstructor

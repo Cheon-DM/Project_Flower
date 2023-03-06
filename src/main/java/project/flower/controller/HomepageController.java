@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
@@ -29,6 +28,8 @@ import project.flower.service.*;
 
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +43,8 @@ public class HomepageController {
     private final BusinessService businessService;
     private final FlowerService flowerService;
     private final OrderService orderService;
-
     private final FlowerBouquetService flowerBouquetService;
     private final FlowerSingleService flowerSingleService;
-
     private final FileStore fileStore;
 
     @GetMapping (value = "/")
@@ -104,8 +103,26 @@ public class HomepageController {
         List<Business> businessList = memberDetails.getMember().getBusinessList();
         model.addAttribute("businessList", businessList);
 
-        Map<Business, List<Pair<LocalDateTime, Integer>>> orderMap = orderService.showProfitByDate(businessList);
-        model.addAttribute("profitMap", orderMap);
+        Map<Business, List<Pair<LocalDateTime, Integer>>> profitMap_Date = orderService.showProfitByDate(businessList);
+        model.addAttribute("profitMap_Date", profitMap_Date);
+
+        Map<Business, List<Pair<Month, Integer>>> profitMap_Month = orderService.showProfitByMonth(businessList);
+        model.addAttribute("profitMap_Month", profitMap_Month);
+
+        List<FlowerSingle> singleList = new ArrayList<>();
+        List<FlowerBouquet> bouquetList = new ArrayList<>();
+        for (Business business : businessList) {
+            List<FlowerSingle> s = businessService.getSingle(business);
+            if (!s.isEmpty()){
+                singleList.addAll(s);
+            }
+            List<FlowerBouquet> b = businessService.getBouquet(business);
+            if (!b.isEmpty()){
+                bouquetList.addAll(b);
+            }
+        }
+        model.addAttribute("singleList", singleList);
+        model.addAttribute("bouquetList", bouquetList);
 
         return "adminpage";
     }
@@ -136,11 +153,8 @@ public class HomepageController {
 
         Page<FlowerBouquet> list = null;
 
-
         if(searchKeyword==null){
             list = flowerBouquetService.flowerBouquetList(pageable);
-
-
         }
         else{
             if(searchType.length() == 4){
@@ -151,8 +165,6 @@ public class HomepageController {
                 else{
                     list = flowerBouquetService.bouquetSearchListByNameAndColor(searchKeyword, colorType, pageable);
                 }
-
-
 
             } else if (searchType.length() == 6) {
 
@@ -204,7 +216,6 @@ public class HomepageController {
 
                 if(colorType == null ){
                     list = flowerSingleService.singleSearchListByLang(searchKeyword, pageable);
-
                 }
                 else{
                     list = flowerSingleService.singleSearchListByLangAndColor(searchKeyword, colorType, pageable);
@@ -241,5 +252,4 @@ public class HomepageController {
 
         return "storelist";
     }
-
 }

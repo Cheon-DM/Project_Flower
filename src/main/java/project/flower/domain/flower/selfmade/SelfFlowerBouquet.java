@@ -28,7 +28,7 @@ public class SelfFlowerBouquet {
    @JoinColumn(name = "member_id")
     private Member member;
 
-   private int totalPrice=0;
+   private int totalPrice = 0;
 
    @OneToMany(mappedBy = "selfFlowerBouquet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    List<SelfFlowerItem> selfFlowerItemList = new ArrayList<SelfFlowerItem>();

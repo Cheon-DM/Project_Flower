@@ -18,7 +18,6 @@ import project.flower.service.MemberService;
 import project.flower.service.OrderService;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,18 +32,12 @@ public class AdminController {
 
     @GetMapping("/signup/seller")
     public String signUpSellerForm(@ModelAttribute("form") MemberForm form){
-
         return "signup/seller";
     }
 
     @PostMapping("/signup/seller")
     public  String signUpSeller(@Valid @ModelAttribute("form") MemberForm form, BindingResult bindingResult){
-        log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
-                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
-
         if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-
             // 회원가입 페이지로 다시 이동
             return "signup/seller";
         }
@@ -77,9 +70,7 @@ public class AdminController {
     @PostMapping(value = "admin/order/{flowerId}")
     @ResponseBody
     public void changeOrderStatus_delivery(HttpServletRequest request){
-        log.info("== processing -> in delivery ==");
         String orderId = request.getParameter("order");
-        log.info(orderId);
 
         orderService.inDelivery(orderId);
         return;
@@ -88,9 +79,7 @@ public class AdminController {
     @PostMapping(value = "admin/orderComplete/{flowerId}")
     @ResponseBody
     public void changeOrderStatus_complete(HttpServletRequest request){
-        log.info("== processing -> in delivery ==");
         String orderId = request.getParameter("order");
-        log.info(orderId);
 
         orderService.complete(orderId);
         return;

@@ -1,6 +1,5 @@
 package project.flower.domain.flower.selfmade;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class SelfFlowerItemForm {
 
-    private  int count;
+    private int count;
 
     public SelfFlowerItem toEntity(SelfFlowerBouquet bouquet, FlowerSingle single){
         return SelfFlowerItem.builder()
