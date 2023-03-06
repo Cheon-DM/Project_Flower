@@ -162,7 +162,6 @@ public class OrderService {
                 int totalProfit = 0;
 
                 for (FlowerOrder order : flowerOrderList) {
-                    //log.info("business name={}, order createDate={}", business.getBusinessName(), order.getCreateDate());
                     int profit = 0;
                     List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
 
@@ -176,8 +175,6 @@ public class OrderService {
                 listTmp.add(tmp);
             }
             profitMap_Day.put(business, listTmp);
-
-
         }
 
         return profitMap_Day;
@@ -198,7 +195,6 @@ public class OrderService {
                 int totalProfit = 0;
 
                 for (FlowerOrder order : flowerOrderList) {
-                    //log.info("business name={}, order createDate={}", business.getBusinessName(), order.getCreateDate());
                     int profit = 0;
                     List<FlowerOrderItem> orderItem = orderItemRepository.findAllByBusinessAndFlowerOrder(business, order);
 

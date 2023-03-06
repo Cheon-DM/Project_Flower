@@ -29,12 +29,7 @@ public class MemberController {
 
     @PostMapping("/signup/customer")
     public String signUpProc(@Valid @ModelAttribute("form") MemberForm form, BindingResult bindingResult) {
-        log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
-                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
-
         if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-
             // 회원가입 페이지로 다시 이동
             return "signup/customer";
         }
@@ -59,16 +54,12 @@ public class MemberController {
 
     @GetMapping("/member/edit")
     public String updateForm(@AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-        log.info("회원 정보={}", memberDetails.getMember());
         model.addAttribute("member", memberDetails.getMember());
         return "member/edit";
     }
 
     @PostMapping("/member/edit")
     public String update(@ModelAttribute MemberForm form, HttpServletRequest request) {
-        log.info("회원 정보 수정");
-        log.info("name = {}, email = {}, password = {}, age = {}, sex = {}",
-                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
         memberService.userPasswordUpdate(form, request);
         return "redirect:/mypage";
     }

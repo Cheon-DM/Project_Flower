@@ -2,8 +2,6 @@ package project.flower.domain.flower.selfmade;
 
 import jakarta.persistence.*;
 import lombok.*;
-import project.flower.domain.flower.selfmade.FlowerSingle;
-import project.flower.domain.flower.selfmade.SelfFlowerBouquet;
 
 @Entity
 @NoArgsConstructor
@@ -32,7 +30,6 @@ public class SelfFlowerItem {
     public void setSelfBouquet(SelfFlowerBouquet selfBouquet){
         this.selfFlowerBouquet=selfBouquet;
         selfBouquet.selfFlowerItemList.add(this);
-
     }
 
 }

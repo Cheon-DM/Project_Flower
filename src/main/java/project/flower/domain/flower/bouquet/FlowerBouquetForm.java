@@ -28,10 +28,6 @@ public class FlowerBouquetForm {
     private String imgName; //이미지 파일명
     private String imgPath;// 이미지 조회경로
 
-
-    //이미지는 나중에 따로 테이블 생성
-    //private String imageUrl;
-
     public FlowerBouquet toEntity(Business business){
         return FlowerBouquet.builder()
                 .name(name)

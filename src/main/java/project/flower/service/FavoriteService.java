@@ -26,12 +26,8 @@ public class FavoriteService {
         Business b = businessRepository.findById(businessId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 가게는 존재하지 않습니다."));
 
-        log.info("name={}, business_num={}, admin_id={}", b.getBusinessName(), b.getBusinessNum(), b.getMember());
-
         Favorite f = favoriteRepository.findByMember(user)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
-
-        log.info("member_id={}", f.getMember());
 
         if (favoriteStoreRepository.findByFavoriteAndBusiness(f, b).isEmpty()){ // 즐겨찾기 한 적 없음.
             FavoriteStore store = FavoriteStore.builder()
@@ -46,8 +42,6 @@ public class FavoriteService {
             businessRepository.save(b);
             favoriteStoreRepository.delete(deleteStore);
         }
-
-
     }
 
     public List<FavoriteStore> findFavoriteStoreAll(Member member){

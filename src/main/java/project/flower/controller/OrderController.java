@@ -50,12 +50,8 @@ public class OrderController {
     @PostMapping(value = "member/checkout")
     @ResponseBody
     public void checkout(@AuthenticationPrincipal MemberDetails memberDetails, HttpServletRequest request){
-        log.info("== checkout start ==");
-        String[] values = request.getParameterValues("ids[]");
-        for (int i = 0; i < values.length; i++) {
-            log.info(values[i]);
-        }
 
+        String[] values = request.getParameterValues("ids[]");
         orderService.checkout(memberDetails.getMember(), values);
         return;
     }

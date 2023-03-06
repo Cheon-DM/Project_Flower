@@ -26,7 +26,6 @@ public class DiyController {
     private final BusinessService businessService;
     private final FlowerService flowerService;
     private final FlowerSingleService flowerSingleService;
-
     private final CartService cartService;
 
 
@@ -90,7 +89,6 @@ public class DiyController {
 
     @PostMapping("/detail/{businessId}/diy/{selfFlowerBouquetId}/single/{singleId}")
     public String addFlower(@PathVariable long selfFlowerBouquetId, @PathVariable long singleId, @ModelAttribute("form") SelfFlowerItemForm form, Model model, @PathVariable String businessId){
-        log.info("count ={}",form.getCount());
         SelfFlowerBouquet selfFlowerBouquet = flowerSingleService.findSelfFlowerBouquet(selfFlowerBouquetId);
         FlowerSingle single = flowerService.findSingle(singleId);
 

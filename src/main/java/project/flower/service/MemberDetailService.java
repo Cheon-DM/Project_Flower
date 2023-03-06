@@ -25,7 +25,6 @@ public class MemberDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 존재하지 않습니다. :" + userEmail));
-        log.info("작동중입니다.");
         session.setAttribute("member", new MemberSessionDto(member));
 
         // security session에 member 정보 저장

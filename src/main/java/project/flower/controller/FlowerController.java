@@ -64,6 +64,7 @@ public class FlowerController {
 
         return "redirect:/admin/businesses/{businessId}";
     }
+
     @GetMapping("/admin/businesses/{businessId}/single/{singleId}/delete")
     public String deleteSingle(@PathVariable Long singleId){
 
@@ -71,6 +72,7 @@ public class FlowerController {
 
         return "redirect:/admin/businesses/{businessId}";
     }
+
     @GetMapping("/admin/businesses/{businessId}/bouquet/{bouquetId}/delete")
     public String deleteBouquet(@PathVariable Long bouquetId){
 
@@ -86,14 +88,14 @@ public class FlowerController {
         String type = flowerType.getType();
 
         if (type.equals(FlowerType.FLOWER_BOUQUET.getType())){
-            log.info("bouquet info get");
             FlowerBouquet b = flowerService.findBouquet(itemId);
             Business bouquetBusiness = b.getBusiness();
             List<FlowerBouquet> bouquetList = bouquetBusiness.getBouquetList();
             model.addAttribute("flower", b);
             model.addAttribute("related", bouquetList);
-        } else if (type.equals(FlowerType.FLOWER_SINGLE.getType())){
-            log.info("single info get");
+        }
+
+        else if (type.equals(FlowerType.FLOWER_SINGLE.getType())){
             FlowerSingle single = flowerService.findSingle(itemId);
             Business singleBusiness = single.getBusiness();
             List<FlowerSingle> singleList = singleBusiness.getSingleList();

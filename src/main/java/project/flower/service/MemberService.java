@@ -18,7 +18,6 @@ import project.flower.domain.member.Member;
 import project.flower.domain.member.MemberDetails;
 import project.flower.domain.member.MemberForm;
 import project.flower.domain.member.MemberSessionDto;
-import project.flower.repository.CartRepository;
 import project.flower.repository.MemberRepository;
 
 @Slf4j
@@ -58,8 +57,6 @@ public class MemberService{
 
     // email 중복 검사
     public void validateDuplicateMember(Member member) {
-        log.info("중복 체크 로직 시작");
-
         boolean check = memberRepository.existsByEmail(member.getEmail());
         if (check) {
             throw new IllegalArgumentException("이미 존재하는 이메일 입니다.");
@@ -69,9 +66,6 @@ public class MemberService{
     // 회원 비밀번호 변경
     @Transactional
     public void userPasswordUpdate(MemberForm form, HttpServletRequest request) {
-        log.info("[Form 정보] name = {}, email = {}, password = {}, age = {}, sex = {}",
-                form.getName(), form.getEmail(), form.getPassword(), form.getAge(), form.getSex());
-
         // 회원 찾기
         Member member = memberRepository.findByEmail(form.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
@@ -81,9 +75,6 @@ public class MemberService{
         String encryptPassword = encoder.encode(form.getPassword());
         member.setPassword(encryptPassword);
         member.setAge(form.getAge());
-        log.info("암호화 성공");
-
-        log.info("authenticationManager={}", authenticationManager);
 
         // 세션 등록(변경)
         HttpSession session = request.getSession();
@@ -92,6 +83,5 @@ public class MemberService{
         Authentication newAuth = new UsernamePasswordAuthenticationToken(updateUserDetails, null, updateUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(newAuth);
         session.setAttribute("member", new MemberSessionDto(member));
-        log.info("회원 비밀번호 수정 성공");
     }
 }

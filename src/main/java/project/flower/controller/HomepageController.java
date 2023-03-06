@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
@@ -44,10 +43,8 @@ public class HomepageController {
     private final BusinessService businessService;
     private final FlowerService flowerService;
     private final OrderService orderService;
-
     private final FlowerBouquetService flowerBouquetService;
     private final FlowerSingleService flowerSingleService;
-
     private final FileStore fileStore;
 
     @GetMapping (value = "/")
@@ -156,11 +153,8 @@ public class HomepageController {
 
         Page<FlowerBouquet> list = null;
 
-
         if(searchKeyword==null){
             list = flowerBouquetService.flowerBouquetList(pageable);
-
-
         }
         else{
             if(searchType.length() == 4){
@@ -171,8 +165,6 @@ public class HomepageController {
                 else{
                     list = flowerBouquetService.bouquetSearchListByNameAndColor(searchKeyword, colorType, pageable);
                 }
-
-
 
             } else if (searchType.length() == 6) {
 
@@ -224,7 +216,6 @@ public class HomepageController {
 
                 if(colorType == null ){
                     list = flowerSingleService.singleSearchListByLang(searchKeyword, pageable);
-
                 }
                 else{
                     list = flowerSingleService.singleSearchListByLangAndColor(searchKeyword, colorType, pageable);
@@ -261,5 +252,4 @@ public class HomepageController {
 
         return "storelist";
     }
-
 }

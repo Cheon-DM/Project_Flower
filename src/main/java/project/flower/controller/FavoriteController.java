@@ -20,8 +20,6 @@ public class FavoriteController {
     @GetMapping("/add/{businessId}")
     public String addBusiness(@PathVariable Long businessId,
                               @AuthenticationPrincipal MemberDetails memberDetails, Model model) {
-        log.info("business id={}",businessId);
-        log.info("user={}",memberDetails.getMember());
         model.addAttribute("user", memberDetails.getMember());
         favoriteService.saveStore(businessId, memberDetails.getMember());
         return "redirect:/";

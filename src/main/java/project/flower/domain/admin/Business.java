@@ -7,12 +7,10 @@ import project.flower.domain.favorite.FavoriteStore;
 import project.flower.domain.flower.bouquet.FlowerBouquet;
 import project.flower.domain.flower.selfmade.FlowerSingle;
 import project.flower.domain.member.Member;
-import project.flower.domain.order.FlowerOrder;
 import project.flower.domain.order.FlowerOrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @NoArgsConstructor

@@ -115,8 +115,6 @@ public class CartService {
         // member로 cartId 찾기
         Cart cart = getCart(member);
 
-        log.info("cart id ={}",cart.getId());
-
         // cart로 cartItems(카드에 담긴 아이템들) 찾기
         return cartItemRepository.findAllByCart(cart);
     }
@@ -133,10 +131,6 @@ public class CartService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 카트가 존재하지 않습니다."));
         List<CartItem> cartItemList = cart.getCartItemList();
         return cartItemList.size();
-    }
-
-    public void editCartItem(Long cartItemId){
-
     }
 
     private Cart getCart(Member member) {

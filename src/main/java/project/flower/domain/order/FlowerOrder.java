@@ -3,10 +3,8 @@ package project.flower.domain.order;
 import jakarta.persistence.*;
 import lombok.*;
 import project.flower.domain.BaseTimeEntity;
-import project.flower.domain.admin.Business;
 import project.flower.domain.member.Member;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
